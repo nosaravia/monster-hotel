@@ -106,6 +106,7 @@ h1{font-family:"Lilita One",Impact,"Arial Black",sans-serif;font-weight:400;font
 .rushing .tapbtn{background:var(--glow)}
 .rushing .rushwrap{color:var(--pump-dark)}
 .icon{background:transparent;border:1px solid var(--line);border-radius:20px;padding:3px 10px}
+.icon.off{opacity:.4}
 .money{transform-origin:left center}
 .money.pop{animation:pop .25s ease-out}
 @keyframes pop{50%{transform:scale(1.06)}}
@@ -135,7 +136,7 @@ h1{font-family:"Lilita One",Impact,"Arial Black",sans-serif;font-weight:400;font
 <div class="wrap">
   <header>
     <h1>Monster Hotel</h1>
-    <div style="display:flex;gap:8px;align-items:center"><span class="stars" id="stars"></span><button class="icon" id="mute" aria-label="Turn sound off">🔊</button></div>
+    <div style="display:flex;gap:8px;align-items:center"><span class="stars" id="stars"></span><button class="icon" id="music" aria-label="Turn music off">🎵</button><button class="icon" id="mute" aria-label="Turn sound off">🔊</button></div>
   </header>
 
   <section class="hotel">
@@ -250,6 +251,52 @@ const sfx={
   big(){[523,659,784,1047].forEach((f,i)=>tone(f,.28,'triangle',.1,i*.09));},
   rush(){[392,523,659,784,1047,1319].forEach((f,i)=>tone(f,.14,'sawtooth',.04,i*.05));}
 };
+/* background music: original loop, generated in code */
+let musicOn=true, audioUnlocked=false;
+try{musicOn=localStorage.getItem('mh-music')!=='0';}catch(e){}
+let mGain=null, nextNoteT=0, step=0, schedIv=null, noiseBuf=null;
+const BASS=[[45,52,57,52],[41,48,53,48],[38,45,50,45],[40,47,52,47]];
+const MEL=[[69,null,72,76,null,74,72,71],[69,null,72,77,null,76,74,72],[74,null,77,81,null,79,77,76],[76,null,68,71,76,null,74,71]];
+const TWK=[[81,88],[77,84],[74,81],[76,80]];
+const EIGHTH=60/112/2;
+const mf=m=>440*Math.pow(2,(m-69)/12);
+function mnote(m,t,dur,type,vol){
+  const o=AC.createOscillator(), g=AC.createGain();
+  o.type=type; o.frequency.setValueAtTime(mf(m),t);
+  g.gain.setValueAtTime(.0001,t); g.gain.exponentialRampToValueAtTime(vol,t+.01); g.gain.exponentialRampToValueAtTime(.0001,t+dur);
+  o.connect(g); g.connect(mGain); o.start(t); o.stop(t+dur+.05);
+}
+function hat(t){
+  const src=AC.createBufferSource(), f=AC.createBiquadFilter(), g=AC.createGain();
+  src.buffer=noiseBuf; f.type='highpass'; f.frequency.value=7000;
+  g.gain.setValueAtTime(.2,t); g.gain.exponentialRampToValueAtTime(.0001,t+.04);
+  src.connect(f); f.connect(g); g.connect(mGain); src.start(t); src.stop(t+.05);
+}
+function schedule(){
+  while(nextNoteT<AC.currentTime+.3){
+    const bar=Math.floor(step/8)%8, ch=bar%4, e=step%8, t=nextNoteT;
+    if(e%2===0) mnote(BASS[ch][e/2],t,EIGHTH*1.8,'triangle',.5);
+    if(bar<4){const m=MEL[ch][e]; if(m) mnote(m,t,EIGHTH*.9,'square',.12);}
+    else if(e===0||e===4) mnote(TWK[ch][e/4],t,EIGHTH*3,'sine',.25);
+    if(e%2===1) hat(t);
+    nextNoteT+=EIGHTH; step++;
+  }
+}
+function startMusic(){
+  if(!musicOn||!audioUnlocked||schedIv||document.hidden) return;
+  try{
+    AC=AC||new (window.AudioContext||window.webkitAudioContext)();
+    if(AC.state==='suspended') AC.resume();
+    if(!mGain){mGain=AC.createGain(); mGain.connect(AC.destination);}
+    if(!noiseBuf){noiseBuf=AC.createBuffer(1,Math.floor(AC.sampleRate*.05),AC.sampleRate);const d=noiseBuf.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=Math.random()*2-1;}
+    mGain.gain.cancelScheduledValues(AC.currentTime); mGain.gain.setValueAtTime(.09,AC.currentTime);
+    nextNoteT=AC.currentTime+.05; schedIv=setInterval(schedule,80);
+  }catch(e){}
+}
+function stopMusic(){
+  if(schedIv){clearInterval(schedIv);schedIv=null;}
+  if(mGain&&AC) mGain.gain.setTargetAtTime(.0001,AC.currentTime,.05);
+}
 let rushMeter=0, rushUntil=0;
 const rushing=()=>Date.now()<rushUntil;
 let prevLit=-1;
@@ -433,6 +480,12 @@ $('tap').addEventListener('click',e=>{
 $('vip').addEventListener('click',()=>{earn(vipValue());S.vips++;vipUntil=0;sfx.big();pop();update();});
 $('claim').addEventListener('click',()=>{const G=GOALS[S.goal]; if(!G||goalProg(G)<G.n) return; earn(goalReward(G)); S.goal++; sfx.big(); pop(); save(); update();});
 $('mute').addEventListener('click',()=>{muted=!muted;try{localStorage.setItem('mh-muted',muted?'1':'0');}catch(e){} setMute();});
+$('music').addEventListener('click',()=>{
+  musicOn=!musicOn; try{localStorage.setItem('mh-music',musicOn?'1':'0');}catch(e){}
+  audioUnlocked=true; setMusicBtn(); if(musicOn) startMusic(); else stopMusic();
+});
+function setMusicBtn(){$('music').classList.toggle('off',!musicOn);$('music').setAttribute('aria-label',musicOn?'Turn music off':'Turn music on');}
+document.addEventListener('pointerdown',()=>{audioUnlocked=true;startMusic();},{passive:true});
 function setMute(){$('mute').textContent=muted?'🔇':'🔊';$('mute').setAttribute('aria-label',muted?'Turn sound on':'Turn sound off');}
 function pop(){const m=$('money');m.classList.remove('pop');void m.offsetWidth;m.classList.add('pop');}
 function newRoom(g){
@@ -553,10 +606,10 @@ setInterval(()=>{
   update();
 },100);
 setInterval(()=>{save();dailyCheck();},5000);
-document.addEventListener('visibilitychange',()=>{if(document.hidden) save();});
+document.addEventListener('visibilitychange',()=>{if(document.hidden){save();stopMusic();} else startMusic();});
 window.addEventListener('pagehide',save);
 
-load(); setMute(); update(); offline(); dailyCheck(); lastTick=Date.now();
+load(); setMute(); setMusicBtn(); update(); offline(); dailyCheck(); lastTick=Date.now();
 </script>
 </body>
 </html>
