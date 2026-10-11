@@ -1,782 +1,802 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
-<title>Monster Hotel: Room Service</title>
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link rel="icon" type="image/png" href="favicon.png">
-<meta name="apple-mobile-web-app-title" content="Room Service">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Monster Hotel</title>
+<meta name="apple-mobile-web-app-title" content="Monster Hotel">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="theme-color" content="#2B1838">
-<script src="https://sdk.crazygames.com/crazygames-sdk-v3.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;700&display=swap" rel="stylesheet">
+<meta name="theme-color" content="#2A1B3D">
+<link rel="apple-touch-icon" href="data:image/png;base64,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">
+<link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAIAAAD8GO2jAAAABmJLR0QA/wD/AP+gvaeTAAAFd0lEQVRIibVW24teVxX/rbX3Ofv7zvdNpy0J8ZLGNKYtahKQkqCIkmqqzMRUTQvaijjV+OAf4IP45IP45AVLQRBfxMuDBS9otGpj2hhaJNharUgzKdhG7Dhxkul83zln39by4WSumUz7ks2Bc9Y5e/1+e13Povfd9UncyGVV9cYSADeYQF+PwDDKgowlwyACAFVkQU4aomZ5PQJc30WFheuxK2ALsoYMKxEBUNUslDJShI/wrcS0lQWbLCKqeuj3yDlyJfnUvvrvuZxWT2sN79j5pqrnfFBfcNNq3WLTcG4SA2YMKqr6VPXQc+RKOj+7MBX1gLUre55P+dSl/92x960+oC3UWGKj41rlGo9tzCImDPo06NOgQr/PlSNXIuZoaL0aIeY4MaTSw1hmFgJBMRqrrD8wHdr78bXycEDDAQ8HPOxzVdGgT79/cpaawABjlUSgAqAqj3xg77jRutZRI6Nxd61jWBdkV1Lf0aCHQQ+DCoOK2rYdNfGdZWGJNzgzifyjjiG0w6pHUFVoRk4Ug/qwunM1TYnIOThHPUf9HlV9UqRT51798le/wtbka7zLRNPBP/rtR6bfv7Pqm5wpJfIRLsDH1YCvxq0oyJXUc+Qc9Xrc79HZ5xZmvvC5Bx56YGPg1qzLC5dPnfzZew9sj4lDVBfhPBUFwrIRrMurtFoUKAqUBblSx7W/MsoPn5jZAh3AiS+emL8c6ya4UsuCyg7BrqBq51klgrUoLAqrZYGyoIv/HU/dd9QWdmuCsiyn75u6ODe6im61sLC2q3kFlBWqULCwUTYwDGNhLZYa7Nv3rg7l8ZO/+8TU8R/94Med+Mi3Hp15cOb0qdOduO/A/qUW1sJYGAYbsFGwdMgMVagaKJMyKTOYlAk5a7+qOoifP/YLW9pnzj7diT/9yWMTkxNPPP5EJw4Gg5SUCWvUlYEOmbWzBARdTnMCEdYkPXbv2f3PF14cLdWdePue20//4czETZOrOzao6LKDVupABaqiwqqqoqJXs5cWl+zfZ7/0mU8fes/Buw++u1P/zne/+Zdzzx2+867i7LNp314AUIiqiqpqByWdh1bqIKsmoSySM+WsKWuX9hQTNW0hes+RwwAefujzzPz9H37vniOHzUsXqWkpJgACpKxJkLNmkSQqyy3jarMTQc6SMqesMWtM2jHItlvC4UOwBkDO8tdnnwcgIsyc9+zMu97cfVJBTJqSpKwpa84iyy1ptdmFqCGKjxQ8eS+y0kKs6e7G8Ne/8TUiYuYNn0TVewlefZQQJUTdpJJD0BA1BGkDOQ/d7Ff1kekPb/IWUIH30gYJQULUsKYXXa0DhYYkrc+Nl8bLuNUsCiDFND83v7J7aWn02tLSijg/N59iApBFx612uq3PIckKLC8/KFSbJreNNE1u6pRFF68szjw489F7jz31xzMALsy+dP/R4/dPH589fwHAmSf/dOzeY5/91MyVy1eyaFOnFfW1mHRg14fWGlv1eTjg4cAsjPz8pcW375p8y/beuRcWpo5N/+ZXvz24/yZS/Plvi9MfO3ryl7+++x03/+eSv/Dy4vZtk7cO3WicR2Opm3XOpf23fXCDQ4cVDyrjc1s53rlj4ByLyov/eu2O24bbbnUALi20518Z3/m2SSbyXi7OjWsvzvTGdR7VG0Nndkzu3vAqRAW0VxSutFmQMqC0/WZnDHsvrRcQ3zLhQkTdyLgREZZkxk0eX4OO600Vo1piREzkg7pSi4IKS8YoEwEQ1ZwpJo1RfRDvpW7Ux80npOvORT7kEKnnxJVUWLIWzMwEAKIQkZQQk/qgrdct5s+tJjtVrVvULYxBYdmYTOi6mOaMmCTn66muteANzKY5I78RsE0JbvR0/X/ldm5vuvEq/gAAAABJRU5ErkJggg==">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
 <style>
-  :root { --plum:#2B1838; --brass:#E0A93B; --cream:#F6E7C8; --mint:#7FE0B0; }
-  html, body {
-    margin:0; height:100%; overflow:hidden; background:var(--plum);
-    font-family:"Fredoka","Trebuchet MS",system-ui,sans-serif; color:var(--cream);
-    touch-action:none; user-select:none; -webkit-user-select:none; -webkit-touch-callout:none;
+:root{
+  --paper:#F1ECF8; --ink:#24182F; --muted:#6B5E7A; --line:#D9CFE8; --row:#FFFFFF;
+  --night:#2A1B3D; --night2:#3B2757; --wall:#4A3268; --win-off:#1C1229; --glow:#FFD66B; --mint:#7FE3C0;
+  --pump:#FF8A3D; --pump-dark:#C85F17; --pump-ink:#2A1206;
+  color-scheme:light; box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#15101C; --ink:#EDE6F5; --muted:#A898BA; --line:#33284A; --row:#1E1729;
+    --night:#1F1430; --night2:#2C1D44; --wall:#3A2754; --pump-dark:#B04F0F; color-scheme:dark;
   }
-  canvas { display:block; width:100vw; height:100vh; height:100dvh; }
-  #hud {
-    position:fixed; top:env(safe-area-inset-top,0px); left:0; right:0;
-    display:flex; justify-content:space-between; align-items:center;
-    padding:12px 16px; font-size:22px; font-weight:700; pointer-events:none;
-  }
-  #right { display:flex; align-items:center; gap:12px; }
-  #pauseBtn {
-    pointer-events:auto; width:40px; height:40px; padding:7px; background:rgba(0,0,0,.25);
-    border:2px solid var(--cream); border-radius:50%; color:var(--cream); cursor:pointer;
-  }
-  #pauseBtn svg, .toggle svg { width:100%; height:100%; display:block; }
-  .toggles { display:flex; gap:10px; margin-top:14px; }
-  .toggle {
-    font:inherit; font-size:15px; font-weight:700; display:flex; align-items:center; gap:6px;
-    padding:6px 12px; border-radius:20px; border:2px solid var(--cream); background:rgba(0,0,0,.25);
-    color:var(--cream); cursor:pointer;
-  }
-  .toggle svg { width:20px; height:20px; }
-  .toggle.off { opacity:.5; text-decoration:line-through; }
-  #overlay {
-    position:fixed; inset:0; display:flex; flex-direction:column; align-items:center;
-    justify-content:center; text-align:center; background:rgba(43,24,56,.85); padding:24px;
-  }
-  #overlay.hidden { display:none; }
-  #overlay h1 { font-size:40px; margin:0 0 4px; color:var(--brass); line-height:1.1; }
-  #overlay p { font-size:18px; margin:8px 0; max-width:320px; line-height:1.4; }
-  #stats { color:var(--mint); }
-  .ico { width:26px; height:26px; vertical-align:-6px; }
-  #hearts .ico { width:28px; height:28px; margin-right:2px; }
-  .row img { width:36px; height:36px; }
-  .skin img { width:56px; height:56px; display:block; margin:0 auto 2px; }
-  .skin .n { font-size:15px; font-weight:700; display:block; }
-  .skin .c .ico { width:16px; height:16px; display:inline; margin:0; vertical-align:-3px; }
-  .item button .ico { width:18px; height:18px; vertical-align:-3px; }
-  #legend { margin:10px 0 4px; display:grid; gap:8px; }
-  .row { display:flex; align-items:center; gap:8px; font-size:28px;
-         background:rgba(0,0,0,.25); border-radius:14px; padding:6px 14px; }
-  .row .lbl { font-size:17px; font-weight:700; width:56px; text-align:left; }
-  .row.catch .lbl { color:var(--mint); }
-  .row.avoid { border:2px solid #E04848; }
-  .row.avoid .lbl { color:#FF7070; }
-  .row.bonus .lbl { color:var(--brass); }
-  #playBtn {
-    margin-top:20px; font:inherit; font-size:24px; font-weight:700; padding:14px 32px;
-    border:3px solid var(--cream); border-radius:40px; background:var(--brass);
-    color:var(--plum); cursor:pointer;
-  }
-  .btns { display:flex; gap:12px; margin-top:20px; }
-  .btns #playBtn { margin-top:0; }
-  .ghost {
-    font:inherit; font-size:20px; font-weight:700; padding:12px 26px; border-radius:40px;
-    border:3px solid var(--brass); background:transparent; color:var(--brass); cursor:pointer;
-  }
-  .hidden { display:none !important; }
-  .adBtns { display:flex; flex-direction:column; gap:10px; margin-top:16px; width:100%; max-width:300px; }
-  .adBtn {
-    font:inherit; font-size:18px; font-weight:700; display:flex; align-items:center; justify-content:center; gap:8px;
-    padding:12px 16px; border-radius:30px; border:3px solid var(--cream); background:var(--mint);
-    color:var(--plum); cursor:pointer;
-  }
-  .adBtn svg { width:20px; height:20px; flex-shrink:0; }
-  #playBtn, .ghost { white-space:nowrap; }
-  .adBtn:disabled { opacity:.5; cursor:default; }
-  .adBtn:focus-visible { outline:3px solid var(--brass); outline-offset:4px; }
-  .item button.adSmall { background:var(--mint); }
-  #shop {
-    position:fixed; inset:0; background:var(--plum); overflow-y:auto; text-align:center;
-    padding:calc(env(safe-area-inset-top,0px) + 20px) 16px calc(env(safe-area-inset-bottom,0px) + 24px);
-  }
-  #shop h2 { color:var(--brass); font-size:32px; margin:0; }
-  #shopBank { font-size:22px; font-weight:700; margin:6px 0 16px; }
-  .shopHead { font-size:18px; color:var(--mint); margin:18px 0 8px; }
-  .item {
-    max-width:420px; margin:0 auto 10px; display:flex; align-items:center; gap:12px;
-    background:rgba(0,0,0,.25); border-radius:16px; padding:12px 14px; text-align:left;
-  }
-  .item .info { flex:1; }
-  .item .name { font-size:19px; font-weight:700; }
-  .item .desc { font-size:14px; opacity:.85; line-height:1.3; }
-  .item .pips { color:var(--brass); letter-spacing:2px; font-size:14px; }
-  .item button {
-    font:inherit; font-size:16px; font-weight:700; padding:8px 14px; border-radius:20px;
-    border:2px solid var(--cream); background:var(--brass); color:var(--plum); cursor:pointer; white-space:nowrap;
-  }
-  .item button:disabled { background:transparent; color:var(--cream); opacity:.5; cursor:default; }
-  .skins { max-width:420px; margin:0 auto; display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
-  .skin {
-    background:rgba(0,0,0,.25); border-radius:16px; padding:10px 6px; border:2px solid transparent;
-    font:inherit; color:var(--cream); cursor:pointer;
-  }
-  .skin .e { font-size:44px; display:block; }
-  .skin .c { font-size:14px; font-weight:700; }
-  .skin.on { border-color:var(--mint); }
-  .skin.locked .e { filter:grayscale(1) brightness(.6); }
-  #shopClose { margin-top:20px; }
-  #playBtn:focus-visible, #pauseBtn:focus-visible, .toggle:focus-visible, .ghost:focus-visible, .item button:focus-visible, .skin:focus-visible { outline:3px solid var(--mint); outline-offset:4px; }
+}
+:root[data-theme="dark"]{
+  --paper:#15101C; --ink:#EDE6F5; --muted:#A898BA; --line:#33284A; --row:#1E1729;
+  --night:#1F1430; --night2:#2C1D44; --wall:#3A2754; --pump-dark:#B04F0F; color-scheme:dark;
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:"Nunito",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:16px;line-height:1.4;-webkit-tap-highlight-color:transparent}
+button{font:inherit;color:inherit;cursor:pointer;touch-action:manipulation}
+button:disabled{cursor:not-allowed}
+:focus-visible{outline:3px solid var(--pump);outline-offset:2px}
+.wrap{max-width:560px;margin:0 auto;padding:12px 14px 40px}
+header{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px}
+h1{font-family:"Lilita One",Impact,"Arial Black",sans-serif;font-weight:400;font-size:1.5rem;margin:0}
+.stars{font-weight:800;color:var(--muted)}
+
+/* the hotel */
+.hotel{background:linear-gradient(var(--night),var(--night2));color:#F5EEFF;border-radius:14px;padding:16px 16px 0;overflow:hidden}
+.lbl{color:var(--mint);font-weight:700;font-size:.9rem}
+.money{font-family:"Lilita One",Impact,"Arial Black",sans-serif;font-size:clamp(2.3rem,11vw,3.3rem);line-height:1.05;margin:2px 0 2px;word-break:break-all}
+.rate{color:#CDBBE6;font-weight:700}
+.boostline{color:var(--glow);font-weight:800;min-height:1.4em}
+.facade{margin:12px auto 0;max-width:340px;background:var(--wall);border-radius:10px 10px 0 0;padding:12px 12px 0}
+.windows{display:grid;grid-template-columns:repeat(6,1fr);gap:7px}
+.win{aspect-ratio:1/1.15;border-radius:6px 6px 2px 2px;background:var(--win-off);display:grid;place-items:center;font-size:clamp(.9rem,4.4vw,1.25rem);line-height:1}
+.win.on{background:var(--glow);box-shadow:0 0 10px rgba(255,214,107,.55)}
+.door{width:56px;height:30px;margin:10px auto 0;background:var(--win-off);border-radius:28px 28px 0 0}
+
+.tapwrap{position:relative}
+.tapbtn{display:block;width:100%;margin-top:14px;padding:14px 16px 16px;background:var(--pump);color:var(--pump-ink);border:0;border-bottom:7px solid var(--pump-dark);border-radius:14px;font-family:"Lilita One",Impact,"Arial Black",sans-serif;font-size:1.3rem;user-select:none;-webkit-user-select:none}
+.tapbtn small{display:block;font-family:"Nunito",system-ui,sans-serif;font-weight:800;font-size:1rem}
+.tapbtn:active{transform:translateY(3px);border-bottom-width:4px}
+.float{position:absolute;top:4px;pointer-events:none;font-weight:800;color:var(--ink);animation:up .8s ease-out forwards;white-space:nowrap}
+@keyframes up{from{opacity:1;transform:translate(-50%,0)}to{opacity:0;transform:translate(-50%,-48px)}}
+
+.vip{display:none;width:100%;margin-top:10px;padding:12px;border:2px dashed var(--pump);background:transparent;border-radius:10px;font-weight:800}
+.vip.show{display:block}
+.boostbtn{width:100%;margin-top:10px;padding:11px;border:2px solid var(--ink);background:transparent;border-radius:10px;font-weight:800}
+.hint{color:var(--muted);font-size:.82rem;text-align:center;margin:4px 0 0}
+
+.tabs{display:flex;gap:6px;margin-top:18px}
+.tab{flex:1;padding:10px 4px;border:1px solid var(--line);background:transparent;border-radius:10px;font-weight:800}
+.tab[aria-selected="true"]{background:var(--night);color:#F5EEFF;border-color:var(--night)}
+.modes{display:flex;align-items:center;gap:6px;margin-top:10px;color:var(--muted);font-size:.9rem;font-weight:700}
+.modes button{padding:5px 12px;border:1px solid var(--line);background:transparent;border-radius:20px;font-weight:800}
+.modes button[aria-pressed="true"]{background:var(--pump);color:var(--pump-ink);border-color:var(--pump-dark)}
+
+.list{margin-top:10px;display:flex;flex-direction:column;gap:8px}
+.row{display:flex;align-items:center;gap:12px;padding:10px 12px;background:var(--row);border:1px solid var(--line);border-radius:12px;min-height:68px}
+.av{flex:none;width:46px;height:46px;border-radius:50%;background:var(--paper);display:grid;place-items:center;font-size:1.5rem;position:relative}
+.av b{position:absolute;right:-4px;bottom:-4px;min-width:22px;height:22px;padding:0 5px;border-radius:11px;background:var(--night);color:#fff;font-size:.72rem;display:grid;place-items:center}
+.info{flex:1;min-width:0}
+.nm{font-weight:800}
+.sub{color:var(--muted);font-size:.86rem}
+.locked{opacity:.7}
+.buy{min-width:92px;padding:8px 10px;background:var(--pump);color:var(--pump-ink);border:0;border-bottom:4px solid var(--pump-dark);border-radius:10px;font-weight:800;line-height:1.15;text-align:center}
+.buy small{display:block;font-size:.8rem}
+.buy:active:not(:disabled){transform:translateY(2px);border-bottom-width:2px}
+.buy:disabled{background:transparent;color:var(--muted);border:1px solid var(--line)}
+.prose{padding:16px;background:var(--row);border:1px solid var(--line);border-radius:12px}
+.prose p{margin:0 0 10px}
+.big{font-family:"Lilita One",Impact,sans-serif;font-size:1.7rem;margin:4px 0 10px}
+.wide{width:100%;padding:12px}
+.danger{margin-top:18px;background:transparent;border:1px solid #D7263D;color:#D7263D;border-radius:8px;padding:8px 12px;font-weight:800}
+
+.ov{position:fixed;inset:0;background:rgba(10,4,20,.65);display:none;align-items:center;justify-content:center;padding:20px;z-index:10}
+.ov.show{display:flex}
+.card{background:var(--paper);color:var(--ink);border-radius:14px;padding:22px;max-width:360px;width:100%;text-align:center}
+.card h2{font-family:"Lilita One",Impact,sans-serif;font-weight:400;font-size:1.4rem;margin:0 0 8px}
+.card .big{margin:6px 0 14px}
+.card .buy{width:100%;margin-top:8px;padding:12px}
+.card .ghost{width:100%;margin-top:8px;padding:11px;background:transparent;border:1px solid var(--line);border-radius:10px;font-weight:800}
+.goal{margin-top:12px;padding:12px 14px;background:var(--row);border:1px solid var(--line);border-radius:12px}
+.goal .gt{display:flex;justify-content:space-between;gap:8px;font-weight:800}
+.goal .gr{color:var(--muted);font-size:.86rem;white-space:nowrap}
+.bar{height:8px;border-radius:4px;background:var(--line);margin-top:8px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--mint);transition:width .15s}
+.goal.done{border:2px solid var(--mint)}
+.claim{display:none;width:100%;margin-top:10px;padding:10px}
+.goal.done .claim{display:block}
+.rushwrap{display:flex;align-items:center;gap:10px;margin-top:8px;font-size:.85rem;font-weight:800;color:var(--muted)}
+.rushwrap .bar{flex:1;margin:0}
+.rushwrap .bar i{background:var(--pump);transition:none}
+.rushing .tapbtn{background:var(--glow)}
+.rushing .rushwrap{color:var(--pump-dark)}
+.icon{background:transparent;border:1px solid var(--line);border-radius:20px;padding:3px 10px}
+.icon.off{opacity:.4}
+.money{transform-origin:left center}
+.money.pop{animation:pop .25s ease-out}
+@keyframes pop{50%{transform:scale(1.06)}}
+.win.new{animation:flash 1s ease-out}
+@keyframes flash{0%{background:#fff;box-shadow:0 0 22px #fff}}
+.card .em{font-size:3rem;line-height:1;margin-bottom:6px}
+.av svg{width:42px;height:42px;display:block}
+.win svg{width:84%;height:84%;display:block}
+.card .em svg{width:96px;height:96px;margin:0 auto}
+.event{display:none;margin-top:12px;padding:14px;background:var(--night);color:#F5EEFF;border-radius:12px}
+.event.show{display:block}
+.event p{margin:0 0 10px;font-weight:800}
+.event .ch{display:flex;gap:8px}
+.event .ch button{flex:1;padding:10px 8px;border-radius:10px;font-weight:800;line-height:1.2}
+.event .a{background:var(--pump);color:var(--pump-ink);border:0;border-bottom:4px solid var(--pump-dark)}
+.event .b{background:transparent;color:#F5EEFF;border:1px solid rgba(255,255,255,.4)}
+.toast{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);background:var(--night);color:#F5EEFF;padding:10px 16px;border-radius:12px;font-weight:800;box-shadow:0 6px 20px rgba(0,0,0,.3);opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;z-index:20;width:max-content;max-width:calc(100% - 28px);text-align:center}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.days{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin:12px 0 14px}
+.day{border:1px solid var(--line);border-radius:8px;padding:6px 0;font-size:.7rem;font-weight:800;color:var(--muted)}
+.day span{display:block;font-size:1.05rem}
+.day.got{background:var(--mint);color:#13261F;border-color:var(--mint)}
+.day.today{border:2px solid var(--pump);color:var(--ink)}
+.ach{opacity:.5}
+.ach.got{opacity:1}
+.hotel{position:relative}
+body[data-loc="beach"]{--night:#0F3552;--night2:#1F6C8A;--wall:#B97D4E}
+body[data-loc="castle"]{--night:#17172A;--night2:#33294A;--wall:#5E5B6E}
+body[data-loc="lodge"]{--night:#0E2236;--night2:#2C4E70;--wall:#6B4A30}
+body[data-loc="desert"]{--night:#3A1E4A;--night2:#B5603A;--wall:#C9954E}
+body[data-loc="sea"]{--night:#04263A;--night2:#0B5A6E;--wall:#2F6F7A}
+body[data-loc="volcano"]{--night:#1A0B0B;--night2:#5A1A10;--wall:#4A3A36}
+body[data-loc="moon"]{--night:#05060F;--night2:#1B1D3A;--wall:#7D8296}
+.hw .hotel{background:linear-gradient(var(--night) 0%,var(--night2) 65%,#6A2E12 100%)}
+.bat{display:none;position:absolute;font-size:1.15rem;pointer-events:none;animation:bat 6s ease-in-out infinite}
+.hw .bat{display:block}
+.bat.b1{top:14px;right:20px}.bat.b2{top:56px;right:72px;font-size:.85rem;animation-delay:-3s}
+@keyframes bat{0%,100%{transform:translate(0,0)}50%{transform:translate(-14px,9px)}}
+.doorrow{display:flex;justify-content:center;align-items:flex-end;gap:12px;margin-top:10px}
+.doorrow .door{margin:0}
+.pk{display:none;font-size:1.35rem;line-height:1;padding-bottom:2px}
+.hw .pk{display:block}
+.hwcard{display:none;align-items:center;gap:12px;margin-top:12px;padding:10px 12px;border-radius:12px;background:linear-gradient(90deg,#3B1C0B,#5A2C10);color:#FFE6CC}
+.hw .hwcard{display:flex}
+.hwcard .info{flex:1;min-width:0}
+.hwcard .sub{color:#F2BE8C}
+.hwcard .av{background:#24110A}
+.card{max-height:86vh;overflow:auto}
+.card .row{text-align:left;margin-top:8px}
+.card .row .buy{width:auto;margin-top:0;padding:8px 10px}
+@media (prefers-reduced-motion: reduce){.bat{animation:none}.toast{transition:none}.float{display:none}.tapbtn:active,.buy:active{transform:none}.money.pop,.win.new{animation:none}}
 </style>
 </head>
 <body>
-<canvas id="game"></canvas>
-<div id="hud">
-  <span id="hearts"></span>
-  <span id="right"><span id="coins"></span><button id="pauseBtn" class="hidden" aria-label="Pause"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1.5" fill="currentColor"/><rect x="14" y="5" width="4" height="14" rx="1.5" fill="currentColor"/></svg></button></span>
-</div>
-<div id="overlay">
-  <h1 id="title">Room Service</h1>
-  <p id="msg">Drag to move. Catch orders in a row to build a combo.</p>
-  <div id="legend"></div>
-  <p id="stats"></p>
-  <div class="adBtns">
-    <button id="reviveBtn" class="adBtn hidden"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l12.5-7.5z" fill="currentColor"/></svg><span>Watch ad: Revive</span></button>
-    <button id="doubleBtn" class="adBtn hidden"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l12.5-7.5z" fill="currentColor"/></svg><span id="doubleTxt">Watch ad: double coins</span></button>
+<div class="wrap">
+  <header>
+    <h1>Monster Hotel</h1>
+    <div style="display:flex;gap:8px;align-items:center"><span class="stars" id="stars"></span><button class="icon" id="music" aria-label="Turn music off">🎵</button><button class="icon" id="mute" aria-label="Turn sound off">🔊</button></div>
+  </header>
+
+  <section class="hotel">
+    <div class="lbl">Gold<span id="locname" style="float:right;color:#CDBBE6"></span></div>
+    <div class="money" id="money">0</div>
+    <div class="rate" id="rate">0 per second</div>
+    <div class="boostline" id="boostline"></div>
+    <span class="bat b1" aria-hidden="true">🦇</span><span class="bat b2" aria-hidden="true">🦇</span>
+    <div class="facade" aria-hidden="true"><div class="windows" id="windows"></div><div class="doorrow"><span class="pk">🎃</span><div class="door"></div><span class="pk">🎃</span></div></div>
+  </section>
+  <div class="hwcard" id="hwcard"><div class="av">🎃</div><div class="info"><div class="nm">Halloween event</div><div class="sub" id="hwsub"></div></div><button class="buy" id="hwshop">Candy shop</button></div>
+
+  <div class="tapwrap" id="tapwrap">
+    <button class="tapbtn" id="tap">🛎️ <span id="tapName">Check in a guest</span><small id="tapVal">+1 gold</small></button>
+    <div class="rushwrap"><span id="rushlbl">Tap fast for a guest rush</span><div class="bar"><i id="rushbar"></i></div></div>
   </div>
-  <div class="btns"><button id="playBtn">Play</button><button id="shopBtn" class="ghost">Shop</button></div>
-  <div class="toggles">
-    <button id="soundBtn" class="toggle"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9h4l5-4v14l-5-4H3z" fill="currentColor"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg><span>Sound</span></button>
-    <button id="musicBtn" class="toggle"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 17V5l11-2v12" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linejoin="round"/><circle cx="6.5" cy="17.5" r="3" fill="currentColor"/><circle cx="17.5" cy="15.5" r="3" fill="currentColor"/></svg><span>Music</span></button>
+  <button class="vip" id="vip"></button>
+  <button class="vip" id="tot"></button>
+  <div class="goal" id="goal"><div class="gt"><span id="goaltext"></span><span class="gr" id="goalrew"></span></div><div class="bar"><i id="goalbar"></i></div><button class="buy claim" id="claim">Claim reward</button></div>
+  <div class="event" id="event"><p id="evtext"></p><div class="ch"><button class="a" id="evA"></button><button class="b" id="evB"></button></div></div>
+  <button class="boostbtn" id="boost">Double gold for 5 minutes</button>
+  <p class="hint" id="boosthint">In the real game, this plays a short ad first.</p>
+
+  <nav class="tabs" role="tablist">
+    <button class="tab" role="tab" data-tab="build" aria-selected="true">Rooms</button>
+    <button class="tab" role="tab" data-tab="up" aria-selected="false">Upgrades</button>
+    <button class="tab" role="tab" data-tab="ach" aria-selected="false">Trophies</button>
+    <button class="tab" role="tab" data-tab="award" aria-selected="false">Stars</button>
+  </nav>
+  <div class="modes" id="modes">Buy
+    <button data-mode="1" aria-pressed="true">1</button>
+    <button data-mode="10" aria-pressed="false">10</button>
+    <button data-mode="max" aria-pressed="false">Max</button>
   </div>
+  <div class="list" id="list"></div>
 </div>
-<div id="shop" class="hidden">
-  <h2>Hotel shop</h2>
-  <div id="shopBank"></div>
-  <div id="shopList"></div>
-  <button id="shopClose" class="ghost">Back</button>
-</div>
+
+<div class="ov" id="ov"><div class="card" id="card"></div></div>
+<div class="toast" id="toast" role="status"></div>
 
 <script>
-const canvas = document.getElementById("game");
-const ctx = canvas.getContext("2d");
-const $ = id => document.getElementById(id);
-const heartsEl = $("hearts"), coinsEl = $("coins"), overlay = $("overlay"), statsEl = $("stats");
-const titleEl = $("title"), msgEl = $("msg"), playBtn = $("playBtn"), pauseBtn = $("pauseBtn");
-const soundBtn = $("soundBtn"), musicBtn = $("musicBtn");
-const shopBtn = $("shopBtn"), shopEl = $("shop"), shopList = $("shopList");
-
-// ---- Easy-to-change settings ----
-const GOOD = ["donut","pizza","bag","key","cupcake","cookie"];
-const BAD = ["garlic","clock","mop"];
-const GOLD = "cloche";       // golden order
-const MAGNET = "magnet", SLOW = "hourglass";
-const START_HEARTS = 3;
-const START_SPEED = 190;     // pixels per second
-const START_SPAWN = 0.8;     // seconds between items
-const RAMP_EVERY = 15;       // seconds between difficulty bumps
-const COMBO_STEP = 5;        // catches needed per multiplier level
-const MAX_MULT = 5;
-const GOLD_CHANCE = 0.03;    // 3% of drops
-const POWER_CHANCE = 0.04;   // 4% of drops (after 8 seconds)
-const GOLD_VALUE = 10;       // golden order = 10x coins
-const MAGNET_TIME = 6, SLOW_TIME = 5;
-
-// ---- Shop (prices in coins) ----
-const UPGRADES = [
-  { id:"tray",   name:"Bigger tray",     desc:"Catch orders farther from your monster.", costs:[50,120,250,500,900] },
-  { id:"magnet", name:"Stronger magnet", desc:"Magnet lasts 1.5 seconds longer per level.", costs:[60,150,300,600,1000] },
-  { id:"heart",  name:"Extra heart",     desc:"Start every run with one more heart.", costs:[400,1200] }
+const GENS=[
+ {id:'ghost',e:'👻',name:'Ghost bellhop',plural:'ghost bellhops',base:10,rate:0.5,d:'Ghosts never need a day off. Or a paycheck.',ups:['Floating luggage carts','Walk-through-walls service','Poltergeist housekeeping']},
+ {id:'coffin',e:'🧛',name:'Coffin suite',plural:'coffin suites',base:75,rate:3,d:'Vampires sleep all day and pay by the night.',ups:['Blackout curtains','Velvet lining','Midnight room service']},
+ {id:'moon',e:'🐺',name:'Full-moon lounge',plural:'full-moon lounges',base:900,rate:20,d:'Werewolves check in once a month and tip big.',ups:['Howling karaoke','Skylight roof','Chew-proof furniture']},
+ {id:'buffet',e:'🧟',name:'Zombie buffet',plural:'zombie buffets',base:10000,rate:110,d:'Zombies line up early for the brain bar.',ups:['Slow-cooker station','All-you-can-eat brunch','Celebrity zombie chef']},
+ {id:'slime',e:'🟢',name:'Slime pool',plural:'slime pools',base:110000,rate:600,d:'Slimes love a pool that is mostly them.',ups:['Wave machine','Glow-in-the-dark slime','Lazy river of goo']},
+ {id:'witch',e:'🧙',name:'Witch rooftop bar',plural:'witch rooftop bars',base:1.2e6,rate:3300,d:'Witches pay extra for the cauldron view.',ups:['Bubbling cauldrons','Broom valet parking','Potion happy hour']},
+ {id:'ballroom',e:'🕯️',name:'Haunted ballroom',plural:'haunted ballrooms',base:1.5e7,rate:18000,d:'The ghosts of 1890 are still dancing.',ups:['Self-playing organ','Chandelier of souls','Eternal dance party']},
+ {id:'dragon',e:'🐉',name:'Dragon penthouse',plural:'dragon penthouses',base:2.5e8,rate:100000,d:'Dragons pay in gold. Lots of gold.',ups:['Fireproof carpets','Treasure-hoard vault','Volcano hot tub']},
+ {id:'mummy',e:'🧻',name:'Mummy wrap spa',plural:'mummy wrap spas',base:3.6e9,rate:550000,d:'Mummies book the 3,000-year spa package.',ups:['Fresh linen wraps','Pharaoh suite','Golden sarcophagus']},
+ {id:'kraken',e:'🐙',name:'Kraken aquarium',plural:'kraken aquariums',base:5e10,rate:3e6,d:'The kraken greets every guest. With all eight arms.',ups:['Bigger tank','Shipwreck decor','Ink fountain']},
+ {id:'yeti',e:'❄️',name:'Yeti ice rink',plural:'yeti ice rinks',base:7e11,rate:1.7e7,d:'Yetis tip in snowflakes. Snowflakes made of gold.',ups:['Zamboni','Snow cone bar','Blizzard machine']},
+ {id:'alien',e:'👽',name:'UFO landing pad',plural:'UFO landing pads',base:1e13,rate:9.5e7,d:'Not technically monsters, but they paid in advance.',ups:['Tractor beam valet','Crop circle garden','Galaxy suite']}
 ];
-const SKINS = [
-  { e:"gloop", name:"Gloop", cost:0 },   { e:"boo", name:"Boo", cost:200 },  { e:"inky", name:"Inky", cost:400 },
-  { e:"imp",   name:"Imp",   cost:700 }, { e:"zom", name:"Zom", cost:1000 }, { e:"vlad", name:"Vlad", cost:1500 }
-];
-
-// ---- Art: drawn in code (SVG), turned into crisp images ----
-const ART = {"gloop": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 64 64\" width=\"192\" height=\"192\"><path d=\"M10 56 C8 36 17 22 32 22 C47 22 56 36 54 56 C50 60 46 53 42 57 C38 61 34 54 30 58 C25 61 21 54 17 58 C14 59 11 58 10 56Z\" fill=\"#9B6BE0\" stroke=\"#2B1838\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><path d=\"M18 36 C20 30 24 27 28 26\" fill=\"none\" stroke=\"#C7A6F5\" stroke-width=\"3\" stroke-linecap=\"round\"/><circle cx=\"32\" cy=\"38\" r=\"9\" fill=\"#fff\" stroke=\"#2B1838\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><circle cx=\"33\" cy=\"39\" r=\"4.5\" fill=\"#2B1838\"/><circle cx=\"34\" cy=\"37\" r=\"1.6199999999999999\" fill=\"#fff\"/><path d=\"M26 50 Q32 54 38 50\" fill=\"none\" stroke=\"#2B1838\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><g transform=\"rotate(0 32 17)\"><rect x=\"23\" y=\"12\" width=\"18\" height=\"10\" rx=\"2\" fill=\"#D9443A\" stroke=\"#2B1838\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><rect x=\"23\" y=\"18\" width=\"18\" height=\"3\" fill=\"#E0A93B\"/><circle cx=\"32\" cy=\"11\" r=\"2\" fill=\"#E0A93B\"/></g></svg>", "boo": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 64 64\" width=\"192\" height=\"192\"><path d=\"M14 58 L14 34 C14 22 22 16 32 16 C42 16 50 22 50 34 L50 58 L44 53 L38 58 L32 53 L26 58 L20 53 Z\" fill=\"#F2EEF8\" stroke=\"#2B1838\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><ellipse cx=\"25\" cy=\"34\" rx=\"3.5\" ry=\"5\" fill=\"#2B1838\"/><ellipse cx=\"39\" cy=\"34\" rx=\"3.5\" ry=\"5\" fill=\"#2B1838\"/><ellipse cx=\"32\" cy=\"45\" rx=\"4\" ry=\"5\" fill=\"#2B1838\"/><circle cx=\"20\" cy=\"41\" r=\"3\" fill=\"#F5A3C0\"/><circle cx=\"44\" cy=\"41\" r=\"3\" fill=\"#F5A3C0\"/><g transform=\"rotate(-10 32 12)\"><rect x=\"23\" y=\"7\" width=\"18\" height=\"10\" rx=\"2\" fill=\"#D9443A\" stroke=\"#2B1838\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><rect x=\"23\" y=\"13\" width=\"18\" height=\"3\" fill=\"#E0A93B\"/><circle cx=\"32\" cy=\"6\" r=\"2\" fill=\"#E0A93B\"/></g></svg>", "inky": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 64 64\" width=\"192\" height=\"192\"><path d=\"M16 32 C16 20 24 14 32 14 C40 14 48 20 48 32 L48 42 C48 48 54 51 57 55 C51 58 46 55 44 51 C43 56 41 59 37 59 C35 55 34 52 32 51 C30 52 29 55 27 59 C23 59 21 56 20 51 C18 55 13 58 7 55 C10 51 16 48 16 42Z\" fill=\"#3FB8A8\" stroke=\"#2B1838\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><circle cx=\"25\" cy=\"32\" r=\"6\" fill=\"#fff\" stroke=\"#2B1838\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><circle cx=\"26\" cy=\"33\" r=\"3.0\" fill=\"#2B1838\"/><circle cx=\"27\" cy=\"31\" r=\"1.08\" fill=\"#fff\"/><circle cx=\"39\" cy=\"32\" r=\"6\" fill=\"#fff\" stroke=\"#2B1838\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><circle cx=\"40\" cy=\"33\" r=\"3.0\" fill=\"#2B1838\"/><circle cx=\"41\" cy=\"31\" r=\"1.08\" fill=\"#fff\"/><path d=\"M28 42 Q32 45 36 42\" fill=\"none\" stroke=\"#2B1838\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><circle cx=\"22\" cy=\"22\" r=\"2\" fill=\"#8FE3D6\"/><circle cx=\"27\" cy=\"19\" r=\"1.5\" fill=\"#8FE3D6\"/><g transform=\"rotate(8 32 10)\"><rect x=\"23\" y=\"5\" width=\"18\" height=\"10\" rx=\"2\" fill=\"#D9443A\" stroke=\"#2B1838\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><rect x=\"23\" y=\"11\" width=\"18\" height=\"3\" fill=\"#E0A93B\"/><circle cx=\"32\" cy=\"4\" r=\"2\" fill=\"#E0A93B\"/></g></svg>", "imp": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 64 64\" width=\"192\" height=\"192\"><path d=\"M15 24 L11 8 L23 18Z M49 24 L53 8 L41 18Z\" fill=\"#F6E7C8\" stroke=\"#2B1838\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><rect x=\"12\" y=\"18\" width=\"40\" height=\"40\" rx=\"18\" fill=\"#E2574C\" stroke=\"#2B1838\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><circle cx=\"25\" cy=\"34\" r=\"5\" fill=\"#fff\" stroke=\"#2B1838\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><circle cx=\"26\" cy=\"35\" r=\"2.5\" fill=\"#2B1838\"/><circle cx=\"27\" cy=\"33\" r=\"0.8999999999999999\" fill=\"#fff\"/><circle cx=\"39\" cy=\"34\" r=\"5\" fill=\"#fff\" stroke=\"#2B1838\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><circle cx=\"40\" cy=\"35\" r=\"2.5\" fill=\"#2B1838\"/><circle cx=\"41\" cy=\"33\" r=\"0.8999999999999999\" fill=\"#fff\"/><path d=\"M22 45 Q32 53 42 45 Z\" fill=\"#2B1838\" stroke=\"#2B1838\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><path d=\"M27 46 L29 50 L31 47Z\" fill=\"#fff\"/><path d=\"M19 28 L28 30 M45 28 L36 30\" stroke=\"#2B1838\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><g transform=\"rotate(0 32 14)\"><rect x=\"23\" y=\"9\" width=\"18\" height=\"10\" rx=\"2\" fill=\"#D9443A\" stroke=\"#2B1838\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><rect x=\"23\" y=\"15\" width=\"18\" height=\"3\" fill=\"#E0A93B\"/><circle cx=\"32\" cy=\"8\" r=\"2\" fill=\"#E0A93B\"/></g></svg>", "zom": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 64 64\" width=\"192\" height=\"192\"><rect x=\"13\" y=\"18\" width=\"38\" height=\"40\" rx=\"9\" fill=\"#8CC56B\" stroke=\"#2B1838\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><path d=\"M13 30 L22 26 L30 30\" fill=\"none\" stroke=\"#2B1838\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><path d=\"M18 22 L18 30 M15 24 L21 24 M15 28 L21 28\" stroke=\"#2B1838\" stroke-width=\"2\"/><circle cx=\"24\" cy=\"37\" r=\"7\" fill=\"#fff\" stroke=\"#2B1838\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><circle cx=\"24\" cy=\"38\" r=\"3.5\" fill=\"#2B1838\"/><circle cx=\"25\" cy=\"36\" r=\"1.26\" fill=\"#fff\"/><circle cx=\"40\" cy=\"37\" r=\"4\" fill=\"#fff\" stroke=\"#2B1838\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><circle cx=\"40\" cy=\"38\" r=\"1.8\" fill=\"#2B1838\"/><path d=\"M23 49 L41 49\" stroke=\"#2B1838\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><path d=\"M27 47 L27 51 M32 47 L32 51 M37 47 L37 51\" stroke=\"#2B1838\" stroke-width=\"2\"/><g transform=\"rotate(12 36 14)\"><rect x=\"27\" y=\"9\" width=\"18\" height=\"10\" rx=\"2\" fill=\"#D9443A\" stroke=\"#2B1838\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><rect x=\"27\" y=\"15\" width=\"18\" height=\"3\" fill=\"#E0A93B\"/><circle cx=\"36\" cy=\"8\" r=\"2\" fill=\"#E0A93B\"/></g></svg>", "vlad": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 64 64\" width=\"192\" height=\"192\"><path d=\"M6 60 L14 40 L22 48 L32 44 L42 48 L50 40 L58 60Z\" fill=\"#7A2E8C\" stroke=\"#2B1838\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><path d=\"M14 40 L22 48 L18 56Z M50 40 L42 48 L46 56Z\" fill=\"#C0392B\" stroke=\"#2B1838\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><ellipse cx=\"32\" cy=\"32\" rx=\"16\" ry=\"18\" fill=\"#DCD3F0\" stroke=\"#2B1838\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><path d=\"M16 28 C16 16 24 13 32 13 C40 13 48 16 48 28 C44 22 38 22 32 28 C26 22 20 22 16 28Z\" fill=\"#2B1838\"/><circle cx=\"26\" cy=\"32\" r=\"4.5\" fill=\"#fff\" stroke=\"#2B1838\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><circle cx=\"27\" cy=\"33\" r=\"2.25\" fill=\"#2B1838\"/><circle cx=\"28\" cy=\"31\" r=\"0.8099999999999999\" fill=\"#fff\"/><circle cx=\"38\" cy=\"32\" r=\"4.5\" fill=\"#fff\" stroke=\"#2B1838\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><circle cx=\"39\" cy=\"33\" r=\"2.25\" fill=\"#2B1838\"/><circle cx=\"40\" cy=\"31\" r=\"0.8099999999999999\" fill=\"#fff\"/><path d=\"M26 41 Q32 45 38 41\" fill=\"none\" stroke=\"#2B1838\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><path d=\"M28 42 L29.5 46 L31 42.5Z M33 42.5 L34.5 46 L36 42Z\" fill=\"#fff\" stroke=\"#2B1838\" stroke-width=\"1\"/><g transform=\"rotate(-6 32 12)\"><rect x=\"23\" y=\"7\" width=\"18\" height=\"10\" rx=\"2\" fill=\"#D9443A\" stroke=\"#2B1838\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><rect x=\"23\" y=\"13\" width=\"18\" height=\"3\" fill=\"#E0A93B\"/><circle cx=\"32\" cy=\"6\" r=\"2\" fill=\"#E0A93B\"/></g></svg>", "donut": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 64 64\" width=\"192\" height=\"192\"><circle cx=\"32\" cy=\"34\" r=\"22\" fill=\"#E8B26A\" stroke=\"#2B1838\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><path d=\"M14 31 C16 18 26 13 32 13 C44 13 52 22 50 33 C48 38 45 34 42 38 C39 42 35 37 31 40 C27 42 24 37 20 39 C16 40 14 36 14 31Z\" fill=\"#F07AA8\" stroke=\"#2B1838\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><circle cx=\"32\" cy=\"31\" r=\"6\" fill=\"#2B1838\" stroke=\"#2B1838\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><path d=\"M22 22 L25 24 M40 20 L42 23 M44 30 L47 29 M20 31 L22 34 M33 19 L36 18\" stroke=\"#fff\" stroke-width=\"2.5\" stroke-linecap=\"round\"/><path d=\"M27 25 L29 23 M38 27 L41 27\" stroke=\"#7FE0B0\" stroke-width=\"2.5\" stroke-linecap=\"round\"/></svg>", "pizza": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 64 64\" width=\"192\" height=\"192\"><path d=\"M10 14 Q32 6 54 14 L32 58Z\" fill=\"#F5C842\" stroke=\"#2B1838\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><path d=\"M10 14 Q32 6 54 14 L52 19 Q32 11 12 19Z\" fill=\"#D98B3A\" stroke=\"#2B1838\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><circle cx=\"26\" cy=\"26\" r=\"4.5\" fill=\"#D9443A\" stroke=\"#2B1838\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><circle cx=\"39\" cy=\"28\" r=\"4.5\" fill=\"#D9443A\" stroke=\"#2B1838\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><circle cx=\"32\" cy=\"40\" r=\"4\" fill=\"#D9443A\" stroke=\"#2B1838\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/></svg>", "bag": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 64 64\" width=\"192\" height=\"192\"><path d=\"M24 20 L24 13 Q24 10 27 10 L37 10 Q40 10 40 13 L40 20\" fill=\"none\" stroke=\"#2B1838\" stroke-width=\"4\" stroke-linecap=\"round\"/><rect x=\"8\" y=\"19\" width=\"48\" height=\"36\" rx=\"5\" fill=\"#B5652E\" stroke=\"#2B1838\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><path d=\"M20 19 L20 55 M44 19 L44 55\" stroke=\"#7A3E18\" stroke-width=\"3\"/><rect x=\"27\" y=\"30\" width=\"12\" height=\"9\" rx=\"2\" fill=\"#7FE0B0\" stroke=\"#2B1838\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><path d=\"M30 34 L36 34\" stroke=\"#2B1838\" stroke-width=\"2\"/><path d=\"M8 25 L14 19 M56 25 L50 19 M8 49 L14 55 M56 49 L50 55\" stroke=\"#E0A93B\" stroke-width=\"3\"/></svg>", "key": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 64 64\" width=\"192\" height=\"192\"><path d=\"M37 30 L52 46 M45 39 L49 35 M49 43 L53 39\" fill=\"none\" stroke=\"#E0A93B\" stroke-width=\"6\" stroke-linecap=\"round\"/><path d=\"M37 30 L52 46 M45 39 L49 35 M49 43 L53 39\" fill=\"none\" stroke=\"#2B1838\" stroke-width=\"1.5\" stroke-linecap=\"round\" opacity=\".4\"/><circle cx=\"28\" cy=\"22\" r=\"11\" fill=\"#E0A93B\" stroke=\"#2B1838\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><circle cx=\"28\" cy=\"22\" r=\"4\" fill=\"#2B1838\"/><path d=\"M10 40 L20 32 L28 42 L18 50Z\" fill=\"#D9443A\" stroke=\"#2B1838\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><text x=\"19\" y=\"44.5\" font-size=\"8\" font-family=\"Arial\" font-weight=\"bold\" fill=\"#fff\" text-anchor=\"middle\" transform=\"rotate(-38 19 41)\">13</text><path d=\"M21 30 L25 33\" stroke=\"#2B1838\" stroke-width=\"2\"/></svg>", "cupcake": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 64 64\" width=\"192\" height=\"192\"><path d=\"M14 34 L50 34 L44 58 L20 58Z\" fill=\"#7FB8E8\" stroke=\"#2B1838\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><path d=\"M22 36 L25 56 M32 36 L32 56 M42 36 L39 56\" stroke=\"#4F86B8\" stroke-width=\"2.5\"/><path d=\"M12 36 C8 30 14 24 20 25 C20 18 28 14 34 17 C40 13 50 18 48 26 C54 27 56 34 52 37 Z\" fill=\"#FBD3E4\" stroke=\"#2B1838\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><circle cx=\"34\" cy=\"11\" r=\"5\" fill=\"#D9443A\" stroke=\"#2B1838\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><path d=\"M34 6 Q37 2 41 3\" fill=\"none\" stroke=\"#2B1838\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/></svg>", "cookie": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 64 64\" width=\"192\" height=\"192\"><path d=\"M32 10 C46 10 55 20 54 33 C53 47 44 55 31 54 C18 53 9 44 10 31 C11 18 20 10 32 10Z\" fill=\"#D9A15A\" stroke=\"#2B1838\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><circle cx=\"24\" cy=\"22\" r=\"3.5\" fill=\"#5A3418\"/><circle cx=\"38\" cy=\"20\" r=\"3\" fill=\"#5A3418\"/><circle cx=\"44\" cy=\"33\" r=\"3.5\" fill=\"#5A3418\"/><circle cx=\"30\" cy=\"34\" r=\"3\" fill=\"#5A3418\"/><circle cx=\"20\" cy=\"40\" r=\"3\" fill=\"#5A3418\"/><circle cx=\"36\" cy=\"45\" r=\"3.5\" fill=\"#5A3418\"/><circle cx=\"26\" cy=\"47\" r=\"2.2\" fill=\"#5A3418\"/><path d=\"M18 20 Q22 16 27 15\" fill=\"none\" stroke=\"#F0C98C\" stroke-width=\"2.5\" stroke-linecap=\"round\"/></svg>", "garlic": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 64 64\" width=\"192\" height=\"192\"><path d=\"M32 14 C30 20 22 24 16 32 C9 42 16 56 32 56 C48 56 55 42 48 32 C42 24 34 20 32 14Z\" fill=\"#F4F0E6\" stroke=\"#2B1838\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><path d=\"M32 18 C26 28 24 44 30 56 M32 18 C38 28 40 44 34 56\" fill=\"none\" stroke=\"#C8BFA8\" stroke-width=\"2.5\"/><path d=\"M32 14 L32 6 M32 8 L28 4 M32 8 L36 4\" stroke=\"#2B1838\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><path d=\"M10 22 Q7 18 10 14 Q13 10 10 6 M54 22 Q57 18 54 14 Q51 10 54 6\" fill=\"none\" stroke=\"#9CCB5A\" stroke-width=\"2.5\" stroke-linecap=\"round\"/></svg>", "clock": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 64 64\" width=\"192\" height=\"192\"><path d=\"M18 50 L13 58 M46 50 L51 58\" stroke=\"#2B1838\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><path d=\"M8 20 A9 9 0 0 1 22 9Z M56 20 A9 9 0 0 0 42 9Z\" fill=\"#E0A93B\" stroke=\"#2B1838\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><circle cx=\"32\" cy=\"34\" r=\"21\" fill=\"#D9443A\" stroke=\"#2B1838\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><circle cx=\"32\" cy=\"34\" r=\"15\" fill=\"#F6E7C8\" stroke=\"#2B1838\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><path d=\"M32 34 L32 24 M32 34 L39 38\" stroke=\"#2B1838\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><path d=\"M30 10 L34 10 M32 10 L32 13\" stroke=\"#2B1838\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><path d=\"M3 34 L7 34 M57 34 L61 34 M5 44 L9 42 M59 44 L55 42\" stroke=\"#FF7070\" stroke-width=\"2.5\" stroke-linecap=\"round\"/></svg>", "mop": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 64 64\" width=\"192\" height=\"192\"><path d=\"M48 6 L28 40\" stroke=\"#2B1838\" stroke-width=\"8\" stroke-linecap=\"round\"/><path d=\"M48 6 L28 40\" stroke=\"#B5652E\" stroke-width=\"4\" stroke-linecap=\"round\"/><rect x=\"18\" y=\"36\" width=\"20\" height=\"8\" rx=\"2\" fill=\"#7FB8E8\" stroke=\"#2B1838\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\" transform=\"rotate(30 28 40)\"/><path d=\"M18 44 Q12 52 10 58 M22 46 Q18 54 18 60 M27 47 Q26 54 28 60 M32 46 Q34 52 38 57\" fill=\"none\" stroke=\"#2B1838\" stroke-width=\"7\" stroke-linecap=\"round\"/><path d=\"M18 44 Q12 52 10 58 M22 46 Q18 54 18 60 M27 47 Q26 54 28 60 M32 46 Q34 52 38 57\" fill=\"none\" stroke=\"#B9B4C4\" stroke-width=\"3.5\" stroke-linecap=\"round\"/><path d=\"M48 52 Q51 57 48 59 Q45 57 48 52Z\" fill=\"#7FB8E8\" stroke=\"#2B1838\" stroke-width=\"2\"/></svg>", "cloche": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 64 64\" width=\"192\" height=\"192\"><path d=\"M30 6 L31 9 L34 10 L31 11 L30 14 L29 11 L26 10 L29 9Z M54 14 L55 16 L57 17 L55 18 L54 20 L53 18 L51 17 L53 16Z\" fill=\"#FFF3B0\"/><path d=\"M10 44 C10 28 20 20 32 20 C44 20 54 28 54 44Z\" fill=\"#FFD54A\" stroke=\"#2B1838\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><path d=\"M17 38 C18 31 22 27 28 25\" fill=\"none\" stroke=\"#FFF3B0\" stroke-width=\"3.5\" stroke-linecap=\"round\"/><circle cx=\"32\" cy=\"17\" r=\"4\" fill=\"#FFD54A\" stroke=\"#2B1838\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><rect x=\"5\" y=\"44\" width=\"54\" height=\"7\" rx=\"3\" fill=\"#E0A93B\" stroke=\"#2B1838\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><path d=\"M8 6 L9 9 L12 10 L9 11 L8 14 L7 11 L4 10 L7 9Z\" fill=\"#FFF3B0\"/></svg>", "magnet": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 64 64\" width=\"192\" height=\"192\"><path d=\"M14 10 L14 34 C14 46 22 54 32 54 C42 54 50 46 50 34 L50 10 L38 10 L38 34 C38 38 35 41 32 41 C29 41 26 38 26 34 L26 10Z\" fill=\"#D9443A\" stroke=\"#2B1838\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><rect x=\"14\" y=\"10\" width=\"12\" height=\"10\" fill=\"#E6E2EE\" stroke=\"#2B1838\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><rect x=\"38\" y=\"10\" width=\"12\" height=\"10\" fill=\"#E6E2EE\" stroke=\"#2B1838\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><path d=\"M19 34 C19 42 23 47 29 49\" fill=\"none\" stroke=\"#F28A80\" stroke-width=\"3\" stroke-linecap=\"round\"/></svg>", "hourglass": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 64 64\" width=\"192\" height=\"192\"><path d=\"M18 12 L46 12 C46 24 36 28 36 32 C36 36 46 40 46 52 L18 52 C18 40 28 36 28 32 C28 28 18 24 18 12Z\" fill=\"#CFE6FA\" stroke=\"#2B1838\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><path d=\"M22 18 L42 18 C40 24 34 26 32 29 C30 26 24 24 22 18Z M21 50 C22 44 28 42 32 40 C36 42 42 44 43 50Z\" fill=\"#E0A93B\"/><path d=\"M32 30 L32 40\" stroke=\"#E0A93B\" stroke-width=\"2\"/><rect x=\"12\" y=\"6\" width=\"40\" height=\"7\" rx=\"3\" fill=\"#B5652E\" stroke=\"#2B1838\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><rect x=\"12\" y=\"51\" width=\"40\" height=\"7\" rx=\"3\" fill=\"#B5652E\" stroke=\"#2B1838\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/></svg>", "heart": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 64 64\" width=\"192\" height=\"192\"><path d=\"M32 56 C20 46 8 38 8 24 C8 15 14 9 21 9 C26 9 30 12 32 16 C34 12 38 9 43 9 C50 9 56 15 56 24 C56 38 44 46 32 56Z\" fill=\"#E2574C\" stroke=\"#2B1838\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><path d=\"M16 20 C17 16 20 14 23 14\" fill=\"none\" stroke=\"#F5A3A0\" stroke-width=\"3.5\" stroke-linecap=\"round\"/></svg>", "heartEmpty": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 64 64\" width=\"192\" height=\"192\"><path d=\"M32 56 C20 46 8 38 8 24 C8 15 14 9 21 9 C26 9 30 12 32 16 C34 12 38 9 43 9 C50 9 56 15 56 24 C56 38 44 46 32 56Z\" fill=\"#4A3358\" stroke=\"#2B1838\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/></svg>", "coin": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 64 64\" width=\"192\" height=\"192\"><circle cx=\"32\" cy=\"32\" r=\"24\" fill=\"#FFD54A\" stroke=\"#2B1838\" stroke-width=\"3\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><circle cx=\"32\" cy=\"32\" r=\"17\" fill=\"none\" stroke=\"#E0A93B\" stroke-width=\"3\"/><path d=\"M32 21 L35 29 L43 29 L37 34 L39 42 L32 37 L25 42 L27 34 L21 29 L29 29Z\" fill=\"#E0A93B\"/></svg>"};
-const SRC = {}, PIC = {};
-for (const k in ART) {
-  SRC[k] = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(ART[k]);
-  const im = new Image();
-  im.onload = () => { const c = document.createElement("canvas"); c.width = c.height = 192;
-    c.getContext("2d").drawImage(im, 0, 0, 192, 192); PIC[k] = c; };
-  im.src = SRC[k];
-}
-const icon = (k, cls="ico") => '<img class="' + cls + '" src="' + SRC[k] + '" alt="">';
-
-// ---- Saved data (on this device) ----
-function load(k, d) { try { const v = localStorage.getItem(k); return v === null ? d : JSON.parse(v); } catch(e) { return d; } }
-function save(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch(e) {} }
-let best = load("rs_best", 0);
-let bank = load("rs_bank", 0);     // total coins to spend in the shop
-let up = Object.assign({ tray:0, magnet:0, heart:0 }, load("rs_up", {}));
-let owned = load("rs_skins", ["gloop"]).filter(k => SKINS.some(x => x.e === k));
-if (!owned.includes("gloop")) owned.unshift("gloop");
-let skin = load("rs_skin", "gloop"); if (!owned.includes(skin)) skin = "gloop";
-const maxHearts = () => START_HEARTS + up.heart;
-const magnetMax = () => MAGNET_TIME + up.magnet * 1.5;
-const reach = () => 48 + up.tray * 10;       // how far sideways you can catch
-const trayW = () => 84 + up.tray * 20;
-$("legend").innerHTML =
-  '<div class="row catch"><span class="lbl">Catch</span>' + GOOD.map(k => icon(k, "")).join("") + '</div>' +
-  '<div class="row avoid"><span class="lbl">Avoid</span>' + BAD.map(k => icon(k, "")).join("") + '</div>' +
-  '<div class="row bonus"><span class="lbl">Bonus</span>' + [GOLD, MAGNET, SLOW].map(k => icon(k, "")).join("") + '</div>';
-let hintShown = load("rs_hint", false);
-function showStats() {
-  const parts = [];
-  if (best > 0) parts.push("Best " + icon("coin") + " " + best);
-  if (bank > 0) parts.push("Bank " + icon("coin") + " " + bank);
-  statsEl.innerHTML = parts.join("&nbsp;&nbsp;&nbsp;");
-}
-showStats();
-
-// ---- Screen size ----
-let W, H;
-function resize() {
-  const s = window.devicePixelRatio || 1;
-  W = window.innerWidth; H = window.innerHeight;
-  canvas.width = W * s; canvas.height = H * s;
-  ctx.setTransform(s,0,0,s,0,0);
-}
-window.addEventListener("resize", resize); resize();
-
-// ---- Sound (made in code, no files needed) ----
-let audio = null, musicBus = null, noiseBuf = null;
-let soundOn = load("rs_sound", true), musicOn = load("rs_music", true);
-const MUSIC_VOLUME = 0.55;   // 0 to 1
-function initAudio() {
-  if (!audio) {
-    try {
-      audio = new (window.AudioContext || window.webkitAudioContext)();
-      musicBus = audio.createGain(); musicBus.gain.value = musicOn ? MUSIC_VOLUME : 0;
-      musicBus.connect(audio.destination);
-      noiseBuf = audio.createBuffer(1, audio.sampleRate * 0.2, audio.sampleRate);
-      const d = noiseBuf.getChannelData(0); for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
-    } catch(e) {}
-  }
-  if (audio && audio.state === "suspended") audio.resume();
-}
-function tone(freq, dur, type="sine", vol=0.15, slideTo=null) {
-  if (!audio || !soundOn) return;
-  const t = audio.currentTime, o = audio.createOscillator(), g = audio.createGain();
-  o.type = type; o.frequency.setValueAtTime(freq, t);
-  if (slideTo) o.frequency.exponentialRampToValueAtTime(slideTo, t + dur);
-  g.gain.setValueAtTime(vol, t); g.gain.exponentialRampToValueAtTime(0.001, t + dur);
-  o.connect(g).connect(audio.destination); o.start(t); o.stop(t + dur);
-}
-const sfx = {
-  catch: n => tone(523 * Math.pow(2, Math.min(n, 14) / 12), 0.12, "triangle", 0.18),
-  levelUp: () => { tone(660,0.1,"square",0.08); setTimeout(()=>tone(990,0.15,"square",0.08),90); },
-  gold: () => [784,988,1175,1568].forEach((f,i) => setTimeout(()=>tone(f,0.15,"triangle",0.15), i*70)),
-  power: () => tone(300, 0.3, "sine", 0.18, 900),
-  hit: () => tone(180, 0.25, "square", 0.15, 60),
-  miss: () => tone(220, 0.15, "triangle", 0.08, 120),
-  over: () => { tone(400,0.2,"sawtooth",0.1,300); setTimeout(()=>tone(300,0.35,"sawtooth",0.1,120),180); }
+/* original monster art (inline SVG, no image files) */
+const OL='#24182F', ST=`stroke="${OL}" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"`;
+const eye=(x,y)=>`<ellipse cx="${x}" cy="${y}" rx="3.4" ry="4.2" fill="${OL}"/><circle cx="${x+1.1}" cy="${y-1.5}" r="1.2" fill="#fff"/>`;
+const blush=(a,b,y)=>`<circle cx="${a}" cy="${y}" r="2.6" fill="#FF9DB8" opacity=".8"/><circle cx="${b}" cy="${y}" r="2.6" fill="#FF9DB8" opacity=".8"/>`;
+const GHOSTBODY=c=>`<path d="M14 57V32a18 18 0 0 1 36 0v25l-6-5-6 5-6-5-6 5-6-5z" fill="${c}" ${ST}/>`;
+const ART={
+ ghost:`${GHOSTBODY('#F7F4FF')}<rect x="24" y="8" width="16" height="8" rx="2" fill="#D7263D" ${ST}/><rect x="20.5" y="14.5" width="23" height="4" rx="2" fill="#A51C2E" ${ST}/>${eye(26,33)}${eye(38,33)}${blush(21,43,39)}<ellipse cx="32" cy="42" rx="2.6" ry="3.2" fill="${OL}"/>`,
+ coffin:`<path d="M9 61 L19 40 L32 53 L45 40 L55 61Z" fill="#B3122E" ${ST}/><ellipse cx="32" cy="32" rx="16" ry="18" fill="#E3ECF3" ${ST}/><path d="M16 29C15 13 49 13 48 29C44 22 38 20 32 27C26 20 20 22 16 29Z" fill="#2A1B3D" ${ST}/>${eye(26,34)}${eye(38,34)}<path d="M25 42Q32 47 39 42" fill="none" ${ST}/><path d="M28 43.5l1.6 4 1.4-3.2zM36 43.5l-1.6 4-1.4-3.2z" fill="#fff" stroke="${OL}" stroke-width="1.4" stroke-linejoin="round"/>`,
+ moon:`<path d="M14 27L15 7L29 18ZM50 27L49 7L35 18Z" fill="#6E4329" ${ST}/><path d="M17.5 21L18 13L24 18ZM46.5 21L46 13L40 18Z" fill="#E2BC91"/><circle cx="32" cy="35" r="19" fill="#8E5B3A" ${ST}/><ellipse cx="32" cy="44" rx="10.5" ry="8" fill="#E2BC91" ${ST}/><circle cx="24" cy="32" r="4.6" fill="#FFD34D" ${ST}/><circle cx="40" cy="32" r="4.6" fill="#FFD34D" ${ST}/><circle cx="24.6" cy="32.6" r="2" fill="${OL}"/><circle cx="40.6" cy="32.6" r="2" fill="${OL}"/><ellipse cx="32" cy="40" rx="3.6" ry="2.6" fill="${OL}"/><path d="M28 46.5Q32 49.5 36 46.5" fill="none" ${ST}/>`,
+ buffet:`<rect x="13" y="15" width="38" height="40" rx="14" fill="#9CCB86" ${ST}/><path d="M18 19l3-8 4 6 3-8 4 7 3-8 4 7 4-6 1 9" fill="none" ${ST}/><circle cx="25" cy="32" r="6.5" fill="#fff" ${ST}/><circle cx="26.5" cy="33" r="2.6" fill="${OL}"/>${eye(40,33)}<path d="M21 45h22" fill="none" ${ST}/><path d="M25 42.5v5M30 42.5v5M35 42.5v5M40 42.5v5" fill="none" stroke="${OL}" stroke-width="1.8" stroke-linecap="round"/><path d="M36 21l6 2M38 19.5l-1 4" fill="none" stroke="#5E8A4D" stroke-width="1.8" stroke-linecap="round"/>`,
+ slime:`<path d="M10 53C10 30 20 16 32 16C44 16 54 30 54 53C51 58 47 53 44 58C40 62 36 56 32 58C28 61 24 55 20 58C16 61 11 58 10 53Z" fill="#6FD38A" ${ST}/><ellipse cx="21" cy="28" rx="3.5" ry="6" fill="#fff" opacity=".55" transform="rotate(30 21 28)"/>${eye(26,37)}${eye(38,37)}${blush(21,43,43)}<path d="M28 44.5Q32 48.5 36 44.5" fill="none" ${ST}/>`,
+ witch:`<path d="M17 31q-4 11 0 21M47 31q4 11 0 21" fill="none" stroke="#F06A3A" stroke-width="5" stroke-linecap="round"/><circle cx="32" cy="40" r="15" fill="#A8D98A" ${ST}/><path d="M18 27L31 2L46 27Z" fill="#5B3290" ${ST}/><path d="M20.5 22.5H43.6L45.5 26.5H18.5Z" fill="#FF8A3D"/><ellipse cx="32" cy="27.5" rx="24" ry="5" fill="#4B2A78" ${ST}/>${eye(26.5,39)}${eye(37.5,39)}<path d="M32 41.5l-2.5 5.5h5z" fill="#8CC56E" ${ST}/><path d="M27 49.5Q32 52.5 37 49.5" fill="none" ${ST}/>`,
+ ballroom:`${GHOSTBODY('#D3C2F5')}<rect x="23" y="1.5" width="18" height="13" rx="2" fill="${OL}"/><rect x="23" y="10" width="18" height="3" fill="#7A4FC0"/><rect x="18.5" y="13" width="27" height="4.5" rx="2" fill="${OL}"/>${eye(26,32)}${eye(38,32)}<circle cx="38" cy="32" r="6" fill="none" stroke="#E0B23A" stroke-width="1.8"/><path d="M28 40Q32 43 36 40" fill="none" ${ST}/><path d="M25 48L32 51L39 48V55L32 51L25 55Z" fill="#D7263D" ${ST}/>`,
+ dragon:`<path d="M19 23L7 13L23 17ZM45 23L57 13L41 17Z" fill="#F7E3B5" ${ST}/><path d="M21 21l4-12 5 8 2-11 2 11 5-8 4 12" fill="#FFC20E" ${ST}/><ellipse cx="32" cy="34" rx="20" ry="17.5" fill="#F0703C" ${ST}/><circle cx="20" cy="40" r="1.4" fill="#C2491C"/><circle cx="44" cy="40" r="1.4" fill="#C2491C"/><circle cx="17" cy="35" r="1.2" fill="#C2491C"/><ellipse cx="32" cy="45" rx="12.5" ry="8" fill="#F9A271" ${ST}/><ellipse cx="28" cy="43" rx="1.8" ry="1.3" fill="${OL}"/><ellipse cx="36" cy="43" rx="1.8" ry="1.3" fill="${OL}"/><path d="M27 48.5Q32 51.5 37 48.5" fill="none" ${ST}/>${eye(24,32)}${eye(40,32)}<path d="M45 45c5-3 9-1 11 3c-3-1-5 0-6 3c-1-3-3-4-5-6z" fill="#FFC20E" ${ST}/>`,
+ mummy:`<rect x="14" y="11" width="36" height="45" rx="16" fill="#EFE5CC" ${ST}/><path d="M16 21L48 17M15 27L49 29M15 45L49 42M17 51L47 54" fill="none" stroke="#C9B994" stroke-width="2.2" stroke-linecap="round"/><rect x="15.5" y="31" width="33" height="9" fill="#3A2A20"/><circle cx="25.5" cy="35.5" r="3" fill="#fff"/><circle cx="26.2" cy="35.8" r="1.6" fill="${OL}"/><circle cx="38.5" cy="35.5" r="3" fill="#fff"/><circle cx="39.2" cy="35.8" r="1.6" fill="${OL}"/><rect x="14" y="11" width="36" height="45" rx="16" fill="none" ${ST}/><path d="M47 47q9 3 7 12" fill="none" stroke="${OL}" stroke-width="6.5" stroke-linecap="round"/><path d="M47 47q9 3 7 12" fill="none" stroke="#EFE5CC" stroke-width="3.5" stroke-linecap="round"/>`,
+ kraken:`<path d="M15 45q-7 8-1 15q2-6 6-6M25 49q-3 8 2 12M39 49q3 8-2 12M49 45q7 8 1 15q-2-6-6-6" fill="none" stroke="${OL}" stroke-width="8" stroke-linecap="round"/><path d="M15 45q-7 8-1 15q2-6 6-6M25 49q-3 8 2 12M39 49q3 8-2 12M49 45q7 8 1 15q-2-6-6-6" fill="none" stroke="#9B5FD0" stroke-width="4" stroke-linecap="round"/><path d="M13 45C9 14 55 14 51 45C45 52 19 52 13 45Z" fill="#B57BE6" ${ST}/><circle cx="21" cy="30" r="2.5" fill="#D9B8F5"/><circle cx="38" cy="25" r="3" fill="#D9B8F5"/><circle cx="45" cy="33" r="2" fill="#D9B8F5"/>${eye(25,36)}${eye(39,36)}<path d="M28 43Q32 46 36 43" fill="none" ${ST}/>`,
+ yeti:`<path d="M32.0 15.5Q36.7 10.2 39.1 16.9Q45.5 13.8 45.1 20.9Q52.2 20.5 49.1 26.9Q55.8 29.3 50.5 34.0Q55.8 38.7 49.1 41.1Q52.2 47.5 45.1 47.1Q45.5 54.2 39.1 51.1Q36.7 57.8 32.0 52.5Q27.3 57.8 24.9 51.1Q18.5 54.2 18.9 47.1Q11.8 47.5 14.9 41.1Q8.2 38.7 13.5 34.0Q8.2 29.3 14.9 26.9Q11.8 20.5 18.9 20.9Q18.5 13.8 24.9 16.9Q27.3 10.2 32.0 15.5Z" fill="#F5F8FF" ${ST}/><ellipse cx="32" cy="38" rx="11.5" ry="10.5" fill="#8FB8E8" ${ST}/>${eye(27.5,35.5)}${eye(36.5,35.5)}<path d="M27 43Q32 47 37 43" fill="none" ${ST}/><path d="M30.5 44.6v2.6h3v-2.6" fill="#fff" stroke="${OL}" stroke-width="1.4" stroke-linejoin="round"/>`,
+ alien:`<path d="M24 17L19 6M40 17L45 6" fill="none" ${ST}/><circle cx="19" cy="6" r="3" fill="#FF8A3D" ${ST}/><circle cx="45" cy="6" r="3" fill="#FF8A3D" ${ST}/><path d="M32 14C48 14 53 28 48 41C45 50 38 57 32 57C26 57 19 50 16 41C11 28 16 14 32 14Z" fill="#9FE1E8" ${ST}/><ellipse cx="24.5" cy="34" rx="6" ry="8.5" fill="${OL}" transform="rotate(-25 24.5 34)"/><ellipse cx="39.5" cy="34" rx="6" ry="8.5" fill="${OL}" transform="rotate(25 39.5 34)"/><circle cx="23" cy="31" r="1.8" fill="#fff"/><circle cx="38" cy="31" r="1.8" fill="#fff"/><path d="M29 47Q32 49 35 47" fill="none" ${ST}/>`
 };
-// ---- Background music: "spooky fun" skeleton-xylophone loop, made in code ----
-// 8 bars, 8 steps per bar. Numbers are piano keys (60 = middle C). null = rest.
-// Chords: Am - Am - Dm - Dm - F - E - Am - E
-const ROOTS = [45, 45, 50, 50, 41, 40, 45, 40];
-const CHORDS = [[57,60,64],[57,60,64],[57,62,65],[57,62,65],[57,60,65],[56,59,64],[57,60,64],[56,59,64]];
-const _ = null;
-const MELODY = [
-  [69,_,72,_,76,75,76,_], [72,_,69,_,_,_,64,_], [74,_,77,_,81,80,81,_], [77,_,74,_,_,_,_,_],
-  [77,76,77,_,81,_,77,_], [76,75,76,_,80,_,76,_], [72,71,72,_,76,_,69,_], [68,_,71,_,74,_,76,_]
+const art=id=>`<svg viewBox="0 0 64 64" aria-hidden="true">${ART[id]}</svg>`;
+const UP_REQ=[10,25,50], UP_COST=[10,120,3000];
+const LOCS={
+ street:{n:'Spooky Street',e:'🏚️',need:0,perk:'The original hotel. No special perk.'},
+ beach:{n:'Beach Resort',e:'🏖️',need:1,perk:'All rooms cost 10% less.'},
+ castle:{n:'Haunted Castle',e:'🏰',need:5,perk:'VIP guests and hotel incidents pay 2×.'},
+ lodge:{n:'Mountain Lodge',e:'🏔️',need:15,perk:'Taps earn 3×, and you start with 10 ghost bellhops.'},
+ desert:{n:'Desert Pyramid',e:'🏜️',need:30,perk:'Away earnings are 2× and build up for 8 hours.'},
+ sea:{n:'Underwater Hotel',e:'🌊',need:60,perk:'Guest rushes fill faster and last twice as long.'},
+ volcano:{n:'Volcano Hotel',e:'🌋',need:100,perk:'All rooms earn 2×.'},
+ moon:{n:'Moon Base',e:'🌙',need:200,perk:'Earn 25% more hotel stars.'}
+};
+const rushDur=()=>S.loc==='sea'?16000:8000;
+const TAP_ACTIONS=['Check in a guest','Check in a bus tour','Host a monster wedding','Book a vampire convention','Host a full-moon festival','Throw the Haunted Gala'];
+const TAP_COST=[50,600,8000,120000,2.5e6];
+const VIPS=['A vampire count','A famous mummy','A sea monster','A headless knight','A yeti family','The witch council'];
+const R=1.15, KEY='monster-hotel-save-v1', OFFLINE_CAP=4*3600, BOOST_MS=5*60*1000, WINDOWS=24;
+
+/* Visitor counter: put your GoatCounter code between the quotes to turn it on (e.g. 'monsterhotel'). */
+const GC_CODE='monsterhotel';
+const gcQueue=[];
+function track(name){
+  if(!GC_CODE) return;
+  try{ if(window.goatcounter&&window.goatcounter.count) window.goatcounter.count({path:name,title:name,event:true}); else gcQueue.push(name); }catch(e){}
+}
+if(GC_CODE){
+  const sc=document.createElement('script'); sc.async=true; sc.src='https://gc.zgo.at/count.js';
+  sc.dataset.goatcounter=`https://${GC_CODE}.goatcounter.com/count`;
+  sc.onload=()=>{gcQueue.splice(0).forEach(track);}; document.head.appendChild(sc);
+}
+const fresh=()=>({money:0,runEarned:0,lifetime:0,owned:{},ups:{},tap:0,stars:0,boostUntil:0,last:Date.now(),taps:0,rushes:0,goal:0,seen:{},vips:0,events:0,ach:{},daily:{last:'',streak:0},miniUntil:0,candy:0,candyTotal:0,lanterns:0,hwSeen:0,loc:'street',visited:{street:true},first:'',ret:{}});
+
+/* goals: always one clear thing to aim for */
+const GOALS=[
+ {t:'Check in 10 guests',k:'taps',n:10,est:8},{t:'Check in 100 guests',k:'taps',n:100,est:1500},
+ {t:'Check in 1,000 guests',k:'taps',n:1000,est:2e5},{t:'Trigger a guest rush',k:'rushes',n:1,est:150},
+ {t:'Trigger 10 guest rushes',k:'rushes',n:10,est:5e4},{t:'Buy your first upgrade',k:'ups',n:1,est:250},
+ {t:'Buy 5 upgrades',k:'ups',n:5,est:6e4},{t:'Buy 12 upgrades',k:'ups',n:12,est:5e7},
+ {t:'Earn your first hotel star',k:'stars',n:1,est:3e6}];
+GENS.forEach(g=>[1,10,25,50].forEach(n=>GOALS.push({t:`Own ${n} ${n>1?g.plural:g.name.toLowerCase()}`,k:g.id,n,est:g.base*(Math.pow(1.15,n)-1)/.15})));
+GOALS.sort((a,b)=>a.est-b.est);
+function goalProg(g){
+  if(g.k==='taps') return S.taps; if(g.k==='rushes') return S.rushes;
+  if(g.k==='ups') return Object.keys(S.ups).length; if(g.k==='stars') return S.stars;
+  return owned(g.k);
+}
+const goalReward=g=>Math.max(g.est*0.3,ips(true)*30)+10;
+
+const ACH=[
+ {id:'t1',e:'🛎️',n:'First guest',t:'Check in your first guest',c:()=>S.taps>=1},
+ {id:'t2',e:'🔔',n:'Busy bell',t:'Check in 500 guests',c:()=>S.taps>=500},
+ {id:'t3',e:'💥',n:'Bell breaker',t:'Check in 5,000 guests',c:()=>S.taps>=5000},
+ {id:'r1',e:'🏃',n:'Rush hour',t:'Trigger a guest rush',c:()=>S.rushes>=1},
+ {id:'r2',e:'⚡',n:'Rush addict',t:'Trigger 25 guest rushes',c:()=>S.rushes>=25},
+ {id:'v1',e:'✨',n:'VIP treatment',t:'Collect a VIP tip',c:()=>S.vips>=1},
+ {id:'v2',e:'💎',n:'VIP magnet',t:'Collect 25 VIP tips',c:()=>S.vips>=25},
+ {id:'e1',e:'🧯',n:'Problem solver',t:'Handle a hotel incident',c:()=>S.events>=1},
+ {id:'e2',e:'📋',n:'Seen it all',t:'Handle 20 hotel incidents',c:()=>S.events>=20},
+ {id:'w1',e:'🏨',n:'No vacancy',t:'Light every window in the hotel',c:()=>prevLit>=WINDOWS},
+ {id:'m1',e:'🗝️',n:'Monster collector',t:'Own every type of room',c:()=>GENS.every(g=>owned(g.id)>0)},
+ {id:'g1',e:'💰',n:'Gold rush',t:'Earn 1M gold in total',c:()=>S.lifetime>=1e6},
+ {id:'g2',e:'🏔️',n:'Gold mountain',t:'Earn 1B gold in total',c:()=>S.lifetime>=1e9},
+ {id:'g3',e:'🐉',n:"Dragon's hoard",t:'Earn 1T gold in total',c:()=>S.lifetime>=1e12},
+ {id:'s1',e:'⭐',n:'Grand reopening',t:'Earn a hotel star',c:()=>S.stars>=1},
+ {id:'s2',e:'🌟',n:'Five-star hotel',t:'Have 5 hotel stars',c:()=>S.stars>=5},
+ {id:'d1',e:'📅',n:'Loyal guest',t:'Reach a 7-day login streak',c:()=>S.daily.streak>=7},
+ {id:'l1',e:'🧳',n:'Room with a view',t:'Open a hotel in a new location',c:()=>Object.keys(S.visited).length>=2},
+ {id:'l2',e:'🗺️',n:'Globe trotter',t:'Open hotels in 4 locations',c:()=>Object.keys(S.visited).length>=4},
+ {id:'l3',e:'🌍',n:'World traveler',t:'Open a hotel in all 8 locations',c:()=>Object.keys(S.visited).length>=8},
+ {id:'h1',e:'🍬',n:'Trick or treat!',t:'Collect 50 candy (Halloween event)',c:()=>S.candyTotal>=50,ev:1},
+ {id:'h2',e:'🎃',n:'Pumpkin king',t:"Own all 3 jack-o'-lantern levels (Halloween event)",c:()=>S.lanterns>=3,ev:1}
 ];
-let musicStep = 0, nextNote = 0, musicTimer = null, musicPaused = false;
-const hz = m => 440 * Math.pow(2, (m - 69) / 12);
-function note(m, t, dur, type, vol) {
-  const o = audio.createOscillator(), g = audio.createGain();
-  o.type = type; o.frequency.value = hz(m);
-  g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(vol, t + 0.008);
-  g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
-  o.connect(g).connect(musicBus); o.start(t); o.stop(t + dur + 0.02);
+const achList=()=>ACH.filter(a=>!a.ev||halloween()||S.ach[a.id]);
+
+/* Halloween event: runs every October */
+const halloween=()=>new Date().getMonth()===9;
+function hwDaysLeft(){const n=new Date();return Math.max(1,Math.ceil((new Date(n.getFullYear(),10,1)-n)/86400000));}
+function addCandy(n){S.candy+=n;S.candyTotal+=n;}
+const LANTERN_COST=[10,30,75];
+let totAt=Date.now()+25000, totUntil=0;
+function checkAch(){
+  for(const a of ACH){ if(!S.ach[a.id]&&a.c()){S.ach[a.id]=true;toast(`🏆 Trophy: ${a.n} (+2% gold)`);sfx.big();} }
 }
-function xylo(m, t) {                 // bony, knocky xylophone
-  note(m, t, 0.22, "triangle", 0.09);
-  note(m + 12, t, 0.06, "sine", 0.04);
-  note(m + 24, t, 0.03, "sine", 0.02);
+
+/* sound: small synth effects, no files needed */
+let AC=null, muted=false;
+try{muted=localStorage.getItem('mh-muted')==='1';}catch(e){}
+function tone(f,dur,type,vol,delay){
+  if(muted) return;
+  try{
+    AC=AC||new (window.AudioContext||window.webkitAudioContext)();
+    const t=AC.currentTime+(delay||0), o=AC.createOscillator(), g=AC.createGain();
+    o.type=type||'sine'; o.frequency.setValueAtTime(f,t);
+    g.gain.setValueAtTime(vol||.1,t); g.gain.exponentialRampToValueAtTime(.0001,t+dur);
+    o.connect(g); g.connect(AC.destination); o.start(t); o.stop(t+dur+.02);
+  }catch(e){}
 }
-function theremin(t) {                // the "woooo" ghost swoop
-  const o = audio.createOscillator(), lfo = audio.createOscillator(), depth = audio.createGain(), g = audio.createGain();
-  o.type = "sine"; o.frequency.setValueAtTime(hz(69), t);
-  o.frequency.exponentialRampToValueAtTime(hz(81), t + 0.35);
-  o.frequency.exponentialRampToValueAtTime(hz(72), t + 0.9);
-  lfo.frequency.value = 6; depth.gain.value = 9; lfo.connect(depth).connect(o.frequency);
-  g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(0.06, t + 0.15);
-  g.gain.exponentialRampToValueAtTime(0.0001, t + 0.95);
-  o.connect(g).connect(musicBus); o.start(t); lfo.start(t); o.stop(t + 1); lfo.stop(t + 1);
+const sfx={
+  tap(r){tone(r?1760:1320,.22,'sine',.12);tone(r?2640:1980,.15,'sine',.04);},
+  buy(){tone(660,.08,'square',.05);tone(990,.12,'square',.05,.07);},
+  big(){[523,659,784,1047].forEach((f,i)=>tone(f,.28,'triangle',.1,i*.09));},
+  rush(){[392,523,659,784,1047,1319].forEach((f,i)=>tone(f,.14,'sawtooth',.04,i*.05));}
+};
+/* background music: original loop, generated in code */
+let musicOn=true, audioUnlocked=false;
+try{musicOn=localStorage.getItem('mh-music')!=='0';}catch(e){}
+let mGain=null, nextNoteT=0, step=0, schedIv=null, noiseBuf=null;
+const BASS=[[45,52,57,52],[41,48,53,48],[38,45,50,45],[40,47,52,47]];
+const MEL=[[69,null,72,76,null,74,72,71],[69,null,72,77,null,76,74,72],[74,null,77,81,null,79,77,76],[76,null,68,71,76,null,74,71]];
+const TWK=[[81,88],[77,84],[74,81],[76,80]];
+const SONGS=[{B:BASS,M:MEL,T:TWK},{
+  B:[[48,55,60,55],[45,52,57,52],[41,48,53,48],[43,50,55,50]],
+  M:[[72,null,76,79,76,null,72,74],[76,null,72,69,72,null,76,79],[77,null,81,77,76,null,74,72],[74,null,79,77,74,71,null,null]],
+  T:[[84,88],[81,84],[77,84],[79,83]]}];
+const EIGHTH=60/112/2;
+const mf=m=>440*Math.pow(2,(m-69)/12);
+function mnote(m,t,dur,type,vol){
+  const o=AC.createOscillator(), g=AC.createGain();
+  o.type=type; o.frequency.setValueAtTime(mf(m),t);
+  g.gain.setValueAtTime(.0001,t); g.gain.exponentialRampToValueAtTime(vol,t+.01); g.gain.exponentialRampToValueAtTime(.0001,t+dur);
+  o.connect(g); g.connect(mGain); o.start(t); o.stop(t+dur+.05);
 }
-function noise(t, type, freq, vol, dur) {
-  const n = audio.createBufferSource(), f = audio.createBiquadFilter(), g = audio.createGain();
-  n.buffer = noiseBuf; f.type = type; f.frequency.value = freq;
-  g.gain.setValueAtTime(vol, t); g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
-  n.connect(f).connect(g).connect(musicBus); n.start(t); n.stop(t + dur + 0.02);
+function hat(t){
+  const src=AC.createBufferSource(), f=AC.createBiquadFilter(), g=AC.createGain();
+  src.buffer=noiseBuf; f.type='highpass'; f.frequency.value=7000;
+  g.gain.setValueAtTime(.2,t); g.gain.exponentialRampToValueAtTime(.0001,t+.04);
+  src.connect(f); f.connect(g); g.connect(mGain); src.start(t); src.stop(t+.05);
 }
-function kick(t) {
-  const o = audio.createOscillator(), g = audio.createGain();
-  o.frequency.setValueAtTime(140, t); o.frequency.exponentialRampToValueAtTime(45, t + 0.12);
-  g.gain.setValueAtTime(0.3, t); g.gain.exponentialRampToValueAtTime(0.0001, t + 0.15);
-  o.connect(g).connect(musicBus); o.start(t); o.stop(t + 0.17);
-}
-function playStep(s, t) {
-  const bar = Math.floor(s / 8), e = s % 8, r = ROOTS[bar];
-  if (e % 2 === 0) note(e % 4 === 0 ? r : r + 7, t, 0.16, "triangle", 0.24);     // tuba-style "oom"
-  if (e % 2 === 1) CHORDS[bar].forEach(m => note(m, t, 0.08, "square", 0.012));  // "pah" chords
-  if (e === 0 || e === 4) kick(t);
-  if (e === 2 || e === 6) noise(t, "highpass", 2500, 0.12, 0.05);                // finger snap
-  const m = MELODY[bar][e]; if (m) xylo(m, t);
-  if (bar === 3 && e === 4) theremin(t);
-}
-function stepLen() {
-  // music speeds up a little with each rush hour
-  const bpm = running ? Math.min(156, 124 + Math.floor(elapsed / RAMP_EVERY) * 6) : 116;
-  return 60 / bpm / 2;
-}
-function scheduler() {
-  if (!audio || musicPaused || audio.state !== "running") return;
-  if (nextNote < audio.currentTime - 0.2) nextNote = audio.currentTime + 0.05;
-  while (nextNote < audio.currentTime + 0.12) {
-    playStep(musicStep, nextNote); nextNote += stepLen(); musicStep = (musicStep + 1) % 64;
+function schedule(){
+  while(nextNoteT<AC.currentTime+.3){
+    const bar=Math.floor(step/8)%8, ch=bar%4, e=step%8, t=nextNoteT, sg=SONGS[Math.floor(step/128)%2];
+    if(e%2===0) mnote(sg.B[ch][e/2],t,EIGHTH*1.8,'triangle',.5);
+    if(bar<4){const m=sg.M[ch][e]; if(m) mnote(m,t,EIGHTH*.9,'square',.12);}
+    else if(e===0||e===4) mnote(sg.T[ch][e/4],t,EIGHTH*3,'sine',.25);
+    if(e%2===1) hat(t);
+    nextNoteT+=EIGHTH; step++;
   }
 }
-function startMusic() {
-  musicPaused = false;
-  if (!audio || musicTimer) return;
-  nextNote = audio.currentTime + 0.1; musicTimer = setInterval(scheduler, 25);
+function startMusic(){
+  if(!musicOn||!audioUnlocked||schedIv||document.hidden) return;
+  try{
+    AC=AC||new (window.AudioContext||window.webkitAudioContext)();
+    if(AC.state==='suspended') AC.resume();
+    if(!mGain){mGain=AC.createGain(); mGain.connect(AC.destination);}
+    if(!noiseBuf){noiseBuf=AC.createBuffer(1,Math.floor(AC.sampleRate*.05),AC.sampleRate);const d=noiseBuf.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=Math.random()*2-1;}
+    mGain.gain.cancelScheduledValues(AC.currentTime); mGain.gain.setValueAtTime(.09,AC.currentTime);
+    nextNoteT=AC.currentTime+.05; schedIv=setInterval(schedule,80);
+  }catch(e){}
+}
+function stopMusic(){
+  if(schedIv){clearInterval(schedIv);schedIv=null;}
+  if(mGain&&AC) mGain.gain.setTargetAtTime(.0001,AC.currentTime,.05);
+}
+let rushMeter=0, rushUntil=0;
+const rushing=()=>Date.now()<rushUntil;
+let prevLit=-1;
+let S=fresh(), tab='build', mode=1, sig='', winSig='', confirmReset=false, confirmErase=false;
+let vipAt=Date.now()+20000, vipUntil=0, vipName=VIPS[0];
+
+const $=id=>document.getElementById(id);
+const SUF=['','K','M','B','T','Qa','Qi','Sx','Sp','Oc','No','Dc'];
+function fmt(n){
+  if(!isFinite(n)) return '∞';
+  if(n<1000) return n<10 ? (Math.floor(n*10)/10).toString() : Math.floor(n).toString();
+  const i=Math.floor(Math.log10(n)/3);
+  if(i>=SUF.length) return n.toExponential(2);
+  const v=n/Math.pow(1000,i);
+  return (v<10?v.toFixed(2):v<100?v.toFixed(1):Math.floor(v))+SUF[i];
+}
+const gold=n=>fmt(n)+' gold';
+const clock=ms=>{const s=Math.max(0,Math.ceil(ms/1000));return Math.floor(s/60)+':'+String(s%60).padStart(2,'0');};
+
+const owned=id=>S.owned[id]||0;
+function genMult(id){let m=1;for(let i=0;i<3;i++) if(S.ups[id+i]) m*=2;return m;}
+const globalMult=()=>(1+0.05*S.stars)*(1+0.02*Object.keys(S.ach).length)*(1+0.1*S.lanterns);
+const boosted=()=>Date.now()<S.boostUntil;
+function ips(noBoost){
+  let t=0; for(const g of GENS) t+=owned(g.id)*g.rate*genMult(g.id);
+  if(S.loc==='volcano') t*=2; t*=globalMult(); if(!noBoost&&boosted()) t*=2; if(!noBoost&&Date.now()<S.miniUntil) t*=2; return t;
+}
+const tapValue=()=>(Math.pow(2,S.tap)+ips()*0.01*S.tap)*globalMult()*(S.loc==='lodge'?3:1);
+function earn(x){S.money+=x;S.runEarned+=x;S.lifetime+=x;}
+const unitCost=g=>g.base*Math.pow(R,owned(g.id))*(S.loc==='beach'?0.9:1);
+const costOf=(g,n)=>unitCost(g)*(Math.pow(R,n)-1)/(R-1);
+const maxBuy=g=>Math.floor(Math.log(S.money*(R-1)/unitCost(g)+1)/Math.log(R));
+const buyCount=g=>mode==='max'?Math.max(1,maxBuy(g)):mode;
+const starGain=()=>Math.floor(Math.sqrt(S.runEarned/1e6)*(S.loc==='moon'?1.25:1));
+const visibleGens=()=>GENS.filter((g,i)=>i===0||owned(GENS[i-1].id)>0||owned(g.id)>0);
+function nextUps(){
+  const out=[];
+  for(const g of GENS){
+    if(!owned(g.id)) continue;
+    const i=[0,1,2].find(k=>!S.ups[g.id+k]);
+    if(i!==undefined) out.push({g,i,key:g.id+i,cost:g.base*UP_COST[i],req:UP_REQ[i]});
+  }
+  return out;
 }
 
-// ---- Sound and music buttons ----
-function paintToggles() {
-  soundBtn.classList.toggle("off", !soundOn); musicBtn.classList.toggle("off", !musicOn);
-  soundBtn.setAttribute("aria-pressed", soundOn); musicBtn.setAttribute("aria-pressed", musicOn);
-}
-soundBtn.addEventListener("click", () => { soundOn = !soundOn; save("rs_sound", soundOn); paintToggles(); initAudio(); sfx.catch(4); });
-musicBtn.addEventListener("click", () => {
-  musicOn = !musicOn; save("rs_music", musicOn); paintToggles(); initAudio();
-  if (musicBus) musicBus.gain.setTargetAtTime(musicOn ? MUSIC_VOLUME : 0, audio.currentTime, 0.05);
-  startMusic();
-});
-paintToggles();
+function save(){S.last=Date.now();try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+function load(){try{const raw=localStorage.getItem(KEY); if(raw) S=Object.assign(fresh(),JSON.parse(raw));}catch(e){S=fresh();}}
 
-// ---- Game state ----
-let player, items, particles, popups, splats;
-let hearts, coins, combo, speed, spawnGap, spawnTimer, elapsed;
-let shake, flash, invuln, multPulse, magnetT, slowT, clock = 0, running = false, lastTime;
-
-const mult = () => Math.min(MAX_MULT, 1 + Math.floor(combo / COMBO_STEP));
-
-function reset() {
-  player = { x:W/2, y:H-110, targetX:W/2, vx:0, squash:0 };
-  items = []; particles = []; popups = []; splats = [];
-  hearts = maxHearts(); coins = 0; combo = 0;
-  speed = START_SPEED; spawnGap = START_SPAWN; spawnTimer = 0; elapsed = 0;
-  shake = 0; flash = 0; invuln = 0; multPulse = 0; magnetT = 0; slowT = 0;
-  updateHud();
-}
-function updateHud() {
-  heartsEl.innerHTML = icon("heart").repeat(Math.max(0,hearts)) + icon("heartEmpty").repeat(Math.max(0, maxHearts() - hearts));
-  coinsEl.innerHTML = icon("coin") + " " + coins;
+/* hotel windows light up as the hotel grows */
+function renderWindows(){
+  const total=GENS.reduce((a,g)=>a+owned(g.id),0);
+  const lit=total===0?0:Math.min(WINDOWS,Math.ceil(Math.sqrt(total)*2.2));
+  const types=GENS.filter(g=>owned(g.id)>0);
+  const key=lit+'|'+types.map(g=>g.id).join();
+  if(key===winSig) return; winSig=key;
+  let h='';
+  for(let i=0;i<WINDOWS;i++){
+    if(i<lit){const g=types[(i*7)%types.length];h+=`<div class="win on${prevLit>=0&&i>=prevLit?' new':''}">${art(g.id)}</div>`;}
+    else h+='<div class="win"></div>';
+  }
+  $('windows').innerHTML=h; prevLit=lit;
 }
 
-function spawn() {
-  const r = Math.random();
-  let kind, emoji, vyMul = 1;
-  if (r < GOLD_CHANCE) { kind = "gold"; emoji = GOLD; vyMul = 1.6; }
-  else if (elapsed > 8 && r < GOLD_CHANCE + POWER_CHANCE) {
-    kind = Math.random() < 0.5 ? "magnet" : "slow"; emoji = kind === "magnet" ? MAGNET : SLOW;
+function signature(){
+  return [tab,mode,S.stars,S.tap,visibleGens().map(g=>g.id).join(),nextUps().map(u=>u.key).join(),starGain()>0,Object.keys(S.ach).length,confirmReset,confirmErase].join('|');
+}
+function renderList(){
+  const L=$('list'); let h='';
+  $('modes').style.display=tab==='build'?'flex':'none';
+  if(tab==='build'){
+    const vis=visibleGens();
+    for(const g of vis){
+      h+=`<div class="row"><div class="av">${art(g.id)}<b id="c-${g.id}"></b></div><div class="info"><div class="nm">${g.name}</div><div class="sub" id="s-${g.id}"></div></div>
+      <button class="buy" data-buy="${g.id}"><span id="n-${g.id}"></span><small id="p-${g.id}"></small></button></div>`;
+    }
+    const next=GENS[vis.length];
+    if(next) h+=`<div class="row locked"><div class="av">❔</div><div class="info"><div class="nm">Locked room</div><div class="sub">Buy a ${vis[vis.length-1].name.toLowerCase()} to reveal the next room.</div></div></div>`;
+  } else if(tab==='up'){
+    if(S.tap<TAP_COST.length){
+      h+=`<div class="row"><div class="av">🛎️</div><div class="info"><div class="nm">${TAP_ACTIONS[S.tap+1]}</div><div class="sub">Doubles gold per tap and adds 1% of income to each tap.</div></div>
+      <button class="buy" data-tapup="1">Buy<small>${gold(TAP_COST[S.tap])}</small></button></div>`;
+    }
+    for(const u of nextUps()){
+      h+=`<div class="row"><div class="av">${art(u.g.id)}</div><div class="info"><div class="nm">${u.g.ups[u.i]}</div><div class="sub" id="r-${u.key}"></div></div>
+      <button class="buy" data-up="${u.key}">Buy<small>${gold(u.cost)}</small></button></div>`;
+    }
+    if(!h) h=`<div class="prose"><p>Hire your first ghost bellhop to unlock upgrades.</p></div>`;
+  } else if(tab==='ach'){
+    const got=Object.keys(S.ach).length;
+    h=`<div class="prose"><p>Each trophy adds 2% to all gold, forever.</p><div class="big" style="margin-bottom:0">${got}/${achList().length} 🏆 (+${got*2}%)</div></div>`;
+    for(const a of achList()){const g=!!S.ach[a.id];h+=`<div class="row ach${g?' got':''}"><div class="av">${g?a.e:'🔒'}</div><div class="info"><div class="nm">${a.n}</div><div class="sub">${a.t}</div></div></div>`;}
   } else {
-    const isBad = Math.random() < Math.min(0.25 + elapsed / 200, 0.5);
-    kind = isBad ? "bad" : "good";
-    const list = isBad ? BAD : GOOD;
-    emoji = list[Math.floor(Math.random() * list.length)];
+    const gain=starGain();
+    h=`<div class="prose">
+      <p>Hotel stars stay with you forever. Each one adds 5% to all gold you earn.</p>
+      <div class="big">${S.stars} ⭐ (+${S.stars*5}%)</div>
+      <p>Opening a new hotel resets your rooms, upgrades, and gold. You keep your stars and trophies, and you choose where to build next. Each location has its own perk.</p>
+      <p>Current hotel: <b>${LOCS[S.loc].e} ${LOCS[S.loc].n}</b></p>
+      <p id="gainline"></p>
+      <button class="buy wide" id="prestige" ${gain>0?'':'disabled'}>Open a new hotel</button>
+      <button class="danger" id="erase">${confirmErase?'Tap again to erase everything':'Erase saved game'}</button>
+    </div>`;
   }
-  items.push({
-    x: 30 + Math.random() * (W - 60), y: -40, emoji, kind,
-    vy: speed * (0.85 + Math.random() * 0.3) * vyMul,
-    rot: Math.random() * 6, spin: (Math.random() - 0.5) * 4
+  L.innerHTML=h;
+}
+const vipValue=()=>(Math.max(ips()*90,tapValue()*30)+25)*(S.loc==='castle'?2:1);
+function update(){
+  const s=signature(); if(s!==sig){sig=s;renderList();}
+  renderWindows();
+  $('money').textContent=fmt(S.money);
+  $('rate').textContent=fmt(ips())+' per second';
+  $('stars').textContent=S.stars?`${S.stars} ⭐`:'';
+  $('tapName').textContent=TAP_ACTIONS[S.tap];
+  const rOn=rushing();
+  $('tapVal').textContent='+'+gold(tapValue()*(rOn?5:1));
+  document.body.classList.toggle('rushing',rOn);
+  $('rushlbl').textContent=rOn?'Guest rush! ×5 gold per tap':'Tap fast for a guest rush';
+  $('rushbar').style.width=(rOn?(rushUntil-Date.now())/rushDur():rushMeter)*100+'%';
+  const G=GOALS[S.goal], gc=$('goal');
+  if(!G){gc.style.display='none';}
+  else{
+    const p=Math.min(goalProg(G),G.n), done=p>=G.n;
+    gc.style.display='block'; gc.classList.toggle('done',done);
+    $('goaltext').textContent=(done?'✅ ':'🎯 ')+G.t;
+    $('goalrew').textContent='+'+gold(goalReward(G));
+    $('goalbar').style.width=(p/G.n*100)+'%';
+  }
+  const b=boosted();
+  const mini=Date.now()<S.miniUntil;
+  $('boostline').textContent=[b?`Double gold ${clock(S.boostUntil-Date.now())}`:'',mini?`Bonus 2× ${clock(S.miniUntil-Date.now())}`:''].filter(Boolean).join('  ·  ');
+  $('boost').style.display=b?'none':'block';
+  $('boosthint').style.display=b?'none':'block';
+
+  if(tab==='build'){
+    for(const g of visibleGens()){
+      const n=buyCount(g), c=costOf(g,n), o=owned(g.id), each=g.rate*genMult(g.id)*globalMult()*(S.loc==='volcano'?2:1);
+      $('c-'+g.id).textContent=o;
+      $('s-'+g.id).textContent=`${fmt(each)}/sec each`+(o?`, ${fmt(o*each)}/sec total`:'');
+      $('n-'+g.id).textContent='Buy '+n;
+      $('p-'+g.id).textContent=gold(c);
+      document.querySelector(`[data-buy="${g.id}"]`).disabled=S.money<c;
+    }
+  } else if(tab==='up'){
+    const t=document.querySelector('[data-tapup]');
+    if(t) t.disabled=S.money<TAP_COST[S.tap];
+    for(const u of nextUps()){
+      const met=owned(u.g.id)>=u.req;
+      $('r-'+u.key).textContent=met?`Doubles gold from ${u.g.plural}.`:`Own ${u.req} ${u.g.plural} (you have ${owned(u.g.id)}).`;
+      document.querySelector(`[data-up="${u.key}"]`).disabled=!met||S.money<u.cost;
+    }
+  } else {
+    const gl=$('gainline');
+    if(gl) gl.textContent=starGain()>0?`You'd earn ${starGain()} ⭐ now.`:`Earn ${gold(1e6)} this run to qualify (so far: ${gold(S.runEarned)}).`;
+  }
+  $('locname').textContent=`${LOCS[S.loc].e} ${LOCS[S.loc].n}`;
+  document.body.dataset.loc=S.loc;
+  const hw=halloween();
+  document.body.classList.toggle('hw',hw);
+  if(hw){
+    $('hwsub').textContent=`🍬 ${S.candy} candy, ${hwDaysLeft()} day${hwDaysLeft()===1?'':'s'} left`;
+    const tb=$('tot');
+    if(Date.now()<totUntil){tb.classList.add('show');tb.textContent='🍬 Trick-or-treaters at the door! Tap to hand out treats';}
+    else tb.classList.remove('show');
+  } else $('tot').classList.remove('show');
+  const now=Date.now(), vb=$('vip');
+  if(now<vipUntil){vb.classList.add('show');vb.textContent=`✨ ${vipName} checked in! Tap for a ${gold(vipValue())} tip`;}
+  else vb.classList.remove('show');
+}
+
+const cardQ=[]; let cardOpen=false;
+function showCard(fn){cardQ.push(fn); if(!cardOpen) nextCard();}
+function nextCard(){const fn=cardQ.shift(); if(!fn){cardOpen=false;return;} cardOpen=true; fn(); $('ov').classList.add('show');}
+function closeCard(){$('ov').classList.remove('show'); cardOpen=false; setTimeout(()=>{if(!cardOpen) nextCard();},200);}
+let toastT;
+function toast(msg){const t=$('toast');t.textContent=msg;t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),2800);}
+function fakeAd(done){
+  let n=3; const card=$('card');
+  const tick=()=>{card.innerHTML=`<h2>Ad plays here</h2><p>The real game shows a short video ad. Reward in ${n}…</p>`;};
+  tick(); cardOpen=true; $('ov').classList.add('show');
+  const iv=setInterval(()=>{n--; if(n<=0){clearInterval(iv);done();closeCard();} else tick();},1000);
+}
+
+$('tap').addEventListener('click',e=>{
+  const r=rushing(), v=tapValue()*(r?5:1); earn(v); S.taps++; sfx.tap(r);
+  if(halloween()&&Math.random()<.015){addCandy(1);toast('🍬 A guest left you a piece of candy!');}
+  if(!r){rushMeter=Math.min(1,rushMeter+(S.loc==='sea'?0.1:0.07)); if(rushMeter>=1){rushMeter=0;rushUntil=Date.now()+rushDur();S.rushes++;sfx.rush();}}
+  const f=document.createElement('span'); f.className='float'; f.textContent='+'+fmt(v);
+  const rect=$('tapwrap').getBoundingClientRect();
+  const x=(e.clientX&&e.clientX>0)?e.clientX-rect.left:rect.width/2;
+  f.style.left=x+'px'; $('tapwrap').appendChild(f); setTimeout(()=>f.remove(),800);
+  update();
+});
+$('vip').addEventListener('click',()=>{earn(vipValue());S.vips++;vipUntil=0;sfx.big();pop();update();});
+$('claim').addEventListener('click',()=>{const G=GOALS[S.goal]; if(!G||goalProg(G)<G.n) return; earn(goalReward(G)); S.goal++; sfx.big(); pop(); save(); update();});
+$('mute').addEventListener('click',()=>{muted=!muted;try{localStorage.setItem('mh-muted',muted?'1':'0');}catch(e){} setMute();});
+$('music').addEventListener('click',()=>{
+  musicOn=!musicOn; try{localStorage.setItem('mh-music',musicOn?'1':'0');}catch(e){}
+  audioUnlocked=true; setMusicBtn(); if(musicOn) startMusic(); else stopMusic();
+});
+function setMusicBtn(){$('music').classList.toggle('off',!musicOn);$('music').setAttribute('aria-label',musicOn?'Turn music off':'Turn music on');}
+document.addEventListener('pointerdown',()=>{audioUnlocked=true;startMusic();},{passive:true});
+function setMute(){$('mute').textContent=muted?'🔇':'🔊';$('mute').setAttribute('aria-label',muted?'Turn sound on':'Turn sound off');}
+function pop(){const m=$('money');m.classList.remove('pop');void m.offsetWidth;m.classList.add('pop');}
+function newRoom(g){
+  sfx.big();
+  showCard(()=>{
+    $('card').innerHTML=`<div class="em">${art(g.id)}</div><h2>New room: ${g.name}</h2><p>${g.d}</p><button class="buy" id="okroom">Nice!</button>`;
+    $('okroom').onclick=closeCard;
+  });
+}
+$('boost').addEventListener('click',()=>track('ad-double-gold')||fakeAd(()=>{S.boostUntil=Date.now()+BOOST_MS;save();update();}));
+document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>{
+  tab=t.dataset.tab; confirmReset=confirmErase=false;
+  document.querySelectorAll('.tab').forEach(x=>x.setAttribute('aria-selected',x===t));update();
+}));
+document.querySelectorAll('.modes button').forEach(b=>b.addEventListener('click',()=>{
+  mode=b.dataset.mode==='max'?'max':+b.dataset.mode;
+  document.querySelectorAll('.modes button').forEach(x=>x.setAttribute('aria-pressed',x===b));update();
+}));
+$('list').addEventListener('click',e=>{
+  const b=e.target.closest('button'); if(!b||b.disabled) return;
+  if(b.dataset.buy){
+    const g=GENS.find(x=>x.id===b.dataset.buy), n=buyCount(g), c=costOf(g,n);
+    if(S.money>=c){S.money-=c;S.owned[g.id]=owned(g.id)+n;sfx.buy();pop();
+      if(!S.seen[g.id]){S.seen[g.id]=true;newRoom(g);}}
+  } else if(b.dataset.tapup){
+    const c=TAP_COST[S.tap]; if(S.money>=c){S.money-=c;S.tap++;sfx.buy();pop();}
+  } else if(b.dataset.up){
+    const u=nextUps().find(x=>x.key===b.dataset.up);
+    if(u&&S.money>=u.cost&&owned(u.g.id)>=u.req){S.money-=u.cost;S.ups[u.key]=true;sfx.buy();pop();}
+  } else if(b.id==='prestige'){
+    chooseLoc();
+  } else if(b.id==='erase'){
+    if(!confirmErase){confirmErase=true;}
+    else{S=fresh();confirmErase=false;try{localStorage.removeItem(KEY);}catch(err){}}
+  }
+  update();
+});
+
+function offline(){
+  const secs=Math.min((Date.now()-S.last)/1000,S.loc==='desert'?8*3600:OFFLINE_CAP);
+  const amt=ips(true)*secs*0.5*(S.loc==='desert'?2:1);
+  if(secs<30||amt<1) return;
+  const mins=Math.round(secs/60);
+  showCard(()=>{
+    $('card').innerHTML=`<h2>Welcome back!</h2><p>Your guests kept paying while you were away (${mins} min):</p>
+      <div class="big">${gold(amt)}</div>
+      <button class="buy" id="dbl">Collect ${gold(amt*2)} (watch ad)</button>
+      <button class="ghost" id="one">Collect ${gold(amt)}</button>`;
+    $('one').onclick=()=>{earn(amt);save();closeCard();};
+    $('dbl').onclick=()=>{track('ad-offline-double');fakeAd(()=>{earn(amt*2);save();});};
   });
 }
 
-function burst(x, y, color, n) {
-  for (let i = 0; i < n; i++) {
-    const a = Math.random() * Math.PI * 2, sp = 80 + Math.random() * 220;
-    particles.push({ x, y, vx: Math.cos(a)*sp, vy: Math.sin(a)*sp - 120, life: 0.6, color });
-  }
+/* daily reward: 7-day streak, day 7 = golden key */
+const dayStr=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+const DAILY=[1,2,3,4,5,8];
+let dailyQueued=false;
+function dailyCheck(){
+  const today=dayStr(new Date());
+  if(dailyQueued||S.daily.last===today) return;
+  const y=new Date(); y.setDate(y.getDate()-1);
+  const streak=S.daily.last===dayStr(y)?S.daily.streak+1:1;
+  const idx=(streak-1)%7, isKey=idx===6;
+  dailyQueued=true;
+  showCard(()=>{
+    const amt=Math.max(ips(true)*120,100)*(DAILY[idx]||0);
+    let days='';
+    for(let i=0;i<7;i++) days+=`<div class="day${i<idx?' got':''}${i===idx?' today':''}">Day ${i+1}<span>${i===6?'🗝️':'🪙'}</span></div>`;
+    $('card').innerHTML=`<h2>Daily reward</h2><p>${streak>1?`${streak}-day streak! Come back tomorrow to keep it going.`:'Come back every day for bigger rewards.'}</p>
+      <div class="days">${days}</div>
+      <div class="big">${isKey?'Golden key: 2× gold for 30 min':gold(amt)}</div>
+      ${halloween()?'<p>🎃 Halloween bonus: +5 candy</p>':''}
+      <button class="buy" id="getdaily">Collect</button>`;
+    $('getdaily').onclick=()=>{
+      S.daily={last:today,streak}; dailyQueued=false;
+      if(isKey) S.miniUntil=Math.max(Date.now(),S.miniUntil)+30*60000; else earn(amt);
+      if(halloween()) addCandy(5);
+      sfx.big(); pop(); save(); closeCard();
+    };
+  });
 }
-function popup(x, y, text, color, size=26) { popups.push({ x, y, text, color, size, life: 0.9 }); }
 
-// ---- Controls ----
-canvas.addEventListener("pointerdown", e => player.targetX = e.clientX);
-canvas.addEventListener("pointermove", e => player.targetX = e.clientX);
-const keys = {};
-window.addEventListener("keydown", e => keys[e.key.toLowerCase()] = true);
-window.addEventListener("keyup", e => keys[e.key.toLowerCase()] = false);
-
-// ---- Visit counter (GoatCounter) ----
-// Only runs on your GitHub Page, never on CrazyGames (their dashboard has the stats there).
-const COUNTER_SITE = "monsterhotel";
-if (location.hostname.endsWith("github.io")) {
-  const g = document.createElement("script");
-  g.async = true; g.src = "https://gc.zgo.at/count.js";
-  g.dataset.goatcounter = "https://" + COUNTER_SITE + ".goatcounter.com/count";
-  document.head.appendChild(g);
+/* hotel incidents: quick choices with different payoffs */
+const evGold=x=>(Math.max(ips(true)*x,x*3)+20)*(S.loc==='castle'?2:1);
+function gainEv(x){const v=evGold(x);earn(v);return `+${gold(v)}`;}
+function gamble(p,hi,lo,win,lose){const w=Math.random()<p,v=evGold(w?hi:lo);earn(v);return `${w?win:lose} +${gold(v)}`;}
+function bonus(sec,msg){S.miniUntil=Math.max(Date.now(),S.miniUntil)+sec*1000;return msg;}
+const EVENTS=[
+ {t:'🐺 A werewolf chewed through the lobby couch.',a:['Bill his room',()=>gainEv(45)],b:['Let it slide',()=>bonus(60,'He left a glowing review. 2× gold for 1 minute!')]},
+ {t:'👻 A ghost wants to haunt the honeymoon suite.',a:['Allow it (risky)',()=>gamble(.5,150,10,'The couple loved it!','The couple fled.')],b:['Politely refuse',()=>gainEv(40)]},
+ {t:'🧟 Zombies are lining up an hour early for breakfast.',a:['Open early',()=>gainEv(60)],b:['Charge extra (risky)',()=>gamble(.6,120,15,'They paid up!','They wandered off.')]},
+ {t:'🐉 A dragon fell asleep across the parking lot.',a:['Sell tickets to see it',()=>gainEv(70)],b:['Wake it up (risky)',()=>gamble(.4,250,0,'It paid you to let it nap!','It sneezed fire. No harm done.')]},
+ {t:'🧙 A witch offers you a mysterious potion.',a:['Drink it',()=>{if(Math.random()<.6){rushUntil=Date.now()+rushDur();S.rushes++;sfx.rush();return 'Guest rush! Tap fast!';}return 'You burped glitter. Nothing else happened.';}],b:['Sell it',()=>gainEv(50)]},
+ {t:'🧛 A vampire is upset that the sun came up.',a:['Comp his night',()=>bonus(90,'He told all his friends. 2× gold for 90 seconds!')],b:['Sell him sunglasses',()=>gainEv(35)]},
+ {t:'🟢 The slime pool is leaking into the elevator.',a:['Call a plumber',()=>gainEv(20)],b:['Call it a slime slide (risky)',()=>gamble(.5,180,5,'Guests are lining up to ride it!','Nobody wanted a sticky elevator.')]}
+];
+const HW_EVENTS=[
+ {t:'🎃 A headless horseman wants a room for his horse too.',a:['Build a stable',()=>gainEv(60)],b:['Rent them the ballroom (risky)',()=>gamble(.5,160,10,'The horse loved the dance floor!','The horse ate the curtains.')]},
+ {t:'🍭 Trick-or-treaters raided the lobby candy bowl.',a:['Refill it',()=>{addCandy(3);return '+3 🍬 They promised to come back.';}],b:['Hide the bowl',()=>gainEv(30)]}
+];
+let evAt=Date.now()+50000, curEv=null, evUntil=0;
+function showEvent(){
+  const pool=halloween()?EVENTS.concat(HW_EVENTS,HW_EVENTS):EVENTS;
+  curEv=pool[Math.floor(Math.random()*pool.length)]; evUntil=Date.now()+30000;
+  $('evtext').textContent=curEv.t; $('evA').textContent=curEv.a[0]; $('evB').textContent=curEv.b[0];
+  $('event').classList.add('show');
 }
-function track(path, title) {
-  try { if (window.goatcounter && window.goatcounter.count) window.goatcounter.count({ path, title, event: true }); } catch (e) {}
+function answer(w){
+  if(!curEv) return; let msg=curEv[w][1](); S.events++; curEv=null;
+  if(halloween()){addCandy(2);msg+=' +2 🍬';}
+  $('event').classList.remove('show'); sfx.big(); pop(); toast(msg); save();
+  evAt=Date.now()+(90+Math.random()*90)*1000;
 }
+$('evA').onclick=()=>answer('a'); $('evB').onclick=()=>answer('b');
 
-// ---- CrazyGames SDK (ads + gameplay events) ----
-// Ads only run on CrazyGames, or in test mode (add ?useLocalSdk=true to the address).
-let SDK = null;
-const adsOn = () => !!SDK;
-(async () => {
-  try {
-    if (window.CrazyGames && window.CrazyGames.SDK) {
-      await window.CrazyGames.SDK.init();
-      const env = window.CrazyGames.SDK.environment;
-      if (env === "crazygames" || env === "local") SDK = window.CrazyGames.SDK;
+$('tot').addEventListener('click',()=>{
+  const c=3+Math.floor(Math.random()*4); addCandy(c); earn(vipValue()*0.5); totUntil=0;
+  sfx.big(); pop(); toast(`🍬 +${c} candy! The trick-or-treaters loved your treats.`); save(); update();
+});
+function shopRow(id,e,n,t,cost){
+  return `<div class="row"><div class="av">${e}</div><div class="info"><div class="nm">${n}</div><div class="sub">${t}</div></div>${id?`<button class="buy" data-shop="${id}" ${S.candy<cost?'disabled':''}>Buy<small>${cost} 🍬</small></button>`:''}</div>`;
+}
+function renderShop(){
+  const lv=S.lanterns;
+  $('card').innerHTML=`<div class="em">🍬</div><h2>Candy shop</h2><p>You have <b>${S.candy}</b> candy. Earn more from trick-or-treaters, hotel incidents, and daily rewards.</p>
+    ${lv<3?shopRow('lan','🎃',`Jack-o'-lanterns (level ${lv+1} of 3)`,'+10% gold forever, even after Halloween',LANTERN_COST[lv]):shopRow(null,'🎃',"Jack-o'-lanterns",'All 3 levels owned: +30% gold forever')}
+    ${shopRow('party','🎭','Costume party','2× gold for 10 minutes',15)}
+    ${shopRow('hay','🚜','Haunted hayride',`Instant ${gold(Math.max(ips(true)*600,500))}`,8)}
+    <button class="ghost" id="shopclose">Close</button>`;
+  $('card').querySelectorAll('[data-shop]').forEach(b=>b.onclick=()=>buyShop(b.dataset.shop));
+  $('shopclose').onclick=closeCard;
+}
+function buyShop(id){
+  const cost=id==='lan'?LANTERN_COST[S.lanterns]:id==='party'?15:8;
+  if(cost===undefined||S.candy<cost) return;
+  S.candy-=cost; track('candy-shop-'+id);
+  if(id==='lan'){S.lanterns++;toast(`🎃 Jack-o'-lanterns level ${S.lanterns}: +${S.lanterns*10}% gold forever`);}
+  else if(id==='party'){S.miniUntil=Math.max(Date.now(),S.miniUntil)+600000;toast('🎭 Costume party! 2× gold for 10 minutes');}
+  else {const v=Math.max(ips(true)*600,500);earn(v);toast(`🚜 Hayride tickets sold: +${gold(v)}`);}
+  sfx.big(); pop(); save(); renderShop(); update();
+}
+$('hwshop').addEventListener('click',()=>showCard(renderShop));
+function chooseLoc(){
+  const gain=starGain(); if(gain<1) return;
+  const total=S.stars+gain;
+  showCard(()=>{
+    let h=`<div class="em">⭐</div><h2>Open a new hotel</h2><p>You'll earn <b>${gain} ⭐</b> (${total} total). Rooms, upgrades, and gold reset. Stars, trophies, and lantern bonuses stay.</p><p><b>Where do you want to build?</b></p>`;
+    for(const [k,L] of Object.entries(LOCS)){
+      const ok=total>=L.need;
+      h+=`<div class="row"><div class="av" style="font-size:1.6rem">${L.e}</div><div class="info"><div class="nm">${L.n}</div><div class="sub">${ok?L.perk:`Unlocks at ${L.need} ⭐`}</div></div><button class="buy" data-loc="${k}" ${ok?'':'disabled'}>Build</button></div>`;
     }
-  } catch (e) { SDK = null; }
-  sdkCall(() => SDK.game.loadingStop());
-})();
-function sdkCall(fn) { if (!SDK) return; try { fn(); } catch (e) {} }
-let adPlaying = false;
-function showAd(type, onDone, onFail) {
-  if (!SDK || adPlaying) { if (onFail) onFail(); return; }
-  adPlaying = true;
-  const finish = ok => {
-    adPlaying = false;
-    if (audio && !document.hidden) audio.resume();      // sound back on
-    if (ok) { if (onDone) onDone(); } else if (onFail) onFail();
-  };
-  try {
-    SDK.ad.requestAd(type, {
-      adStarted: () => { if (audio) audio.suspend(); },  // silence during the ad
-      adFinished: () => finish(true),
-      adError: () => finish(false)
-    });
-  } catch (e) { finish(false); }
+    h+=`<button class="ghost" id="loccancel">Not yet</button>`;
+    $('card').innerHTML=h;
+    $('card').querySelectorAll('[data-loc]').forEach(b=>b.onclick=()=>{doPrestige(b.dataset.loc);closeCard();});
+    $('loccancel').onclick=closeCard;
+  });
+}
+function doPrestige(loc){
+  S=Object.assign(fresh(),S,{money:0,runEarned:0,owned:{},ups:{},tap:0,stars:S.stars+starGain(),loc,visited:Object.assign({},S.visited,{[loc]:true})});
+  if(loc==='lodge') S.owned.ghost=10;
+  sfx.big(); save(); track('opened-hotel-'+loc); toast(`${LOCS[loc].e} Welcome to your ${LOCS[loc].n}!`); update();
+}
+function hwIntro(){
+  const y=new Date().getFullYear();
+  if(!halloween()||S.hwSeen===y) return;
+  S.hwSeen=y;
+  showCard(()=>{
+    $('card').innerHTML=`<div class="em">🎃</div><h2>Halloween at the Monster Hotel!</h2>
+      <p>Trick-or-treaters are coming to the door. Hand out treats to earn 🍬 candy, then spend it in the candy shop on jack-o'-lanterns that boost your gold forever.</p>
+      <p><b>The event ends October 31.</b></p><button class="buy" id="hwok">Let's go!</button>`;
+    $('hwok').onclick=closeCard;
+  });
 }
 
-// ---- Pause ----
-function pauseGame() {
-  if (!running) return;
-  running = false; musicPaused = true; pauseBtn.classList.add("hidden"); sdkCall(() => SDK.game.gameplayStop());
-  $("legend").classList.add("hidden"); hideAdBtns();
-  titleEl.textContent = "Paused"; msgEl.textContent = "Your run is waiting."; statsEl.textContent = "";
-  playBtn.textContent = "Resume"; playBtn.dataset.resume = "1"; shopBtn.classList.add("hidden");
-  overlay.classList.remove("hidden");
-}
-pauseBtn.addEventListener("click", pauseGame);
-window.addEventListener("keydown", e => {
-  const k = e.key.toLowerCase();
-  if ((k === "p" || k === "escape") && running) pauseGame();
-});
-// Pause and go silent when the player switches tabs or apps
-document.addEventListener("visibilitychange", () => {
-  if (document.hidden) { pauseGame(); if (audio) audio.suspend(); }
-  else if (audio && !adPlaying) audio.resume();
-});
+let lastTick=Date.now();
+setInterval(()=>{
+  const now=Date.now(), dt=Math.min((now-lastTick)/1000,1); lastTick=now;
+  earn(ips()*dt);
+  if(!rushing()) rushMeter=Math.max(0,rushMeter-0.3*dt);
+  if(!curEv&&now>=evAt&&GENS.some(g=>owned(g.id)>0)) showEvent();
+  if(curEv&&now>evUntil){curEv=null;$('event').classList.remove('show');evAt=now+60000;}
+  if(halloween()&&now>=totAt){totUntil=now+15000;totAt=now+(40+Math.random()*40)*1000;}
+  checkAch();
+  if(now>=vipAt){vipUntil=now+12000;vipAt=now+(45+Math.random()*75)*1000;vipName=VIPS[Math.floor(Math.random()*VIPS.length)];}
+  update();
+},100);
+setInterval(()=>{save();dailyCheck();},5000);
+document.addEventListener('visibilitychange',()=>{if(document.hidden){save();stopMusic();} else startMusic();});
+window.addEventListener('pagehide',save);
 
-// Desktop players get a keyboard tip
-if (window.matchMedia && matchMedia("(pointer: fine)").matches)
-  msgEl.textContent = "Move with the mouse or arrow keys. Catch orders in a row to build a combo. Press P to pause.";
-
-// ---- Update ----
-function update(dt) {
-  elapsed += dt; clock += dt;
-  if (Math.floor(elapsed / RAMP_EVERY) > Math.floor((elapsed - dt) / RAMP_EVERY)) {
-    speed *= 1.15; spawnGap = Math.max(0.32, spawnGap * 0.88);
-    popup(W/2, H*0.4, "Rush hour!", "#7FE0B0", 34);
-  }
-
-  if (keys["arrowleft"] || keys["a"]) player.targetX -= 650 * dt;
-  if (keys["arrowright"] || keys["d"]) player.targetX += 650 * dt;
-  player.targetX = Math.max(30, Math.min(W - 30, player.targetX));
-  const oldX = player.x;
-  player.x += (player.targetX - player.x) * Math.min(1, dt * 18);
-  player.vx = (player.x - oldX) / dt;
-  player.squash = Math.max(0, player.squash - dt * 5);
-
-  shake = Math.max(0, shake - dt * 30);
-  flash = Math.max(0, flash - dt * 2.5);
-  invuln = Math.max(0, invuln - dt);
-  multPulse = Math.max(0, multPulse - dt * 3);
-  magnetT = Math.max(0, magnetT - dt);
-  slowT = Math.max(0, slowT - dt);
-
-  const idt = slowT > 0 ? dt * 0.5 : dt;   // falling things slow down in Slow-Mo
-  spawnTimer -= idt;
-  if (spawnTimer <= 0) { spawn(); spawnTimer = spawnGap; }
-
-  for (let i = items.length - 1; i >= 0; i--) {
-    const it = items[i];
-    it.y += it.vy * idt; it.rot += it.spin * idt;
-    const good = it.kind === "good" || it.kind === "gold";
-    if (magnetT > 0 && good && it.y < player.y) it.x += (player.x - it.x) * Math.min(1, dt * 4);
-
-    const caught = Math.abs(it.x - player.x) < reach() && Math.abs(it.y - player.y) < 40;
-    if (caught && it.kind === "bad" && invuln > 0) continue;   // flickering = safe
-    if (caught) {
-      items.splice(i, 1);
-      if (it.kind === "bad") {
-        hearts--; combo = 0; shake = 14; flash = 0.6; invuln = 1;
-        burst(it.x, it.y, "#E04848", 14); popup(it.x, it.y - 30, "Ouch!", "#FF7070", 30);
-        if (!hintShown) { hintShown = true; save("rs_hint", true);
-          popups.push({ x: W/2, y: H*0.45, text: "Avoid the red-glow items!", color: "#FF7070", size: 32, life: 2.5 }); }
-        sfx.hit(); navigator.vibrate?.(80);
-        updateHud();
-        if (hearts <= 0) return gameOver();
-      } else if (it.kind === "magnet") {
-        magnetT = magnetMax(); burst(it.x, it.y, "#7FE0B0", 12);
-        popup(it.x, it.y - 30, "Magnet!", "#7FE0B0", 30); sfx.power();
-      } else if (it.kind === "slow") {
-        slowT = SLOW_TIME; burst(it.x, it.y, "#8FB8FF", 12);
-        popup(it.x, it.y - 30, "Slow-mo!", "#8FB8FF", 30); sfx.power();
-      } else {
-        const before = mult();
-        combo++;
-        const m = mult(), gain = m * (it.kind === "gold" ? GOLD_VALUE : 1);
-        coins += gain; player.squash = 1;
-        if (it.kind === "gold") {
-          burst(it.x, it.y, "#FFD54A", 30); shake = 6;
-          popup(it.x, it.y - 40, "Golden tip! +" + gain, "#FFD54A", 34); sfx.gold();
-        } else {
-          burst(it.x, it.y, "#E0A93B", 8); popup(it.x, it.y - 30, "+" + gain, "#F6E7C8"); sfx.catch(combo);
-        }
-        if (m > before) { multPulse = 1; sfx.levelUp(); }
-        updateHud();
-      }
-    } else if (it.y > H - 70) {
-      items.splice(i, 1);
-      if (good) {
-        splats.push({ x: it.x, emoji: it.emoji, life: 1.2 });
-        if (combo >= COMBO_STEP) popup(it.x, H - 100, "Combo lost", "#FF9A70", 22);
-        combo = 0; sfx.miss();
-      }
-    }
-  }
-
-  for (let i = particles.length - 1; i >= 0; i--) {
-    const p = particles[i];
-    p.x += p.vx * dt; p.y += p.vy * dt; p.vy += 600 * dt; p.life -= dt;
-    if (p.life <= 0) particles.splice(i, 1);
-  }
-  for (let i = popups.length - 1; i >= 0; i--) {
-    const p = popups[i]; p.y -= 60 * dt; p.life -= dt;
-    if (p.life <= 0) popups.splice(i, 1);
-  }
-  for (let i = splats.length - 1; i >= 0; i--) {
-    splats[i].life -= dt; if (splats[i].life <= 0) splats.splice(i, 1);
-  }
-}
-
-// ---- Draw ----
-function drawBackground() {
-  ctx.fillStyle = "#2B1838"; ctx.fillRect(0, 0, W, H);
-  ctx.fillStyle = "#351E45"; for (let x = 0; x < W; x += 56) ctx.fillRect(x, 0, 28, H);
-  ctx.fillStyle = "#4A2A2A"; ctx.fillRect(0, H - 60, W, 60);
-  ctx.fillStyle = "#E0A93B"; ctx.fillRect(0, H - 62, W, 4);
-}
-function emoji(k, x, y, size, rot=0, sx=1, sy=1, alpha=1) {
-  const pic = PIC[k]; if (!pic) return;
-  ctx.save(); ctx.globalAlpha = alpha; ctx.translate(x, y); ctx.rotate(rot); ctx.scale(sx, sy);
-  ctx.drawImage(pic, -size/2, -size/2, size, size); ctx.restore();
-}
-function glow(x, y, r, color) {
-  const g = ctx.createRadialGradient(x, y, 0, x, y, r);
-  g.addColorStop(0, color); g.addColorStop(1, "rgba(0,0,0,0)");
-  ctx.fillStyle = g; ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fill();
-}
-function timerBar(icon, t, max, color, y) {
-  if (PIC[icon]) ctx.drawImage(PIC[icon], 14, y - 14, 28, 28); ctx.textAlign = "left";
-  ctx.fillStyle = "rgba(0,0,0,.35)"; ctx.fillRect(48, y - 6, 110, 12);
-  ctx.fillStyle = color; ctx.fillRect(48, y - 6, 110 * (t / max), 12);
-  ctx.textAlign = "center";
-}
-
-function draw() {
-  ctx.save();
-  if (shake > 0) ctx.translate((Math.random()-0.5)*shake, (Math.random()-0.5)*shake);
-  drawBackground();
-  ctx.textAlign = "center"; ctx.textBaseline = "middle";
-
-  for (const s of splats) emoji(s.emoji, s.x, H - 50, 34, 0, 1.4, 0.5, Math.min(1, s.life));
-  for (const it of items) {
-    if (it.kind === "gold") glow(it.x, it.y, 40 + Math.sin(clock * 10) * 8, "rgba(255,213,74,.8)");
-    if (it.kind === "bad") glow(it.x, it.y, 34, "rgba(224,72,72,.45)");
-    if (it.kind === "magnet" || it.kind === "slow") glow(it.x, it.y, 36, "rgba(127,224,176,.6)");
-    emoji(it.emoji, it.x, it.y, it.kind === "gold" ? 58 : 52, Math.sin(it.rot) * 0.4);
-  }
-
-  // Player: lean with movement, squish on catch, flicker when hit
-  const show = invuln <= 0 || Math.floor(invuln * 12) % 2 === 0;
-  if (show) {
-    if (magnetT > 0) glow(player.x, player.y, 70, "rgba(127,224,176,.35)");
-    const lean = Math.max(-0.3, Math.min(0.3, player.vx / 2500));
-    const sx = 1 + 0.25 * player.squash, sy = 1 - 0.2 * player.squash;
-    ctx.save(); ctx.translate(player.x, player.y + 30); ctx.rotate(lean); ctx.scale(sx, sy);
-    const tw = trayW();
-    ctx.fillStyle = "#E0A93B"; ctx.fillRect(-tw/2, -70, tw, 8);   // tray
-    if (PIC[skin]) ctx.drawImage(PIC[skin], -38, -64, 76, 76);
-    ctx.restore();
-  }
-
-  for (const p of particles) {
-    ctx.globalAlpha = Math.max(0, p.life / 0.6); ctx.fillStyle = p.color;
-    ctx.beginPath(); ctx.arc(p.x, p.y, 4, 0, Math.PI * 2); ctx.fill();
-  }
-  ctx.globalAlpha = 1;
-  for (const p of popups) {
-    ctx.globalAlpha = Math.min(1, p.life * 2); ctx.fillStyle = p.color;
-    ctx.font = "700 " + p.size + "px Fredoka, sans-serif"; ctx.fillText(p.text, p.x, p.y);
-  }
-  ctx.globalAlpha = 1;
-
-  // Power-up timers
-  let ty = 80;
-  if (magnetT > 0) { timerBar(MAGNET, magnetT, magnetMax(), "#7FE0B0", ty); ty += 32; }
-  if (slowT > 0) { timerBar(SLOW, slowT, SLOW_TIME, "#8FB8FF", ty); }
-
-  // Combo multiplier
-  const m = mult();
-  if (m > 1) {
-    const size = 48 + multPulse * 30;
-    ctx.fillStyle = "#E0A93B"; ctx.font = "700 " + size + "px Fredoka, sans-serif";
-    ctx.fillText("×" + m, W / 2, 130);
-    ctx.font = "500 16px Fredoka, sans-serif"; ctx.fillStyle = "#F6E7C8";
-    ctx.fillText("combo " + combo, W / 2, 170);
-  }
-  ctx.restore();
-
-  if (slowT > 0) { ctx.fillStyle = "rgba(120,160,255,.12)"; ctx.fillRect(0, 0, W, H); }
-  if (flash > 0) { ctx.fillStyle = "rgba(224,72,72," + flash * 0.35 + ")"; ctx.fillRect(0, 0, W, H); }
-}
-
-// ---- Loop ----
-function loop(t) {
-  if (!running) return;
-  const dt = Math.min(0.05, (t - lastTime) / 1000); lastTime = t;
-  update(dt);
-  if (running) draw();
-  requestAnimationFrame(loop);
-}
-function go() {
-  overlay.classList.add("hidden"); pauseBtn.classList.remove("hidden"); running = true;
-  sdkCall(() => SDK.game.gameplayStart());
-  startMusic(); lastTime = performance.now(); requestAnimationFrame(loop);
-}
-let banked = 0, revived = false, doubled = false, runsPlayed = 0;
-const reviveBtn = $("reviveBtn"), doubleBtn = $("doubleBtn");
-function hideAdBtns() { reviveBtn.classList.add("hidden"); doubleBtn.classList.add("hidden"); }
-function gameOver() {
-  running = false; pauseBtn.classList.add("hidden"); sfx.over(); draw();
-  sdkCall(() => SDK.game.gameplayStop());
-  const newBest = coins > best;
-  if (newBest) { best = coins; save("rs_best", best); }
-  bank += coins - banked; banked = coins; save("rs_bank", bank);   // only add coins not already banked
-  titleEl.textContent = newBest ? "New best!" : "Checked out!";
-  msgEl.textContent = "You earned " + coins + " coins in " + Math.floor(elapsed) + " seconds.";
-  showStats(); $("legend").classList.add("hidden");
-  // Rewarded ad offers
-  hideAdBtns();
-  if (adsOn()) {
-    if (!revived) reviveBtn.classList.remove("hidden");
-    if (!doubled && coins > 0) { $("doubleTxt").textContent = "Watch ad: +" + coins + " coins"; doubleBtn.classList.remove("hidden"); }
-  }
-  reviveBtn.disabled = doubleBtn.disabled = false;
-  playBtn.textContent = "Play again"; delete playBtn.dataset.resume; shopBtn.classList.remove("hidden");
-  setTimeout(() => overlay.classList.remove("hidden"), 600);
-}
-reviveBtn.addEventListener("click", () => {
-  initAudio(); reviveBtn.disabled = doubleBtn.disabled = true;
-  showAd("rewarded", () => {
-    revived = true; hideAdBtns();
-    hearts = 1; invuln = 2; combo = 0;
-    items = items.filter(it => it.kind !== "bad" && it.y < H * 0.4);   // clear danger so they get a fair restart
-    updateHud(); popup(W/2, H*0.45, "Back on duty!", "#7FE0B0", 34);
-    go();
-  }, () => { reviveBtn.disabled = doubleBtn.disabled = false; msgEl.textContent = "No ad available right now. Try again in a moment."; });
-});
-doubleBtn.addEventListener("click", () => {
-  initAudio(); reviveBtn.disabled = doubleBtn.disabled = true;
-  showAd("rewarded", () => {
-    doubled = true; hideAdBtns();
-    bank += coins; save("rs_bank", bank); sfx.gold();
-    msgEl.textContent = "Doubled! You earned " + (coins * 2) + " coins this run.";
-    showStats();
-  }, () => { reviveBtn.disabled = doubleBtn.disabled = false; msgEl.textContent = "No ad available right now. Try again in a moment."; });
-});
-function newRun() {
-  reset(); banked = 0; revived = false; doubled = false; runsPlayed++; hideAdBtns(); go();
-  track("room-service-run", "Room Service: run started");
-}
-playBtn.addEventListener("click", () => {
-  initAudio();
-  if (playBtn.dataset.resume) { delete playBtn.dataset.resume; go(); return; }
-  // A short ad between runs, every 3rd "Play again" (CrazyGames also limits how often these show)
-  if (runsPlayed > 0 && runsPlayed % 3 === 0 && adsOn()) {
-    playBtn.disabled = true;
-    showAd("midgame", () => { playBtn.disabled = false; newRun(); }, () => { playBtn.disabled = false; newRun(); });
-  } else newRun();
-});
-// ---- Shop ----
-function today() { const d = new Date(); return d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate(); }
-function renderShop() {
-  $("shopBank").innerHTML = icon("coin") + " " + bank;
-  let h = '<div class="shopHead">Upgrades</div>';
-  for (const u of UPGRADES) {
-    const lvl = up[u.id], max = u.costs.length, cost = u.costs[lvl];
-    const pips = "●".repeat(lvl) + "○".repeat(max - lvl);
-    const btn = lvl >= max ? '<button disabled>Maxed</button>'
-      : '<button data-buy="' + u.id + '"' + (bank < cost ? " disabled" : "") + '>' + icon("coin") + " " + cost + '</button>';
-    h += '<div class="item"><div class="info"><div class="name">' + u.name + '</div><div class="pips">' + pips +
-         '</div><div class="desc">' + u.desc + '</div></div>' + btn + '</div>';
-  }
-  h += '<div class="shopHead">Monsters</div>';
-  if (adsOn()) {
-    const used = load("rs_spin", "") === today();
-    h += '<div class="item"><div class="info"><div class="name">Free monster spin</div><div class="desc">' +
-         (used ? "Come back tomorrow for another spin." : "Watch an ad to unlock a random monster.") + '</div></div>' +
-         '<button class="adSmall" data-spin="1"' + (used ? " disabled" : "") + '>' + (used ? "Used" : "Watch ad") + '</button></div>';
-  }
-  h += '<div class="skins">';
-  for (const k of SKINS) {
-    const has = owned.includes(k.e), on = skin === k.e;
-    const label = on ? "Using" : has ? "Use" : icon("coin") + " " + k.cost;
-    h += '<button class="skin' + (on ? " on" : "") + (has ? "" : " locked") + '" data-skin="' + k.e + '">' +
-         icon(k.e, "") + '<span class="n">' + k.name + '</span><span class="c">' + label + '</span></button>';
-  }
-  shopList.innerHTML = h + '</div>';
-}
-shopList.addEventListener("click", e => {
-  const b = e.target.closest("button"); if (!b) return;
-  initAudio();
-  if (b.dataset.spin) {
-    b.disabled = true;
-    showAd("rewarded", () => {
-      save("rs_spin", today());
-      const locked = SKINS.filter(k => !owned.includes(k.e));
-      if (locked.length) {
-        const k = locked[Math.floor(Math.random() * locked.length)];
-        owned.push(k.e); skin = k.e; save("rs_skins", owned); save("rs_skin", skin);
-        $("shopBank").innerHTML = icon("coin") + " " + bank;
-      } else { bank += 300; save("rs_bank", bank); }   // already own them all: 300 coins instead
-      sfx.gold(); renderShop(); showStats(); draw();
-    }, () => { b.disabled = false; });
-    return;
-  }
-  if (b.dataset.buy) {
-    const u = UPGRADES.find(x => x.id === b.dataset.buy), cost = u.costs[up[u.id]];
-    if (cost === undefined || bank < cost) return;
-    bank -= cost; up[u.id]++; save("rs_bank", bank); save("rs_up", up); sfx.power();
-  } else if (b.dataset.skin) {
-    const k = SKINS.find(x => x.e === b.dataset.skin);
-    if (!owned.includes(k.e)) {
-      if (bank < k.cost) { sfx.miss(); return; }
-      bank -= k.cost; owned.push(k.e); save("rs_bank", bank); save("rs_skins", owned); sfx.gold();
-    }
-    skin = k.e; save("rs_skin", skin);
-  }
-  renderShop(); showStats(); updateHud(); draw();
-});
-shopBtn.addEventListener("click", () => { renderShop(); shopEl.classList.remove("hidden"); });
-$("shopClose").addEventListener("click", () => { shopEl.classList.add("hidden"); updateHud(); draw(); });
-
-reset(); draw();
-setTimeout(() => { if (!running) draw(); updateHud(); }, 300);
+load(); setMute(); setMusicBtn(); update(); offline(); dailyCheck(); hwIntro(); visitStats();
+function visitStats(){
+  const today=dayStr(new Date());
+  if(!S.first){S.first=today;track('new-player');save();return;}
+  const days=Math.floor((new Date(today)-new Date(S.first))/86400000);
+  for(const n of [1,3,7,14,30]) if(days>=n&&!S.ret[n]){S.ret[n]=true;track(`came-back-day-${n}`);}
+  save();
+} lastTick=Date.now();
 </script>
 </body>
 </html>
