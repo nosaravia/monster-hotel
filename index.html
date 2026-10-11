@@ -113,6 +113,9 @@ h1{font-family:"Lilita One",Impact,"Arial Black",sans-serif;font-weight:400;font
 .win.new{animation:flash 1s ease-out}
 @keyframes flash{0%{background:#fff;box-shadow:0 0 22px #fff}}
 .card .em{font-size:3rem;line-height:1;margin-bottom:6px}
+.av svg{width:42px;height:42px;display:block}
+.win svg{width:84%;height:84%;display:block}
+.card .em svg{width:96px;height:96px;margin:0 auto}
 .event{display:none;margin-top:12px;padding:14px;background:var(--night);color:#F5EEFF;border-radius:12px}
 .event.show{display:block}
 .event p{margin:0 0 10px;font-weight:800}
@@ -129,7 +132,32 @@ h1{font-family:"Lilita One",Impact,"Arial Black",sans-serif;font-weight:400;font
 .day.today{border:2px solid var(--pump);color:var(--ink)}
 .ach{opacity:.5}
 .ach.got{opacity:1}
-@media (prefers-reduced-motion: reduce){.toast{transition:none}.float{display:none}.tapbtn:active,.buy:active{transform:none}.money.pop,.win.new{animation:none}}
+.hotel{position:relative}
+body[data-loc="beach"]{--night:#0F3552;--night2:#1F6C8A;--wall:#B97D4E}
+body[data-loc="castle"]{--night:#17172A;--night2:#33294A;--wall:#5E5B6E}
+body[data-loc="lodge"]{--night:#0E2236;--night2:#2C4E70;--wall:#6B4A30}
+body[data-loc="desert"]{--night:#3A1E4A;--night2:#B5603A;--wall:#C9954E}
+body[data-loc="sea"]{--night:#04263A;--night2:#0B5A6E;--wall:#2F6F7A}
+body[data-loc="volcano"]{--night:#1A0B0B;--night2:#5A1A10;--wall:#4A3A36}
+body[data-loc="moon"]{--night:#05060F;--night2:#1B1D3A;--wall:#7D8296}
+.hw .hotel{background:linear-gradient(var(--night) 0%,var(--night2) 65%,#6A2E12 100%)}
+.bat{display:none;position:absolute;font-size:1.15rem;pointer-events:none;animation:bat 6s ease-in-out infinite}
+.hw .bat{display:block}
+.bat.b1{top:14px;right:20px}.bat.b2{top:56px;right:72px;font-size:.85rem;animation-delay:-3s}
+@keyframes bat{0%,100%{transform:translate(0,0)}50%{transform:translate(-14px,9px)}}
+.doorrow{display:flex;justify-content:center;align-items:flex-end;gap:12px;margin-top:10px}
+.doorrow .door{margin:0}
+.pk{display:none;font-size:1.35rem;line-height:1;padding-bottom:2px}
+.hw .pk{display:block}
+.hwcard{display:none;align-items:center;gap:12px;margin-top:12px;padding:10px 12px;border-radius:12px;background:linear-gradient(90deg,#3B1C0B,#5A2C10);color:#FFE6CC}
+.hw .hwcard{display:flex}
+.hwcard .info{flex:1;min-width:0}
+.hwcard .sub{color:#F2BE8C}
+.hwcard .av{background:#24110A}
+.card{max-height:86vh;overflow:auto}
+.card .row{text-align:left;margin-top:8px}
+.card .row .buy{width:auto;margin-top:0;padding:8px 10px}
+@media (prefers-reduced-motion: reduce){.bat{animation:none}.toast{transition:none}.float{display:none}.tapbtn:active,.buy:active{transform:none}.money.pop,.win.new{animation:none}}
 </style>
 </head>
 <body>
@@ -140,18 +168,21 @@ h1{font-family:"Lilita One",Impact,"Arial Black",sans-serif;font-weight:400;font
   </header>
 
   <section class="hotel">
-    <div class="lbl">Gold</div>
+    <div class="lbl">Gold<span id="locname" style="float:right;color:#CDBBE6"></span></div>
     <div class="money" id="money">0</div>
     <div class="rate" id="rate">0 per second</div>
     <div class="boostline" id="boostline"></div>
-    <div class="facade" aria-hidden="true"><div class="windows" id="windows"></div><div class="door"></div></div>
+    <span class="bat b1" aria-hidden="true">🦇</span><span class="bat b2" aria-hidden="true">🦇</span>
+    <div class="facade" aria-hidden="true"><div class="windows" id="windows"></div><div class="doorrow"><span class="pk">🎃</span><div class="door"></div><span class="pk">🎃</span></div></div>
   </section>
+  <div class="hwcard" id="hwcard"><div class="av">🎃</div><div class="info"><div class="nm">Halloween event</div><div class="sub" id="hwsub"></div></div><button class="buy" id="hwshop">Candy shop</button></div>
 
   <div class="tapwrap" id="tapwrap">
     <button class="tapbtn" id="tap">🛎️ <span id="tapName">Check in a guest</span><small id="tapVal">+1 gold</small></button>
     <div class="rushwrap"><span id="rushlbl">Tap fast for a guest rush</span><div class="bar"><i id="rushbar"></i></div></div>
   </div>
   <button class="vip" id="vip"></button>
+  <button class="vip" id="tot"></button>
   <div class="goal" id="goal"><div class="gt"><span id="goaltext"></span><span class="gr" id="goalrew"></span></div><div class="bar"><i id="goalbar"></i></div><button class="buy claim" id="claim">Claim reward</button></div>
   <div class="event" id="event"><p id="evtext"></p><div class="ch"><button class="a" id="evA"></button><button class="b" id="evB"></button></div></div>
   <button class="boostbtn" id="boost">Double gold for 5 minutes</button>
@@ -183,15 +214,62 @@ const GENS=[
  {id:'slime',e:'🟢',name:'Slime pool',plural:'slime pools',base:110000,rate:600,d:'Slimes love a pool that is mostly them.',ups:['Wave machine','Glow-in-the-dark slime','Lazy river of goo']},
  {id:'witch',e:'🧙',name:'Witch rooftop bar',plural:'witch rooftop bars',base:1.2e6,rate:3300,d:'Witches pay extra for the cauldron view.',ups:['Bubbling cauldrons','Broom valet parking','Potion happy hour']},
  {id:'ballroom',e:'🕯️',name:'Haunted ballroom',plural:'haunted ballrooms',base:1.5e7,rate:18000,d:'The ghosts of 1890 are still dancing.',ups:['Self-playing organ','Chandelier of souls','Eternal dance party']},
- {id:'dragon',e:'🐉',name:'Dragon penthouse',plural:'dragon penthouses',base:2.5e8,rate:100000,d:'Dragons pay in gold. Lots of gold.',ups:['Fireproof carpets','Treasure-hoard vault','Volcano hot tub']}
+ {id:'dragon',e:'🐉',name:'Dragon penthouse',plural:'dragon penthouses',base:2.5e8,rate:100000,d:'Dragons pay in gold. Lots of gold.',ups:['Fireproof carpets','Treasure-hoard vault','Volcano hot tub']},
+ {id:'mummy',e:'🧻',name:'Mummy wrap spa',plural:'mummy wrap spas',base:3.6e9,rate:550000,d:'Mummies book the 3,000-year spa package.',ups:['Fresh linen wraps','Pharaoh suite','Golden sarcophagus']},
+ {id:'kraken',e:'🐙',name:'Kraken aquarium',plural:'kraken aquariums',base:5e10,rate:3e6,d:'The kraken greets every guest. With all eight arms.',ups:['Bigger tank','Shipwreck decor','Ink fountain']},
+ {id:'yeti',e:'❄️',name:'Yeti ice rink',plural:'yeti ice rinks',base:7e11,rate:1.7e7,d:'Yetis tip in snowflakes. Snowflakes made of gold.',ups:['Zamboni','Snow cone bar','Blizzard machine']},
+ {id:'alien',e:'👽',name:'UFO landing pad',plural:'UFO landing pads',base:1e13,rate:9.5e7,d:'Not technically monsters, but they paid in advance.',ups:['Tractor beam valet','Crop circle garden','Galaxy suite']}
 ];
+/* original monster art (inline SVG, no image files) */
+const OL='#24182F', ST=`stroke="${OL}" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"`;
+const eye=(x,y)=>`<ellipse cx="${x}" cy="${y}" rx="3.4" ry="4.2" fill="${OL}"/><circle cx="${x+1.1}" cy="${y-1.5}" r="1.2" fill="#fff"/>`;
+const blush=(a,b,y)=>`<circle cx="${a}" cy="${y}" r="2.6" fill="#FF9DB8" opacity=".8"/><circle cx="${b}" cy="${y}" r="2.6" fill="#FF9DB8" opacity=".8"/>`;
+const GHOSTBODY=c=>`<path d="M14 57V32a18 18 0 0 1 36 0v25l-6-5-6 5-6-5-6 5-6-5z" fill="${c}" ${ST}/>`;
+const ART={
+ ghost:`${GHOSTBODY('#F7F4FF')}<rect x="24" y="8" width="16" height="8" rx="2" fill="#D7263D" ${ST}/><rect x="20.5" y="14.5" width="23" height="4" rx="2" fill="#A51C2E" ${ST}/>${eye(26,33)}${eye(38,33)}${blush(21,43,39)}<ellipse cx="32" cy="42" rx="2.6" ry="3.2" fill="${OL}"/>`,
+ coffin:`<path d="M9 61 L19 40 L32 53 L45 40 L55 61Z" fill="#B3122E" ${ST}/><ellipse cx="32" cy="32" rx="16" ry="18" fill="#E3ECF3" ${ST}/><path d="M16 29C15 13 49 13 48 29C44 22 38 20 32 27C26 20 20 22 16 29Z" fill="#2A1B3D" ${ST}/>${eye(26,34)}${eye(38,34)}<path d="M25 42Q32 47 39 42" fill="none" ${ST}/><path d="M28 43.5l1.6 4 1.4-3.2zM36 43.5l-1.6 4-1.4-3.2z" fill="#fff" stroke="${OL}" stroke-width="1.4" stroke-linejoin="round"/>`,
+ moon:`<path d="M14 27L15 7L29 18ZM50 27L49 7L35 18Z" fill="#6E4329" ${ST}/><path d="M17.5 21L18 13L24 18ZM46.5 21L46 13L40 18Z" fill="#E2BC91"/><circle cx="32" cy="35" r="19" fill="#8E5B3A" ${ST}/><ellipse cx="32" cy="44" rx="10.5" ry="8" fill="#E2BC91" ${ST}/><circle cx="24" cy="32" r="4.6" fill="#FFD34D" ${ST}/><circle cx="40" cy="32" r="4.6" fill="#FFD34D" ${ST}/><circle cx="24.6" cy="32.6" r="2" fill="${OL}"/><circle cx="40.6" cy="32.6" r="2" fill="${OL}"/><ellipse cx="32" cy="40" rx="3.6" ry="2.6" fill="${OL}"/><path d="M28 46.5Q32 49.5 36 46.5" fill="none" ${ST}/>`,
+ buffet:`<rect x="13" y="15" width="38" height="40" rx="14" fill="#9CCB86" ${ST}/><path d="M18 19l3-8 4 6 3-8 4 7 3-8 4 7 4-6 1 9" fill="none" ${ST}/><circle cx="25" cy="32" r="6.5" fill="#fff" ${ST}/><circle cx="26.5" cy="33" r="2.6" fill="${OL}"/>${eye(40,33)}<path d="M21 45h22" fill="none" ${ST}/><path d="M25 42.5v5M30 42.5v5M35 42.5v5M40 42.5v5" fill="none" stroke="${OL}" stroke-width="1.8" stroke-linecap="round"/><path d="M36 21l6 2M38 19.5l-1 4" fill="none" stroke="#5E8A4D" stroke-width="1.8" stroke-linecap="round"/>`,
+ slime:`<path d="M10 53C10 30 20 16 32 16C44 16 54 30 54 53C51 58 47 53 44 58C40 62 36 56 32 58C28 61 24 55 20 58C16 61 11 58 10 53Z" fill="#6FD38A" ${ST}/><ellipse cx="21" cy="28" rx="3.5" ry="6" fill="#fff" opacity=".55" transform="rotate(30 21 28)"/>${eye(26,37)}${eye(38,37)}${blush(21,43,43)}<path d="M28 44.5Q32 48.5 36 44.5" fill="none" ${ST}/>`,
+ witch:`<path d="M17 31q-4 11 0 21M47 31q4 11 0 21" fill="none" stroke="#F06A3A" stroke-width="5" stroke-linecap="round"/><circle cx="32" cy="40" r="15" fill="#A8D98A" ${ST}/><path d="M18 27L31 2L46 27Z" fill="#5B3290" ${ST}/><path d="M20.5 22.5H43.6L45.5 26.5H18.5Z" fill="#FF8A3D"/><ellipse cx="32" cy="27.5" rx="24" ry="5" fill="#4B2A78" ${ST}/>${eye(26.5,39)}${eye(37.5,39)}<path d="M32 41.5l-2.5 5.5h5z" fill="#8CC56E" ${ST}/><path d="M27 49.5Q32 52.5 37 49.5" fill="none" ${ST}/>`,
+ ballroom:`${GHOSTBODY('#D3C2F5')}<rect x="23" y="1.5" width="18" height="13" rx="2" fill="${OL}"/><rect x="23" y="10" width="18" height="3" fill="#7A4FC0"/><rect x="18.5" y="13" width="27" height="4.5" rx="2" fill="${OL}"/>${eye(26,32)}${eye(38,32)}<circle cx="38" cy="32" r="6" fill="none" stroke="#E0B23A" stroke-width="1.8"/><path d="M28 40Q32 43 36 40" fill="none" ${ST}/><path d="M25 48L32 51L39 48V55L32 51L25 55Z" fill="#D7263D" ${ST}/>`,
+ dragon:`<path d="M19 23L7 13L23 17ZM45 23L57 13L41 17Z" fill="#F7E3B5" ${ST}/><path d="M21 21l4-12 5 8 2-11 2 11 5-8 4 12" fill="#FFC20E" ${ST}/><ellipse cx="32" cy="34" rx="20" ry="17.5" fill="#F0703C" ${ST}/><circle cx="20" cy="40" r="1.4" fill="#C2491C"/><circle cx="44" cy="40" r="1.4" fill="#C2491C"/><circle cx="17" cy="35" r="1.2" fill="#C2491C"/><ellipse cx="32" cy="45" rx="12.5" ry="8" fill="#F9A271" ${ST}/><ellipse cx="28" cy="43" rx="1.8" ry="1.3" fill="${OL}"/><ellipse cx="36" cy="43" rx="1.8" ry="1.3" fill="${OL}"/><path d="M27 48.5Q32 51.5 37 48.5" fill="none" ${ST}/>${eye(24,32)}${eye(40,32)}<path d="M45 45c5-3 9-1 11 3c-3-1-5 0-6 3c-1-3-3-4-5-6z" fill="#FFC20E" ${ST}/>`,
+ mummy:`<rect x="14" y="11" width="36" height="45" rx="16" fill="#EFE5CC" ${ST}/><path d="M16 21L48 17M15 27L49 29M15 45L49 42M17 51L47 54" fill="none" stroke="#C9B994" stroke-width="2.2" stroke-linecap="round"/><rect x="15.5" y="31" width="33" height="9" fill="#3A2A20"/><circle cx="25.5" cy="35.5" r="3" fill="#fff"/><circle cx="26.2" cy="35.8" r="1.6" fill="${OL}"/><circle cx="38.5" cy="35.5" r="3" fill="#fff"/><circle cx="39.2" cy="35.8" r="1.6" fill="${OL}"/><rect x="14" y="11" width="36" height="45" rx="16" fill="none" ${ST}/><path d="M47 47q9 3 7 12" fill="none" stroke="${OL}" stroke-width="6.5" stroke-linecap="round"/><path d="M47 47q9 3 7 12" fill="none" stroke="#EFE5CC" stroke-width="3.5" stroke-linecap="round"/>`,
+ kraken:`<path d="M15 45q-7 8-1 15q2-6 6-6M25 49q-3 8 2 12M39 49q3 8-2 12M49 45q7 8 1 15q-2-6-6-6" fill="none" stroke="${OL}" stroke-width="8" stroke-linecap="round"/><path d="M15 45q-7 8-1 15q2-6 6-6M25 49q-3 8 2 12M39 49q3 8-2 12M49 45q7 8 1 15q-2-6-6-6" fill="none" stroke="#9B5FD0" stroke-width="4" stroke-linecap="round"/><path d="M13 45C9 14 55 14 51 45C45 52 19 52 13 45Z" fill="#B57BE6" ${ST}/><circle cx="21" cy="30" r="2.5" fill="#D9B8F5"/><circle cx="38" cy="25" r="3" fill="#D9B8F5"/><circle cx="45" cy="33" r="2" fill="#D9B8F5"/>${eye(25,36)}${eye(39,36)}<path d="M28 43Q32 46 36 43" fill="none" ${ST}/>`,
+ yeti:`<path d="M32.0 15.5Q36.7 10.2 39.1 16.9Q45.5 13.8 45.1 20.9Q52.2 20.5 49.1 26.9Q55.8 29.3 50.5 34.0Q55.8 38.7 49.1 41.1Q52.2 47.5 45.1 47.1Q45.5 54.2 39.1 51.1Q36.7 57.8 32.0 52.5Q27.3 57.8 24.9 51.1Q18.5 54.2 18.9 47.1Q11.8 47.5 14.9 41.1Q8.2 38.7 13.5 34.0Q8.2 29.3 14.9 26.9Q11.8 20.5 18.9 20.9Q18.5 13.8 24.9 16.9Q27.3 10.2 32.0 15.5Z" fill="#F5F8FF" ${ST}/><ellipse cx="32" cy="38" rx="11.5" ry="10.5" fill="#8FB8E8" ${ST}/>${eye(27.5,35.5)}${eye(36.5,35.5)}<path d="M27 43Q32 47 37 43" fill="none" ${ST}/><path d="M30.5 44.6v2.6h3v-2.6" fill="#fff" stroke="${OL}" stroke-width="1.4" stroke-linejoin="round"/>`,
+ alien:`<path d="M24 17L19 6M40 17L45 6" fill="none" ${ST}/><circle cx="19" cy="6" r="3" fill="#FF8A3D" ${ST}/><circle cx="45" cy="6" r="3" fill="#FF8A3D" ${ST}/><path d="M32 14C48 14 53 28 48 41C45 50 38 57 32 57C26 57 19 50 16 41C11 28 16 14 32 14Z" fill="#9FE1E8" ${ST}/><ellipse cx="24.5" cy="34" rx="6" ry="8.5" fill="${OL}" transform="rotate(-25 24.5 34)"/><ellipse cx="39.5" cy="34" rx="6" ry="8.5" fill="${OL}" transform="rotate(25 39.5 34)"/><circle cx="23" cy="31" r="1.8" fill="#fff"/><circle cx="38" cy="31" r="1.8" fill="#fff"/><path d="M29 47Q32 49 35 47" fill="none" ${ST}/>`
+};
+const art=id=>`<svg viewBox="0 0 64 64" aria-hidden="true">${ART[id]}</svg>`;
 const UP_REQ=[10,25,50], UP_COST=[10,120,3000];
+const LOCS={
+ street:{n:'Spooky Street',e:'🏚️',need:0,perk:'The original hotel. No special perk.'},
+ beach:{n:'Beach Resort',e:'🏖️',need:1,perk:'All rooms cost 10% less.'},
+ castle:{n:'Haunted Castle',e:'🏰',need:5,perk:'VIP guests and hotel incidents pay 2×.'},
+ lodge:{n:'Mountain Lodge',e:'🏔️',need:15,perk:'Taps earn 3×, and you start with 10 ghost bellhops.'},
+ desert:{n:'Desert Pyramid',e:'🏜️',need:30,perk:'Away earnings are 2× and build up for 8 hours.'},
+ sea:{n:'Underwater Hotel',e:'🌊',need:60,perk:'Guest rushes fill faster and last twice as long.'},
+ volcano:{n:'Volcano Hotel',e:'🌋',need:100,perk:'All rooms earn 2×.'},
+ moon:{n:'Moon Base',e:'🌙',need:200,perk:'Earn 25% more hotel stars.'}
+};
+const rushDur=()=>S.loc==='sea'?16000:8000;
 const TAP_ACTIONS=['Check in a guest','Check in a bus tour','Host a monster wedding','Book a vampire convention','Host a full-moon festival','Throw the Haunted Gala'];
 const TAP_COST=[50,600,8000,120000,2.5e6];
 const VIPS=['A vampire count','A famous mummy','A sea monster','A headless knight','A yeti family','The witch council'];
 const R=1.15, KEY='monster-hotel-save-v1', OFFLINE_CAP=4*3600, BOOST_MS=5*60*1000, WINDOWS=24;
 
-const fresh=()=>({money:0,runEarned:0,lifetime:0,owned:{},ups:{},tap:0,stars:0,boostUntil:0,last:Date.now(),taps:0,rushes:0,goal:0,seen:{},vips:0,events:0,ach:{},daily:{last:'',streak:0},miniUntil:0});
+/* Visitor counter: put your GoatCounter code between the quotes to turn it on (e.g. 'monsterhotel'). */
+const GC_CODE='';
+const gcQueue=[];
+function track(name){
+  if(!GC_CODE) return;
+  try{ if(window.goatcounter&&window.goatcounter.count) window.goatcounter.count({path:name,title:name,event:true}); else gcQueue.push(name); }catch(e){}
+}
+if(GC_CODE){
+  const sc=document.createElement('script'); sc.async=true; sc.src='https://gc.zgo.at/count.js';
+  sc.dataset.goatcounter=`https://${GC_CODE}.goatcounter.com/count`;
+  sc.onload=()=>{gcQueue.splice(0).forEach(track);}; document.head.appendChild(sc);
+}
+const fresh=()=>({money:0,runEarned:0,lifetime:0,owned:{},ups:{},tap:0,stars:0,boostUntil:0,last:Date.now(),taps:0,rushes:0,goal:0,seen:{},vips:0,events:0,ach:{},daily:{last:'',streak:0},miniUntil:0,candy:0,candyTotal:0,lanterns:0,hwSeen:0,loc:'street',visited:{street:true},first:'',ret:{}});
 
 /* goals: always one clear thing to aim for */
 const GOALS=[
@@ -226,8 +304,21 @@ const ACH=[
  {id:'g3',e:'🐉',n:"Dragon's hoard",t:'Earn 1T gold in total',c:()=>S.lifetime>=1e12},
  {id:'s1',e:'⭐',n:'Grand reopening',t:'Earn a hotel star',c:()=>S.stars>=1},
  {id:'s2',e:'🌟',n:'Five-star hotel',t:'Have 5 hotel stars',c:()=>S.stars>=5},
- {id:'d1',e:'📅',n:'Loyal guest',t:'Reach a 7-day login streak',c:()=>S.daily.streak>=7}
+ {id:'d1',e:'📅',n:'Loyal guest',t:'Reach a 7-day login streak',c:()=>S.daily.streak>=7},
+ {id:'l1',e:'🧳',n:'Room with a view',t:'Open a hotel in a new location',c:()=>Object.keys(S.visited).length>=2},
+ {id:'l2',e:'🗺️',n:'Globe trotter',t:'Open hotels in 4 locations',c:()=>Object.keys(S.visited).length>=4},
+ {id:'l3',e:'🌍',n:'World traveler',t:'Open a hotel in all 8 locations',c:()=>Object.keys(S.visited).length>=8},
+ {id:'h1',e:'🍬',n:'Trick or treat!',t:'Collect 50 candy (Halloween event)',c:()=>S.candyTotal>=50,ev:1},
+ {id:'h2',e:'🎃',n:'Pumpkin king',t:"Own all 3 jack-o'-lantern levels (Halloween event)",c:()=>S.lanterns>=3,ev:1}
 ];
+const achList=()=>ACH.filter(a=>!a.ev||halloween()||S.ach[a.id]);
+
+/* Halloween event: runs every October */
+const halloween=()=>new Date().getMonth()===9;
+function hwDaysLeft(){const n=new Date();return Math.max(1,Math.ceil((new Date(n.getFullYear(),10,1)-n)/86400000));}
+function addCandy(n){S.candy+=n;S.candyTotal+=n;}
+const LANTERN_COST=[10,30,75];
+let totAt=Date.now()+25000, totUntil=0;
 function checkAch(){
   for(const a of ACH){ if(!S.ach[a.id]&&a.c()){S.ach[a.id]=true;toast(`🏆 Trophy: ${a.n} (+2% gold)`);sfx.big();} }
 }
@@ -258,6 +349,10 @@ let mGain=null, nextNoteT=0, step=0, schedIv=null, noiseBuf=null;
 const BASS=[[45,52,57,52],[41,48,53,48],[38,45,50,45],[40,47,52,47]];
 const MEL=[[69,null,72,76,null,74,72,71],[69,null,72,77,null,76,74,72],[74,null,77,81,null,79,77,76],[76,null,68,71,76,null,74,71]];
 const TWK=[[81,88],[77,84],[74,81],[76,80]];
+const SONGS=[{B:BASS,M:MEL,T:TWK},{
+  B:[[48,55,60,55],[45,52,57,52],[41,48,53,48],[43,50,55,50]],
+  M:[[72,null,76,79,76,null,72,74],[76,null,72,69,72,null,76,79],[77,null,81,77,76,null,74,72],[74,null,79,77,74,71,null,null]],
+  T:[[84,88],[81,84],[77,84],[79,83]]}];
 const EIGHTH=60/112/2;
 const mf=m=>440*Math.pow(2,(m-69)/12);
 function mnote(m,t,dur,type,vol){
@@ -274,10 +369,10 @@ function hat(t){
 }
 function schedule(){
   while(nextNoteT<AC.currentTime+.3){
-    const bar=Math.floor(step/8)%8, ch=bar%4, e=step%8, t=nextNoteT;
-    if(e%2===0) mnote(BASS[ch][e/2],t,EIGHTH*1.8,'triangle',.5);
-    if(bar<4){const m=MEL[ch][e]; if(m) mnote(m,t,EIGHTH*.9,'square',.12);}
-    else if(e===0||e===4) mnote(TWK[ch][e/4],t,EIGHTH*3,'sine',.25);
+    const bar=Math.floor(step/8)%8, ch=bar%4, e=step%8, t=nextNoteT, sg=SONGS[Math.floor(step/128)%2];
+    if(e%2===0) mnote(sg.B[ch][e/2],t,EIGHTH*1.8,'triangle',.5);
+    if(bar<4){const m=sg.M[ch][e]; if(m) mnote(m,t,EIGHTH*.9,'square',.12);}
+    else if(e===0||e===4) mnote(sg.T[ch][e/4],t,EIGHTH*3,'sine',.25);
     if(e%2===1) hat(t);
     nextNoteT+=EIGHTH; step++;
   }
@@ -318,19 +413,19 @@ const clock=ms=>{const s=Math.max(0,Math.ceil(ms/1000));return Math.floor(s/60)+
 
 const owned=id=>S.owned[id]||0;
 function genMult(id){let m=1;for(let i=0;i<3;i++) if(S.ups[id+i]) m*=2;return m;}
-const globalMult=()=>(1+0.05*S.stars)*(1+0.02*Object.keys(S.ach).length);
+const globalMult=()=>(1+0.05*S.stars)*(1+0.02*Object.keys(S.ach).length)*(1+0.1*S.lanterns);
 const boosted=()=>Date.now()<S.boostUntil;
 function ips(noBoost){
   let t=0; for(const g of GENS) t+=owned(g.id)*g.rate*genMult(g.id);
-  t*=globalMult(); if(!noBoost&&boosted()) t*=2; if(!noBoost&&Date.now()<S.miniUntil) t*=2; return t;
+  if(S.loc==='volcano') t*=2; t*=globalMult(); if(!noBoost&&boosted()) t*=2; if(!noBoost&&Date.now()<S.miniUntil) t*=2; return t;
 }
-const tapValue=()=>(Math.pow(2,S.tap)+ips()*0.01*S.tap)*globalMult();
+const tapValue=()=>(Math.pow(2,S.tap)+ips()*0.01*S.tap)*globalMult()*(S.loc==='lodge'?3:1);
 function earn(x){S.money+=x;S.runEarned+=x;S.lifetime+=x;}
-const unitCost=g=>g.base*Math.pow(R,owned(g.id));
+const unitCost=g=>g.base*Math.pow(R,owned(g.id))*(S.loc==='beach'?0.9:1);
 const costOf=(g,n)=>unitCost(g)*(Math.pow(R,n)-1)/(R-1);
 const maxBuy=g=>Math.floor(Math.log(S.money*(R-1)/unitCost(g)+1)/Math.log(R));
 const buyCount=g=>mode==='max'?Math.max(1,maxBuy(g)):mode;
-const starGain=()=>Math.floor(Math.sqrt(S.runEarned/1e6));
+const starGain=()=>Math.floor(Math.sqrt(S.runEarned/1e6)*(S.loc==='moon'?1.25:1));
 const visibleGens=()=>GENS.filter((g,i)=>i===0||owned(GENS[i-1].id)>0||owned(g.id)>0);
 function nextUps(){
   const out=[];
@@ -354,7 +449,7 @@ function renderWindows(){
   if(key===winSig) return; winSig=key;
   let h='';
   for(let i=0;i<WINDOWS;i++){
-    if(i<lit){const g=types[(i*7)%types.length];h+=`<div class="win on${prevLit>=0&&i>=prevLit?' new':''}">${g.e}</div>`;}
+    if(i<lit){const g=types[(i*7)%types.length];h+=`<div class="win on${prevLit>=0&&i>=prevLit?' new':''}">${art(g.id)}</div>`;}
     else h+='<div class="win"></div>';
   }
   $('windows').innerHTML=h; prevLit=lit;
@@ -369,7 +464,7 @@ function renderList(){
   if(tab==='build'){
     const vis=visibleGens();
     for(const g of vis){
-      h+=`<div class="row"><div class="av">${g.e}<b id="c-${g.id}"></b></div><div class="info"><div class="nm">${g.name}</div><div class="sub" id="s-${g.id}"></div></div>
+      h+=`<div class="row"><div class="av">${art(g.id)}<b id="c-${g.id}"></b></div><div class="info"><div class="nm">${g.name}</div><div class="sub" id="s-${g.id}"></div></div>
       <button class="buy" data-buy="${g.id}"><span id="n-${g.id}"></span><small id="p-${g.id}"></small></button></div>`;
     }
     const next=GENS[vis.length];
@@ -380,28 +475,29 @@ function renderList(){
       <button class="buy" data-tapup="1">Buy<small>${gold(TAP_COST[S.tap])}</small></button></div>`;
     }
     for(const u of nextUps()){
-      h+=`<div class="row"><div class="av">${u.g.e}</div><div class="info"><div class="nm">${u.g.ups[u.i]}</div><div class="sub" id="r-${u.key}"></div></div>
+      h+=`<div class="row"><div class="av">${art(u.g.id)}</div><div class="info"><div class="nm">${u.g.ups[u.i]}</div><div class="sub" id="r-${u.key}"></div></div>
       <button class="buy" data-up="${u.key}">Buy<small>${gold(u.cost)}</small></button></div>`;
     }
     if(!h) h=`<div class="prose"><p>Hire your first ghost bellhop to unlock upgrades.</p></div>`;
   } else if(tab==='ach'){
     const got=Object.keys(S.ach).length;
-    h=`<div class="prose"><p>Each trophy adds 2% to all gold, forever.</p><div class="big" style="margin-bottom:0">${got}/${ACH.length} 🏆 (+${got*2}%)</div></div>`;
-    for(const a of ACH){const g=!!S.ach[a.id];h+=`<div class="row ach${g?' got':''}"><div class="av">${g?a.e:'🔒'}</div><div class="info"><div class="nm">${a.n}</div><div class="sub">${a.t}</div></div></div>`;}
+    h=`<div class="prose"><p>Each trophy adds 2% to all gold, forever.</p><div class="big" style="margin-bottom:0">${got}/${achList().length} 🏆 (+${got*2}%)</div></div>`;
+    for(const a of achList()){const g=!!S.ach[a.id];h+=`<div class="row ach${g?' got':''}"><div class="av">${g?a.e:'🔒'}</div><div class="info"><div class="nm">${a.n}</div><div class="sub">${a.t}</div></div></div>`;}
   } else {
     const gain=starGain();
     h=`<div class="prose">
       <p>Hotel stars stay with you forever. Each one adds 5% to all gold you earn.</p>
       <div class="big">${S.stars} ⭐ (+${S.stars*5}%)</div>
-      <p>Opening a new hotel resets your rooms, upgrades, and gold. You keep your stars.</p>
+      <p>Opening a new hotel resets your rooms, upgrades, and gold. You keep your stars and trophies, and you choose where to build next. Each location has its own perk.</p>
+      <p>Current hotel: <b>${LOCS[S.loc].e} ${LOCS[S.loc].n}</b></p>
       <p id="gainline"></p>
-      <button class="buy wide" id="prestige" ${gain>0?'':'disabled'}>${confirmReset?'Tap again to confirm':'Open a new hotel'}</button>
+      <button class="buy wide" id="prestige" ${gain>0?'':'disabled'}>Open a new hotel</button>
       <button class="danger" id="erase">${confirmErase?'Tap again to erase everything':'Erase saved game'}</button>
     </div>`;
   }
   L.innerHTML=h;
 }
-const vipValue=()=>Math.max(ips()*90,tapValue()*30)+25;
+const vipValue=()=>(Math.max(ips()*90,tapValue()*30)+25)*(S.loc==='castle'?2:1);
 function update(){
   const s=signature(); if(s!==sig){sig=s;renderList();}
   renderWindows();
@@ -413,7 +509,7 @@ function update(){
   $('tapVal').textContent='+'+gold(tapValue()*(rOn?5:1));
   document.body.classList.toggle('rushing',rOn);
   $('rushlbl').textContent=rOn?'Guest rush! ×5 gold per tap':'Tap fast for a guest rush';
-  $('rushbar').style.width=(rOn?(rushUntil-Date.now())/8000:rushMeter)*100+'%';
+  $('rushbar').style.width=(rOn?(rushUntil-Date.now())/rushDur():rushMeter)*100+'%';
   const G=GOALS[S.goal], gc=$('goal');
   if(!G){gc.style.display='none';}
   else{
@@ -431,7 +527,7 @@ function update(){
 
   if(tab==='build'){
     for(const g of visibleGens()){
-      const n=buyCount(g), c=costOf(g,n), o=owned(g.id), each=g.rate*genMult(g.id)*globalMult();
+      const n=buyCount(g), c=costOf(g,n), o=owned(g.id), each=g.rate*genMult(g.id)*globalMult()*(S.loc==='volcano'?2:1);
       $('c-'+g.id).textContent=o;
       $('s-'+g.id).textContent=`${fmt(each)}/sec each`+(o?`, ${fmt(o*each)}/sec total`:'');
       $('n-'+g.id).textContent='Buy '+n;
@@ -450,6 +546,16 @@ function update(){
     const gl=$('gainline');
     if(gl) gl.textContent=starGain()>0?`You'd earn ${starGain()} ⭐ now.`:`Earn ${gold(1e6)} this run to qualify (so far: ${gold(S.runEarned)}).`;
   }
+  $('locname').textContent=`${LOCS[S.loc].e} ${LOCS[S.loc].n}`;
+  document.body.dataset.loc=S.loc;
+  const hw=halloween();
+  document.body.classList.toggle('hw',hw);
+  if(hw){
+    $('hwsub').textContent=`🍬 ${S.candy} candy, ${hwDaysLeft()} day${hwDaysLeft()===1?'':'s'} left`;
+    const tb=$('tot');
+    if(Date.now()<totUntil){tb.classList.add('show');tb.textContent='🍬 Trick-or-treaters at the door! Tap to hand out treats';}
+    else tb.classList.remove('show');
+  } else $('tot').classList.remove('show');
   const now=Date.now(), vb=$('vip');
   if(now<vipUntil){vb.classList.add('show');vb.textContent=`✨ ${vipName} checked in! Tap for a ${gold(vipValue())} tip`;}
   else vb.classList.remove('show');
@@ -470,7 +576,8 @@ function fakeAd(done){
 
 $('tap').addEventListener('click',e=>{
   const r=rushing(), v=tapValue()*(r?5:1); earn(v); S.taps++; sfx.tap(r);
-  if(!r){rushMeter=Math.min(1,rushMeter+0.07); if(rushMeter>=1){rushMeter=0;rushUntil=Date.now()+8000;S.rushes++;sfx.rush();}}
+  if(halloween()&&Math.random()<.015){addCandy(1);toast('🍬 A guest left you a piece of candy!');}
+  if(!r){rushMeter=Math.min(1,rushMeter+(S.loc==='sea'?0.1:0.07)); if(rushMeter>=1){rushMeter=0;rushUntil=Date.now()+rushDur();S.rushes++;sfx.rush();}}
   const f=document.createElement('span'); f.className='float'; f.textContent='+'+fmt(v);
   const rect=$('tapwrap').getBoundingClientRect();
   const x=(e.clientX&&e.clientX>0)?e.clientX-rect.left:rect.width/2;
@@ -491,11 +598,11 @@ function pop(){const m=$('money');m.classList.remove('pop');void m.offsetWidth;m
 function newRoom(g){
   sfx.big();
   showCard(()=>{
-    $('card').innerHTML=`<div class="em">${g.e}</div><h2>New room: ${g.name}</h2><p>${g.d}</p><button class="buy" id="okroom">Nice!</button>`;
+    $('card').innerHTML=`<div class="em">${art(g.id)}</div><h2>New room: ${g.name}</h2><p>${g.d}</p><button class="buy" id="okroom">Nice!</button>`;
     $('okroom').onclick=closeCard;
   });
 }
-$('boost').addEventListener('click',()=>fakeAd(()=>{S.boostUntil=Date.now()+BOOST_MS;save();update();}));
+$('boost').addEventListener('click',()=>track('ad-double-gold')||fakeAd(()=>{S.boostUntil=Date.now()+BOOST_MS;save();update();}));
 document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>{
   tab=t.dataset.tab; confirmReset=confirmErase=false;
   document.querySelectorAll('.tab').forEach(x=>x.setAttribute('aria-selected',x===t));update();
@@ -516,8 +623,7 @@ $('list').addEventListener('click',e=>{
     const u=nextUps().find(x=>x.key===b.dataset.up);
     if(u&&S.money>=u.cost&&owned(u.g.id)>=u.req){S.money-=u.cost;S.ups[u.key]=true;sfx.buy();pop();}
   } else if(b.id==='prestige'){
-    if(!confirmReset){confirmReset=true;}
-    else{sfx.big();const keep={stars:S.stars+starGain(),lifetime:S.lifetime,taps:S.taps,rushes:S.rushes,goal:S.goal,seen:S.seen,vips:S.vips,events:S.events,ach:S.ach,daily:S.daily};S=Object.assign(fresh(),keep);confirmReset=false;save();}
+    chooseLoc();
   } else if(b.id==='erase'){
     if(!confirmErase){confirmErase=true;}
     else{S=fresh();confirmErase=false;try{localStorage.removeItem(KEY);}catch(err){}}
@@ -526,8 +632,8 @@ $('list').addEventListener('click',e=>{
 });
 
 function offline(){
-  const secs=Math.min((Date.now()-S.last)/1000,OFFLINE_CAP);
-  const amt=ips(true)*secs*0.5;
+  const secs=Math.min((Date.now()-S.last)/1000,S.loc==='desert'?8*3600:OFFLINE_CAP);
+  const amt=ips(true)*secs*0.5*(S.loc==='desert'?2:1);
   if(secs<30||amt<1) return;
   const mins=Math.round(secs/60);
   showCard(()=>{
@@ -536,7 +642,7 @@ function offline(){
       <button class="buy" id="dbl">Collect ${gold(amt*2)} (watch ad)</button>
       <button class="ghost" id="one">Collect ${gold(amt)}</button>`;
     $('one').onclick=()=>{earn(amt);save();closeCard();};
-    $('dbl').onclick=()=>{fakeAd(()=>{earn(amt*2);save();});};
+    $('dbl').onclick=()=>{track('ad-offline-double');fakeAd(()=>{earn(amt*2);save();});};
   });
 }
 
@@ -558,17 +664,19 @@ function dailyCheck(){
     $('card').innerHTML=`<h2>Daily reward</h2><p>${streak>1?`${streak}-day streak! Come back tomorrow to keep it going.`:'Come back every day for bigger rewards.'}</p>
       <div class="days">${days}</div>
       <div class="big">${isKey?'Golden key: 2× gold for 30 min':gold(amt)}</div>
+      ${halloween()?'<p>🎃 Halloween bonus: +5 candy</p>':''}
       <button class="buy" id="getdaily">Collect</button>`;
     $('getdaily').onclick=()=>{
       S.daily={last:today,streak}; dailyQueued=false;
       if(isKey) S.miniUntil=Math.max(Date.now(),S.miniUntil)+30*60000; else earn(amt);
+      if(halloween()) addCandy(5);
       sfx.big(); pop(); save(); closeCard();
     };
   });
 }
 
 /* hotel incidents: quick choices with different payoffs */
-const evGold=x=>Math.max(ips(true)*x,x*3)+20;
+const evGold=x=>(Math.max(ips(true)*x,x*3)+20)*(S.loc==='castle'?2:1);
 function gainEv(x){const v=evGold(x);earn(v);return `+${gold(v)}`;}
 function gamble(p,hi,lo,win,lose){const w=Math.random()<p,v=evGold(w?hi:lo);earn(v);return `${w?win:lose} +${gold(v)}`;}
 function bonus(sec,msg){S.miniUntil=Math.max(Date.now(),S.miniUntil)+sec*1000;return msg;}
@@ -577,22 +685,87 @@ const EVENTS=[
  {t:'👻 A ghost wants to haunt the honeymoon suite.',a:['Allow it (risky)',()=>gamble(.5,150,10,'The couple loved it!','The couple fled.')],b:['Politely refuse',()=>gainEv(40)]},
  {t:'🧟 Zombies are lining up an hour early for breakfast.',a:['Open early',()=>gainEv(60)],b:['Charge extra (risky)',()=>gamble(.6,120,15,'They paid up!','They wandered off.')]},
  {t:'🐉 A dragon fell asleep across the parking lot.',a:['Sell tickets to see it',()=>gainEv(70)],b:['Wake it up (risky)',()=>gamble(.4,250,0,'It paid you to let it nap!','It sneezed fire. No harm done.')]},
- {t:'🧙 A witch offers you a mysterious potion.',a:['Drink it',()=>{if(Math.random()<.6){rushUntil=Date.now()+8000;S.rushes++;sfx.rush();return 'Guest rush! Tap fast!';}return 'You burped glitter. Nothing else happened.';}],b:['Sell it',()=>gainEv(50)]},
+ {t:'🧙 A witch offers you a mysterious potion.',a:['Drink it',()=>{if(Math.random()<.6){rushUntil=Date.now()+rushDur();S.rushes++;sfx.rush();return 'Guest rush! Tap fast!';}return 'You burped glitter. Nothing else happened.';}],b:['Sell it',()=>gainEv(50)]},
  {t:'🧛 A vampire is upset that the sun came up.',a:['Comp his night',()=>bonus(90,'He told all his friends. 2× gold for 90 seconds!')],b:['Sell him sunglasses',()=>gainEv(35)]},
  {t:'🟢 The slime pool is leaking into the elevator.',a:['Call a plumber',()=>gainEv(20)],b:['Call it a slime slide (risky)',()=>gamble(.5,180,5,'Guests are lining up to ride it!','Nobody wanted a sticky elevator.')]}
 ];
+const HW_EVENTS=[
+ {t:'🎃 A headless horseman wants a room for his horse too.',a:['Build a stable',()=>gainEv(60)],b:['Rent them the ballroom (risky)',()=>gamble(.5,160,10,'The horse loved the dance floor!','The horse ate the curtains.')]},
+ {t:'🍭 Trick-or-treaters raided the lobby candy bowl.',a:['Refill it',()=>{addCandy(3);return '+3 🍬 They promised to come back.';}],b:['Hide the bowl',()=>gainEv(30)]}
+];
 let evAt=Date.now()+50000, curEv=null, evUntil=0;
 function showEvent(){
-  curEv=EVENTS[Math.floor(Math.random()*EVENTS.length)]; evUntil=Date.now()+30000;
+  const pool=halloween()?EVENTS.concat(HW_EVENTS,HW_EVENTS):EVENTS;
+  curEv=pool[Math.floor(Math.random()*pool.length)]; evUntil=Date.now()+30000;
   $('evtext').textContent=curEv.t; $('evA').textContent=curEv.a[0]; $('evB').textContent=curEv.b[0];
   $('event').classList.add('show');
 }
 function answer(w){
-  if(!curEv) return; const msg=curEv[w][1](); S.events++; curEv=null;
+  if(!curEv) return; let msg=curEv[w][1](); S.events++; curEv=null;
+  if(halloween()){addCandy(2);msg+=' +2 🍬';}
   $('event').classList.remove('show'); sfx.big(); pop(); toast(msg); save();
   evAt=Date.now()+(90+Math.random()*90)*1000;
 }
 $('evA').onclick=()=>answer('a'); $('evB').onclick=()=>answer('b');
+
+$('tot').addEventListener('click',()=>{
+  const c=3+Math.floor(Math.random()*4); addCandy(c); earn(vipValue()*0.5); totUntil=0;
+  sfx.big(); pop(); toast(`🍬 +${c} candy! The trick-or-treaters loved your treats.`); save(); update();
+});
+function shopRow(id,e,n,t,cost){
+  return `<div class="row"><div class="av">${e}</div><div class="info"><div class="nm">${n}</div><div class="sub">${t}</div></div>${id?`<button class="buy" data-shop="${id}" ${S.candy<cost?'disabled':''}>Buy<small>${cost} 🍬</small></button>`:''}</div>`;
+}
+function renderShop(){
+  const lv=S.lanterns;
+  $('card').innerHTML=`<div class="em">🍬</div><h2>Candy shop</h2><p>You have <b>${S.candy}</b> candy. Earn more from trick-or-treaters, hotel incidents, and daily rewards.</p>
+    ${lv<3?shopRow('lan','🎃',`Jack-o'-lanterns (level ${lv+1} of 3)`,'+10% gold forever, even after Halloween',LANTERN_COST[lv]):shopRow(null,'🎃',"Jack-o'-lanterns",'All 3 levels owned: +30% gold forever')}
+    ${shopRow('party','🎭','Costume party','2× gold for 10 minutes',15)}
+    ${shopRow('hay','🚜','Haunted hayride',`Instant ${gold(Math.max(ips(true)*600,500))}`,8)}
+    <button class="ghost" id="shopclose">Close</button>`;
+  $('card').querySelectorAll('[data-shop]').forEach(b=>b.onclick=()=>buyShop(b.dataset.shop));
+  $('shopclose').onclick=closeCard;
+}
+function buyShop(id){
+  const cost=id==='lan'?LANTERN_COST[S.lanterns]:id==='party'?15:8;
+  if(cost===undefined||S.candy<cost) return;
+  S.candy-=cost; track('candy-shop-'+id);
+  if(id==='lan'){S.lanterns++;toast(`🎃 Jack-o'-lanterns level ${S.lanterns}: +${S.lanterns*10}% gold forever`);}
+  else if(id==='party'){S.miniUntil=Math.max(Date.now(),S.miniUntil)+600000;toast('🎭 Costume party! 2× gold for 10 minutes');}
+  else {const v=Math.max(ips(true)*600,500);earn(v);toast(`🚜 Hayride tickets sold: +${gold(v)}`);}
+  sfx.big(); pop(); save(); renderShop(); update();
+}
+$('hwshop').addEventListener('click',()=>showCard(renderShop));
+function chooseLoc(){
+  const gain=starGain(); if(gain<1) return;
+  const total=S.stars+gain;
+  showCard(()=>{
+    let h=`<div class="em">⭐</div><h2>Open a new hotel</h2><p>You'll earn <b>${gain} ⭐</b> (${total} total). Rooms, upgrades, and gold reset. Stars, trophies, and lantern bonuses stay.</p><p><b>Where do you want to build?</b></p>`;
+    for(const [k,L] of Object.entries(LOCS)){
+      const ok=total>=L.need;
+      h+=`<div class="row"><div class="av" style="font-size:1.6rem">${L.e}</div><div class="info"><div class="nm">${L.n}</div><div class="sub">${ok?L.perk:`Unlocks at ${L.need} ⭐`}</div></div><button class="buy" data-loc="${k}" ${ok?'':'disabled'}>Build</button></div>`;
+    }
+    h+=`<button class="ghost" id="loccancel">Not yet</button>`;
+    $('card').innerHTML=h;
+    $('card').querySelectorAll('[data-loc]').forEach(b=>b.onclick=()=>{doPrestige(b.dataset.loc);closeCard();});
+    $('loccancel').onclick=closeCard;
+  });
+}
+function doPrestige(loc){
+  S=Object.assign(fresh(),S,{money:0,runEarned:0,owned:{},ups:{},tap:0,stars:S.stars+starGain(),loc,visited:Object.assign({},S.visited,{[loc]:true})});
+  if(loc==='lodge') S.owned.ghost=10;
+  sfx.big(); save(); track('opened-hotel-'+loc); toast(`${LOCS[loc].e} Welcome to your ${LOCS[loc].n}!`); update();
+}
+function hwIntro(){
+  const y=new Date().getFullYear();
+  if(!halloween()||S.hwSeen===y) return;
+  S.hwSeen=y;
+  showCard(()=>{
+    $('card').innerHTML=`<div class="em">🎃</div><h2>Halloween at the Monster Hotel!</h2>
+      <p>Trick-or-treaters are coming to the door. Hand out treats to earn 🍬 candy, then spend it in the candy shop on jack-o'-lanterns that boost your gold forever.</p>
+      <p><b>The event ends October 31.</b></p><button class="buy" id="hwok">Let's go!</button>`;
+    $('hwok').onclick=closeCard;
+  });
+}
 
 let lastTick=Date.now();
 setInterval(()=>{
@@ -601,6 +774,7 @@ setInterval(()=>{
   if(!rushing()) rushMeter=Math.max(0,rushMeter-0.3*dt);
   if(!curEv&&now>=evAt&&GENS.some(g=>owned(g.id)>0)) showEvent();
   if(curEv&&now>evUntil){curEv=null;$('event').classList.remove('show');evAt=now+60000;}
+  if(halloween()&&now>=totAt){totUntil=now+15000;totAt=now+(40+Math.random()*40)*1000;}
   checkAch();
   if(now>=vipAt){vipUntil=now+12000;vipAt=now+(45+Math.random()*75)*1000;vipName=VIPS[Math.floor(Math.random()*VIPS.length)];}
   update();
@@ -609,7 +783,14 @@ setInterval(()=>{save();dailyCheck();},5000);
 document.addEventListener('visibilitychange',()=>{if(document.hidden){save();stopMusic();} else startMusic();});
 window.addEventListener('pagehide',save);
 
-load(); setMute(); setMusicBtn(); update(); offline(); dailyCheck(); lastTick=Date.now();
+load(); setMute(); setMusicBtn(); update(); offline(); dailyCheck(); hwIntro(); visitStats();
+function visitStats(){
+  const today=dayStr(new Date());
+  if(!S.first){S.first=today;track('new-player');save();return;}
+  const days=Math.floor((new Date(today)-new Date(S.first))/86400000);
+  for(const n of [1,3,7,14,30]) if(days>=n&&!S.ret[n]){S.ret[n]=true;track(`came-back-day-${n}`);}
+  save();
+} lastTick=Date.now();
 </script>
 </body>
 </html>
