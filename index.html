@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Monster Hotel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F1ECF8; --ink:#24182F; --muted:#6B5E7A; --line:#D9CFE8; --row:#FFFFFF;
+  --night:#2A1B3D; --night2:#3B2757; --wall:#4A3268; --win-off:#1C1229; --glow:#FFD66B; --mint:#7FE3C0;
+  --pump:#FF8A3D; --pump-dark:#C85F17; --pump-ink:#2A1206;
+  color-scheme:light; box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#15101C; --ink:#EDE6F5; --muted:#A898BA; --line:#33284A; --row:#1E1729;
+    --night:#1F1430; --night2:#2C1D44; --wall:#3A2754; --pump-dark:#B04F0F; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#15101C; --ink:#EDE6F5; --muted:#A898BA; --line:#33284A; --row:#1E1729;
+  --night:#1F1430; --night2:#2C1D44; --wall:#3A2754; --pump-dark:#B04F0F; color-scheme:dark;
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:"Nunito",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:16px;line-height:1.4;-webkit-tap-highlight-color:transparent}
+button{font:inherit;color:inherit;cursor:pointer;touch-action:manipulation}
+button:disabled{cursor:not-allowed}
+:focus-visible{outline:3px solid var(--pump);outline-offset:2px}
+.wrap{max-width:560px;margin:0 auto;padding:12px 14px 40px}
+header{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px}
+h1{font-family:"Lilita One",Impact,"Arial Black",sans-serif;font-weight:400;font-size:1.5rem;margin:0}
+.stars{font-weight:800;color:var(--muted)}
+
+/* the hotel */
+.hotel{background:linear-gradient(var(--night),var(--night2));color:#F5EEFF;border-radius:14px;padding:16px 16px 0;overflow:hidden}
+.lbl{color:var(--mint);font-weight:700;font-size:.9rem}
+.money{font-family:"Lilita One",Impact,"Arial Black",sans-serif;font-size:clamp(2.3rem,11vw,3.3rem);line-height:1.05;margin:2px 0 2px;word-break:break-all}
+.rate{color:#CDBBE6;font-weight:700}
+.boostline{color:var(--glow);font-weight:800;min-height:1.4em}
+.facade{margin:12px auto 0;max-width:340px;background:var(--wall);border-radius:10px 10px 0 0;padding:12px 12px 0}
+.windows{display:grid;grid-template-columns:repeat(6,1fr);gap:7px}
+.win{aspect-ratio:1/1.15;border-radius:6px 6px 2px 2px;background:var(--win-off);display:grid;place-items:center;font-size:clamp(.9rem,4.4vw,1.25rem);line-height:1}
+.win.on{background:var(--glow);box-shadow:0 0 10px rgba(255,214,107,.55)}
+.door{width:56px;height:30px;margin:10px auto 0;background:var(--win-off);border-radius:28px 28px 0 0}
+
+.tapwrap{position:relative}
+.tapbtn{display:block;width:100%;margin-top:14px;padding:14px 16px 16px;background:var(--pump);color:var(--pump-ink);border:0;border-bottom:7px solid var(--pump-dark);border-radius:14px;font-family:"Lilita One",Impact,"Arial Black",sans-serif;font-size:1.3rem;user-select:none;-webkit-user-select:none}
+.tapbtn small{display:block;font-family:"Nunito",system-ui,sans-serif;font-weight:800;font-size:1rem}
+.tapbtn:active{transform:translateY(3px);border-bottom-width:4px}
+.float{position:absolute;top:4px;pointer-events:none;font-weight:800;color:var(--ink);animation:up .8s ease-out forwards;white-space:nowrap}
+@keyframes up{from{opacity:1;transform:translate(-50%,0)}to{opacity:0;transform:translate(-50%,-48px)}}
+
+.vip{display:none;width:100%;margin-top:10px;padding:12px;border:2px dashed var(--pump);background:transparent;border-radius:10px;font-weight:800}
+.vip.show{display:block}
+.boostbtn{width:100%;margin-top:10px;padding:11px;border:2px solid var(--ink);background:transparent;border-radius:10px;font-weight:800}
+.hint{color:var(--muted);font-size:.82rem;text-align:center;margin:4px 0 0}
+
+.tabs{display:flex;gap:6px;margin-top:18px}
+.tab{flex:1;padding:10px 4px;border:1px solid var(--line);background:transparent;border-radius:10px;font-weight:800}
+.tab[aria-selected="true"]{background:var(--night);color:#F5EEFF;border-color:var(--night)}
+.modes{display:flex;align-items:center;gap:6px;margin-top:10px;color:var(--muted);font-size:.9rem;font-weight:700}
+.modes button{padding:5px 12px;border:1px solid var(--line);background:transparent;border-radius:20px;font-weight:800}
+.modes button[aria-pressed="true"]{background:var(--pump);color:var(--pump-ink);border-color:var(--pump-dark)}
+
+.list{margin-top:10px;display:flex;flex-direction:column;gap:8px}
+.row{display:flex;align-items:center;gap:12px;padding:10px 12px;background:var(--row);border:1px solid var(--line);border-radius:12px;min-height:68px}
+.av{flex:none;width:46px;height:46px;border-radius:50%;background:var(--paper);display:grid;place-items:center;font-size:1.5rem;position:relative}
+.av b{position:absolute;right:-4px;bottom:-4px;min-width:22px;height:22px;padding:0 5px;border-radius:11px;background:var(--night);color:#fff;font-size:.72rem;display:grid;place-items:center}
+.info{flex:1;min-width:0}
+.nm{font-weight:800}
+.sub{color:var(--muted);font-size:.86rem}
+.locked{opacity:.7}
+.buy{min-width:92px;padding:8px 10px;background:var(--pump);color:var(--pump-ink);border:0;border-bottom:4px solid var(--pump-dark);border-radius:10px;font-weight:800;line-height:1.15;text-align:center}
+.buy small{display:block;font-size:.8rem}
+.buy:active:not(:disabled){transform:translateY(2px);border-bottom-width:2px}
+.buy:disabled{background:transparent;color:var(--muted);border:1px solid var(--line)}
+.prose{padding:16px;background:var(--row);border:1px solid var(--line);border-radius:12px}
+.prose p{margin:0 0 10px}
+.big{font-family:"Lilita One",Impact,sans-serif;font-size:1.7rem;margin:4px 0 10px}
+.wide{width:100%;padding:12px}
+.danger{margin-top:18px;background:transparent;border:1px solid #D7263D;color:#D7263D;border-radius:8px;padding:8px 12px;font-weight:800}
+
+.ov{position:fixed;inset:0;background:rgba(10,4,20,.65);display:none;align-items:center;justify-content:center;padding:20px;z-index:10}
+.ov.show{display:flex}
+.card{background:var(--paper);color:var(--ink);border-radius:14px;padding:22px;max-width:360px;width:100%;text-align:center}
+.card h2{font-family:"Lilita One",Impact,sans-serif;font-weight:400;font-size:1.4rem;margin:0 0 8px}
+.card .big{margin:6px 0 14px}
+.card .buy{width:100%;margin-top:8px;padding:12px}
+.card .ghost{width:100%;margin-top:8px;padding:11px;background:transparent;border:1px solid var(--line);border-radius:10px;font-weight:800}
+.goal{margin-top:12px;padding:12px 14px;background:var(--row);border:1px solid var(--line);border-radius:12px}
+.goal .gt{display:flex;justify-content:space-between;gap:8px;font-weight:800}
+.goal .gr{color:var(--muted);font-size:.86rem;white-space:nowrap}
+.bar{height:8px;border-radius:4px;background:var(--line);margin-top:8px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--mint);transition:width .15s}
+.goal.done{border:2px solid var(--mint)}
+.claim{display:none;width:100%;margin-top:10px;padding:10px}
+.goal.done .claim{display:block}
+.rushwrap{display:flex;align-items:center;gap:10px;margin-top:8px;font-size:.85rem;font-weight:800;color:var(--muted)}
+.rushwrap .bar{flex:1;margin:0}
+.rushwrap .bar i{background:var(--pump);transition:none}
+.rushing .tapbtn{background:var(--glow)}
+.rushing .rushwrap{color:var(--pump-dark)}
+.icon{background:transparent;border:1px solid var(--line);border-radius:20px;padding:3px 10px}
+.money{transform-origin:left center}
+.money.pop{animation:pop .25s ease-out}
+@keyframes pop{50%{transform:scale(1.06)}}
+.win.new{animation:flash 1s ease-out}
+@keyframes flash{0%{background:#fff;box-shadow:0 0 22px #fff}}
+.card .em{font-size:3rem;line-height:1;margin-bottom:6px}
+.event{display:none;margin-top:12px;padding:14px;background:var(--night);color:#F5EEFF;border-radius:12px}
+.event.show{display:block}
+.event p{margin:0 0 10px;font-weight:800}
+.event .ch{display:flex;gap:8px}
+.event .ch button{flex:1;padding:10px 8px;border-radius:10px;font-weight:800;line-height:1.2}
+.event .a{background:var(--pump);color:var(--pump-ink);border:0;border-bottom:4px solid var(--pump-dark)}
+.event .b{background:transparent;color:#F5EEFF;border:1px solid rgba(255,255,255,.4)}
+.toast{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);background:var(--night);color:#F5EEFF;padding:10px 16px;border-radius:12px;font-weight:800;box-shadow:0 6px 20px rgba(0,0,0,.3);opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;z-index:20;width:max-content;max-width:calc(100% - 28px);text-align:center}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.days{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin:12px 0 14px}
+.day{border:1px solid var(--line);border-radius:8px;padding:6px 0;font-size:.7rem;font-weight:800;color:var(--muted)}
+.day span{display:block;font-size:1.05rem}
+.day.got{background:var(--mint);color:#13261F;border-color:var(--mint)}
+.day.today{border:2px solid var(--pump);color:var(--ink)}
+.ach{opacity:.5}
+.ach.got{opacity:1}
+@media (prefers-reduced-motion: reduce){.toast{transition:none}.float{display:none}.tapbtn:active,.buy:active{transform:none}.money.pop,.win.new{animation:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Monster Hotel</h1>
+    <div style="display:flex;gap:8px;align-items:center"><span class="stars" id="stars"></span><button class="icon" id="mute" aria-label="Turn sound off">🔊</button></div>
+  </header>
+
+  <section class="hotel">
+    <div class="lbl">Gold</div>
+    <div class="money" id="money">0</div>
+    <div class="rate" id="rate">0 per second</div>
+    <div class="boostline" id="boostline"></div>
+    <div class="facade" aria-hidden="true"><div class="windows" id="windows"></div><div class="door"></div></div>
+  </section>
+
+  <div class="tapwrap" id="tapwrap">
+    <button class="tapbtn" id="tap">🛎️ <span id="tapName">Check in a guest</span><small id="tapVal">+1 gold</small></button>
+    <div class="rushwrap"><span id="rushlbl">Tap fast for a guest rush</span><div class="bar"><i id="rushbar"></i></div></div>
+  </div>
+  <button class="vip" id="vip"></button>
+  <div class="goal" id="goal"><div class="gt"><span id="goaltext"></span><span class="gr" id="goalrew"></span></div><div class="bar"><i id="goalbar"></i></div><button class="buy claim" id="claim">Claim reward</button></div>
+  <div class="event" id="event"><p id="evtext"></p><div class="ch"><button class="a" id="evA"></button><button class="b" id="evB"></button></div></div>
+  <button class="boostbtn" id="boost">Double gold for 5 minutes</button>
+  <p class="hint" id="boosthint">In the real game, this plays a short ad first.</p>
+
+  <nav class="tabs" role="tablist">
+    <button class="tab" role="tab" data-tab="build" aria-selected="true">Rooms</button>
+    <button class="tab" role="tab" data-tab="up" aria-selected="false">Upgrades</button>
+    <button class="tab" role="tab" data-tab="ach" aria-selected="false">Trophies</button>
+    <button class="tab" role="tab" data-tab="award" aria-selected="false">Stars</button>
+  </nav>
+  <div class="modes" id="modes">Buy
+    <button data-mode="1" aria-pressed="true">1</button>
+    <button data-mode="10" aria-pressed="false">10</button>
+    <button data-mode="max" aria-pressed="false">Max</button>
+  </div>
+  <div class="list" id="list"></div>
+</div>
+
+<div class="ov" id="ov"><div class="card" id="card"></div></div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+const GENS=[
+ {id:'ghost',e:'👻',name:'Ghost bellhop',plural:'ghost bellhops',base:10,rate:0.5,d:'Ghosts never need a day off. Or a paycheck.',ups:['Floating luggage carts','Walk-through-walls service','Poltergeist housekeeping']},
+ {id:'coffin',e:'🧛',name:'Coffin suite',plural:'coffin suites',base:75,rate:3,d:'Vampires sleep all day and pay by the night.',ups:['Blackout curtains','Velvet lining','Midnight room service']},
+ {id:'moon',e:'🐺',name:'Full-moon lounge',plural:'full-moon lounges',base:900,rate:20,d:'Werewolves check in once a month and tip big.',ups:['Howling karaoke','Skylight roof','Chew-proof furniture']},
+ {id:'buffet',e:'🧟',name:'Zombie buffet',plural:'zombie buffets',base:10000,rate:110,d:'Zombies line up early for the brain bar.',ups:['Slow-cooker station','All-you-can-eat brunch','Celebrity zombie chef']},
+ {id:'slime',e:'🟢',name:'Slime pool',plural:'slime pools',base:110000,rate:600,d:'Slimes love a pool that is mostly them.',ups:['Wave machine','Glow-in-the-dark slime','Lazy river of goo']},
+ {id:'witch',e:'🧙',name:'Witch rooftop bar',plural:'witch rooftop bars',base:1.2e6,rate:3300,d:'Witches pay extra for the cauldron view.',ups:['Bubbling cauldrons','Broom valet parking','Potion happy hour']},
+ {id:'ballroom',e:'🕯️',name:'Haunted ballroom',plural:'haunted ballrooms',base:1.5e7,rate:18000,d:'The ghosts of 1890 are still dancing.',ups:['Self-playing organ','Chandelier of souls','Eternal dance party']},
+ {id:'dragon',e:'🐉',name:'Dragon penthouse',plural:'dragon penthouses',base:2.5e8,rate:100000,d:'Dragons pay in gold. Lots of gold.',ups:['Fireproof carpets','Treasure-hoard vault','Volcano hot tub']}
+];
+const UP_REQ=[10,25,50], UP_COST=[10,120,3000];
+const TAP_ACTIONS=['Check in a guest','Check in a bus tour','Host a monster wedding','Book a vampire convention','Host a full-moon festival','Throw the Haunted Gala'];
+const TAP_COST=[50,600,8000,120000,2.5e6];
+const VIPS=['A vampire count','A famous mummy','A sea monster','A headless knight','A yeti family','The witch council'];
+const R=1.15, KEY='monster-hotel-save-v1', OFFLINE_CAP=4*3600, BOOST_MS=5*60*1000, WINDOWS=24;
+
+const fresh=()=>({money:0,runEarned:0,lifetime:0,owned:{},ups:{},tap:0,stars:0,boostUntil:0,last:Date.now(),taps:0,rushes:0,goal:0,seen:{},vips:0,events:0,ach:{},daily:{last:'',streak:0},miniUntil:0});
+
+/* goals: always one clear thing to aim for */
+const GOALS=[
+ {t:'Check in 10 guests',k:'taps',n:10,est:8},{t:'Check in 100 guests',k:'taps',n:100,est:1500},
+ {t:'Check in 1,000 guests',k:'taps',n:1000,est:2e5},{t:'Trigger a guest rush',k:'rushes',n:1,est:150},
+ {t:'Trigger 10 guest rushes',k:'rushes',n:10,est:5e4},{t:'Buy your first upgrade',k:'ups',n:1,est:250},
+ {t:'Buy 5 upgrades',k:'ups',n:5,est:6e4},{t:'Buy 12 upgrades',k:'ups',n:12,est:5e7},
+ {t:'Earn your first hotel star',k:'stars',n:1,est:3e6}];
+GENS.forEach(g=>[1,10,25,50].forEach(n=>GOALS.push({t:`Own ${n} ${n>1?g.plural:g.name.toLowerCase()}`,k:g.id,n,est:g.base*(Math.pow(1.15,n)-1)/.15})));
+GOALS.sort((a,b)=>a.est-b.est);
+function goalProg(g){
+  if(g.k==='taps') return S.taps; if(g.k==='rushes') return S.rushes;
+  if(g.k==='ups') return Object.keys(S.ups).length; if(g.k==='stars') return S.stars;
+  return owned(g.k);
+}
+const goalReward=g=>Math.max(g.est*0.3,ips(true)*30)+10;
+
+const ACH=[
+ {id:'t1',e:'🛎️',n:'First guest',t:'Check in your first guest',c:()=>S.taps>=1},
+ {id:'t2',e:'🔔',n:'Busy bell',t:'Check in 500 guests',c:()=>S.taps>=500},
+ {id:'t3',e:'💥',n:'Bell breaker',t:'Check in 5,000 guests',c:()=>S.taps>=5000},
+ {id:'r1',e:'🏃',n:'Rush hour',t:'Trigger a guest rush',c:()=>S.rushes>=1},
+ {id:'r2',e:'⚡',n:'Rush addict',t:'Trigger 25 guest rushes',c:()=>S.rushes>=25},
+ {id:'v1',e:'✨',n:'VIP treatment',t:'Collect a VIP tip',c:()=>S.vips>=1},
+ {id:'v2',e:'💎',n:'VIP magnet',t:'Collect 25 VIP tips',c:()=>S.vips>=25},
+ {id:'e1',e:'🧯',n:'Problem solver',t:'Handle a hotel incident',c:()=>S.events>=1},
+ {id:'e2',e:'📋',n:'Seen it all',t:'Handle 20 hotel incidents',c:()=>S.events>=20},
+ {id:'w1',e:'🏨',n:'No vacancy',t:'Light every window in the hotel',c:()=>prevLit>=WINDOWS},
+ {id:'m1',e:'🗝️',n:'Monster collector',t:'Own every type of room',c:()=>GENS.every(g=>owned(g.id)>0)},
+ {id:'g1',e:'💰',n:'Gold rush',t:'Earn 1M gold in total',c:()=>S.lifetime>=1e6},
+ {id:'g2',e:'🏔️',n:'Gold mountain',t:'Earn 1B gold in total',c:()=>S.lifetime>=1e9},
+ {id:'g3',e:'🐉',n:"Dragon's hoard",t:'Earn 1T gold in total',c:()=>S.lifetime>=1e12},
+ {id:'s1',e:'⭐',n:'Grand reopening',t:'Earn a hotel star',c:()=>S.stars>=1},
+ {id:'s2',e:'🌟',n:'Five-star hotel',t:'Have 5 hotel stars',c:()=>S.stars>=5},
+ {id:'d1',e:'📅',n:'Loyal guest',t:'Reach a 7-day login streak',c:()=>S.daily.streak>=7}
+];
+function checkAch(){
+  for(const a of ACH){ if(!S.ach[a.id]&&a.c()){S.ach[a.id]=true;toast(`🏆 Trophy: ${a.n} (+2% gold)`);sfx.big();} }
+}
+
+/* sound: small synth effects, no files needed */
+let AC=null, muted=false;
+try{muted=localStorage.getItem('mh-muted')==='1';}catch(e){}
+function tone(f,dur,type,vol,delay){
+  if(muted) return;
+  try{
+    AC=AC||new (window.AudioContext||window.webkitAudioContext)();
+    const t=AC.currentTime+(delay||0), o=AC.createOscillator(), g=AC.createGain();
+    o.type=type||'sine'; o.frequency.setValueAtTime(f,t);
+    g.gain.setValueAtTime(vol||.1,t); g.gain.exponentialRampToValueAtTime(.0001,t+dur);
+    o.connect(g); g.connect(AC.destination); o.start(t); o.stop(t+dur+.02);
+  }catch(e){}
+}
+const sfx={
+  tap(r){tone(r?1760:1320,.22,'sine',.12);tone(r?2640:1980,.15,'sine',.04);},
+  buy(){tone(660,.08,'square',.05);tone(990,.12,'square',.05,.07);},
+  big(){[523,659,784,1047].forEach((f,i)=>tone(f,.28,'triangle',.1,i*.09));},
+  rush(){[392,523,659,784,1047,1319].forEach((f,i)=>tone(f,.14,'sawtooth',.04,i*.05));}
+};
+let rushMeter=0, rushUntil=0;
+const rushing=()=>Date.now()<rushUntil;
+let prevLit=-1;
+let S=fresh(), tab='build', mode=1, sig='', winSig='', confirmReset=false, confirmErase=false;
+let vipAt=Date.now()+20000, vipUntil=0, vipName=VIPS[0];
+
+const $=id=>document.getElementById(id);
+const SUF=['','K','M','B','T','Qa','Qi','Sx','Sp','Oc','No','Dc'];
+function fmt(n){
+  if(!isFinite(n)) return '∞';
+  if(n<1000) return n<10 ? (Math.floor(n*10)/10).toString() : Math.floor(n).toString();
+  const i=Math.floor(Math.log10(n)/3);
+  if(i>=SUF.length) return n.toExponential(2);
+  const v=n/Math.pow(1000,i);
+  return (v<10?v.toFixed(2):v<100?v.toFixed(1):Math.floor(v))+SUF[i];
+}
+const gold=n=>fmt(n)+' gold';
+const clock=ms=>{const s=Math.max(0,Math.ceil(ms/1000));return Math.floor(s/60)+':'+String(s%60).padStart(2,'0');};
+
+const owned=id=>S.owned[id]||0;
+function genMult(id){let m=1;for(let i=0;i<3;i++) if(S.ups[id+i]) m*=2;return m;}
+const globalMult=()=>(1+0.05*S.stars)*(1+0.02*Object.keys(S.ach).length);
+const boosted=()=>Date.now()<S.boostUntil;
+function ips(noBoost){
+  let t=0; for(const g of GENS) t+=owned(g.id)*g.rate*genMult(g.id);
+  t*=globalMult(); if(!noBoost&&boosted()) t*=2; if(!noBoost&&Date.now()<S.miniUntil) t*=2; return t;
+}
+const tapValue=()=>(Math.pow(2,S.tap)+ips()*0.01*S.tap)*globalMult();
+function earn(x){S.money+=x;S.runEarned+=x;S.lifetime+=x;}
+const unitCost=g=>g.base*Math.pow(R,owned(g.id));
+const costOf=(g,n)=>unitCost(g)*(Math.pow(R,n)-1)/(R-1);
+const maxBuy=g=>Math.floor(Math.log(S.money*(R-1)/unitCost(g)+1)/Math.log(R));
+const buyCount=g=>mode==='max'?Math.max(1,maxBuy(g)):mode;
+const starGain=()=>Math.floor(Math.sqrt(S.runEarned/1e6));
+const visibleGens=()=>GENS.filter((g,i)=>i===0||owned(GENS[i-1].id)>0||owned(g.id)>0);
+function nextUps(){
+  const out=[];
+  for(const g of GENS){
+    if(!owned(g.id)) continue;
+    const i=[0,1,2].find(k=>!S.ups[g.id+k]);
+    if(i!==undefined) out.push({g,i,key:g.id+i,cost:g.base*UP_COST[i],req:UP_REQ[i]});
+  }
+  return out;
+}
+
+function save(){S.last=Date.now();try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+function load(){try{const raw=localStorage.getItem(KEY); if(raw) S=Object.assign(fresh(),JSON.parse(raw));}catch(e){S=fresh();}}
+
+/* hotel windows light up as the hotel grows */
+function renderWindows(){
+  const total=GENS.reduce((a,g)=>a+owned(g.id),0);
+  const lit=total===0?0:Math.min(WINDOWS,Math.ceil(Math.sqrt(total)*2.2));
+  const types=GENS.filter(g=>owned(g.id)>0);
+  const key=lit+'|'+types.map(g=>g.id).join();
+  if(key===winSig) return; winSig=key;
+  let h='';
+  for(let i=0;i<WINDOWS;i++){
+    if(i<lit){const g=types[(i*7)%types.length];h+=`<div class="win on${prevLit>=0&&i>=prevLit?' new':''}">${g.e}</div>`;}
+    else h+='<div class="win"></div>';
+  }
+  $('windows').innerHTML=h; prevLit=lit;
+}
+
+function signature(){
+  return [tab,mode,S.stars,S.tap,visibleGens().map(g=>g.id).join(),nextUps().map(u=>u.key).join(),starGain()>0,Object.keys(S.ach).length,confirmReset,confirmErase].join('|');
+}
+function renderList(){
+  const L=$('list'); let h='';
+  $('modes').style.display=tab==='build'?'flex':'none';
+  if(tab==='build'){
+    const vis=visibleGens();
+    for(const g of vis){
+      h+=`<div class="row"><div class="av">${g.e}<b id="c-${g.id}"></b></div><div class="info"><div class="nm">${g.name}</div><div class="sub" id="s-${g.id}"></div></div>
+      <button class="buy" data-buy="${g.id}"><span id="n-${g.id}"></span><small id="p-${g.id}"></small></button></div>`;
+    }
+    const next=GENS[vis.length];
+    if(next) h+=`<div class="row locked"><div class="av">❔</div><div class="info"><div class="nm">Locked room</div><div class="sub">Buy a ${vis[vis.length-1].name.toLowerCase()} to reveal the next room.</div></div></div>`;
+  } else if(tab==='up'){
+    if(S.tap<TAP_COST.length){
+      h+=`<div class="row"><div class="av">🛎️</div><div class="info"><div class="nm">${TAP_ACTIONS[S.tap+1]}</div><div class="sub">Doubles gold per tap and adds 1% of income to each tap.</div></div>
+      <button class="buy" data-tapup="1">Buy<small>${gold(TAP_COST[S.tap])}</small></button></div>`;
+    }
+    for(const u of nextUps()){
+      h+=`<div class="row"><div class="av">${u.g.e}</div><div class="info"><div class="nm">${u.g.ups[u.i]}</div><div class="sub" id="r-${u.key}"></div></div>
+      <button class="buy" data-up="${u.key}">Buy<small>${gold(u.cost)}</small></button></div>`;
+    }
+    if(!h) h=`<div class="prose"><p>Hire your first ghost bellhop to unlock upgrades.</p></div>`;
+  } else if(tab==='ach'){
+    const got=Object.keys(S.ach).length;
+    h=`<div class="prose"><p>Each trophy adds 2% to all gold, forever.</p><div class="big" style="margin-bottom:0">${got}/${ACH.length} 🏆 (+${got*2}%)</div></div>`;
+    for(const a of ACH){const g=!!S.ach[a.id];h+=`<div class="row ach${g?' got':''}"><div class="av">${g?a.e:'🔒'}</div><div class="info"><div class="nm">${a.n}</div><div class="sub">${a.t}</div></div></div>`;}
+  } else {
+    const gain=starGain();
+    h=`<div class="prose">
+      <p>Hotel stars stay with you forever. Each one adds 5% to all gold you earn.</p>
+      <div class="big">${S.stars} ⭐ (+${S.stars*5}%)</div>
+      <p>Opening a new hotel resets your rooms, upgrades, and gold. You keep your stars.</p>
+      <p id="gainline"></p>
+      <button class="buy wide" id="prestige" ${gain>0?'':'disabled'}>${confirmReset?'Tap again to confirm':'Open a new hotel'}</button>
+      <button class="danger" id="erase">${confirmErase?'Tap again to erase everything':'Erase saved game'}</button>
+    </div>`;
+  }
+  L.innerHTML=h;
+}
+const vipValue=()=>Math.max(ips()*90,tapValue()*30)+25;
+function update(){
+  const s=signature(); if(s!==sig){sig=s;renderList();}
+  renderWindows();
+  $('money').textContent=fmt(S.money);
+  $('rate').textContent=fmt(ips())+' per second';
+  $('stars').textContent=S.stars?`${S.stars} ⭐`:'';
+  $('tapName').textContent=TAP_ACTIONS[S.tap];
+  const rOn=rushing();
+  $('tapVal').textContent='+'+gold(tapValue()*(rOn?5:1));
+  document.body.classList.toggle('rushing',rOn);
+  $('rushlbl').textContent=rOn?'Guest rush! ×5 gold per tap':'Tap fast for a guest rush';
+  $('rushbar').style.width=(rOn?(rushUntil-Date.now())/8000:rushMeter)*100+'%';
+  const G=GOALS[S.goal], gc=$('goal');
+  if(!G){gc.style.display='none';}
+  else{
+    const p=Math.min(goalProg(G),G.n), done=p>=G.n;
+    gc.style.display='block'; gc.classList.toggle('done',done);
+    $('goaltext').textContent=(done?'✅ ':'🎯 ')+G.t;
+    $('goalrew').textContent='+'+gold(goalReward(G));
+    $('goalbar').style.width=(p/G.n*100)+'%';
+  }
+  const b=boosted();
+  const mini=Date.now()<S.miniUntil;
+  $('boostline').textContent=[b?`Double gold ${clock(S.boostUntil-Date.now())}`:'',mini?`Bonus 2× ${clock(S.miniUntil-Date.now())}`:''].filter(Boolean).join('  ·  ');
+  $('boost').style.display=b?'none':'block';
+  $('boosthint').style.display=b?'none':'block';
+
+  if(tab==='build'){
+    for(const g of visibleGens()){
+      const n=buyCount(g), c=costOf(g,n), o=owned(g.id), each=g.rate*genMult(g.id)*globalMult();
+      $('c-'+g.id).textContent=o;
+      $('s-'+g.id).textContent=`${fmt(each)}/sec each`+(o?`, ${fmt(o*each)}/sec total`:'');
+      $('n-'+g.id).textContent='Buy '+n;
+      $('p-'+g.id).textContent=gold(c);
+      document.querySelector(`[data-buy="${g.id}"]`).disabled=S.money<c;
+    }
+  } else if(tab==='up'){
+    const t=document.querySelector('[data-tapup]');
+    if(t) t.disabled=S.money<TAP_COST[S.tap];
+    for(const u of nextUps()){
+      const met=owned(u.g.id)>=u.req;
+      $('r-'+u.key).textContent=met?`Doubles gold from ${u.g.plural}.`:`Own ${u.req} ${u.g.plural} (you have ${owned(u.g.id)}).`;
+      document.querySelector(`[data-up="${u.key}"]`).disabled=!met||S.money<u.cost;
+    }
+  } else {
+    const gl=$('gainline');
+    if(gl) gl.textContent=starGain()>0?`You'd earn ${starGain()} ⭐ now.`:`Earn ${gold(1e6)} this run to qualify (so far: ${gold(S.runEarned)}).`;
+  }
+  const now=Date.now(), vb=$('vip');
+  if(now<vipUntil){vb.classList.add('show');vb.textContent=`✨ ${vipName} checked in! Tap for a ${gold(vipValue())} tip`;}
+  else vb.classList.remove('show');
+}
+
+const cardQ=[]; let cardOpen=false;
+function showCard(fn){cardQ.push(fn); if(!cardOpen) nextCard();}
+function nextCard(){const fn=cardQ.shift(); if(!fn){cardOpen=false;return;} cardOpen=true; fn(); $('ov').classList.add('show');}
+function closeCard(){$('ov').classList.remove('show'); cardOpen=false; setTimeout(()=>{if(!cardOpen) nextCard();},200);}
+let toastT;
+function toast(msg){const t=$('toast');t.textContent=msg;t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),2800);}
+function fakeAd(done){
+  let n=3; const card=$('card');
+  const tick=()=>{card.innerHTML=`<h2>Ad plays here</h2><p>The real game shows a short video ad. Reward in ${n}…</p>`;};
+  tick(); cardOpen=true; $('ov').classList.add('show');
+  const iv=setInterval(()=>{n--; if(n<=0){clearInterval(iv);done();closeCard();} else tick();},1000);
+}
+
+$('tap').addEventListener('click',e=>{
+  const r=rushing(), v=tapValue()*(r?5:1); earn(v); S.taps++; sfx.tap(r);
+  if(!r){rushMeter=Math.min(1,rushMeter+0.07); if(rushMeter>=1){rushMeter=0;rushUntil=Date.now()+8000;S.rushes++;sfx.rush();}}
+  const f=document.createElement('span'); f.className='float'; f.textContent='+'+fmt(v);
+  const rect=$('tapwrap').getBoundingClientRect();
+  const x=(e.clientX&&e.clientX>0)?e.clientX-rect.left:rect.width/2;
+  f.style.left=x+'px'; $('tapwrap').appendChild(f); setTimeout(()=>f.remove(),800);
+  update();
+});
+$('vip').addEventListener('click',()=>{earn(vipValue());S.vips++;vipUntil=0;sfx.big();pop();update();});
+$('claim').addEventListener('click',()=>{const G=GOALS[S.goal]; if(!G||goalProg(G)<G.n) return; earn(goalReward(G)); S.goal++; sfx.big(); pop(); save(); update();});
+$('mute').addEventListener('click',()=>{muted=!muted;try{localStorage.setItem('mh-muted',muted?'1':'0');}catch(e){} setMute();});
+function setMute(){$('mute').textContent=muted?'🔇':'🔊';$('mute').setAttribute('aria-label',muted?'Turn sound on':'Turn sound off');}
+function pop(){const m=$('money');m.classList.remove('pop');void m.offsetWidth;m.classList.add('pop');}
+function newRoom(g){
+  sfx.big();
+  showCard(()=>{
+    $('card').innerHTML=`<div class="em">${g.e}</div><h2>New room: ${g.name}</h2><p>${g.d}</p><button class="buy" id="okroom">Nice!</button>`;
+    $('okroom').onclick=closeCard;
+  });
+}
+$('boost').addEventListener('click',()=>fakeAd(()=>{S.boostUntil=Date.now()+BOOST_MS;save();update();}));
+document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>{
+  tab=t.dataset.tab; confirmReset=confirmErase=false;
+  document.querySelectorAll('.tab').forEach(x=>x.setAttribute('aria-selected',x===t));update();
+}));
+document.querySelectorAll('.modes button').forEach(b=>b.addEventListener('click',()=>{
+  mode=b.dataset.mode==='max'?'max':+b.dataset.mode;
+  document.querySelectorAll('.modes button').forEach(x=>x.setAttribute('aria-pressed',x===b));update();
+}));
+$('list').addEventListener('click',e=>{
+  const b=e.target.closest('button'); if(!b||b.disabled) return;
+  if(b.dataset.buy){
+    const g=GENS.find(x=>x.id===b.dataset.buy), n=buyCount(g), c=costOf(g,n);
+    if(S.money>=c){S.money-=c;S.owned[g.id]=owned(g.id)+n;sfx.buy();pop();
+      if(!S.seen[g.id]){S.seen[g.id]=true;newRoom(g);}}
+  } else if(b.dataset.tapup){
+    const c=TAP_COST[S.tap]; if(S.money>=c){S.money-=c;S.tap++;sfx.buy();pop();}
+  } else if(b.dataset.up){
+    const u=nextUps().find(x=>x.key===b.dataset.up);
+    if(u&&S.money>=u.cost&&owned(u.g.id)>=u.req){S.money-=u.cost;S.ups[u.key]=true;sfx.buy();pop();}
+  } else if(b.id==='prestige'){
+    if(!confirmReset){confirmReset=true;}
+    else{sfx.big();const keep={stars:S.stars+starGain(),lifetime:S.lifetime,taps:S.taps,rushes:S.rushes,goal:S.goal,seen:S.seen,vips:S.vips,events:S.events,ach:S.ach,daily:S.daily};S=Object.assign(fresh(),keep);confirmReset=false;save();}
+  } else if(b.id==='erase'){
+    if(!confirmErase){confirmErase=true;}
+    else{S=fresh();confirmErase=false;try{localStorage.removeItem(KEY);}catch(err){}}
+  }
+  update();
+});
+
+function offline(){
+  const secs=Math.min((Date.now()-S.last)/1000,OFFLINE_CAP);
+  const amt=ips(true)*secs*0.5;
+  if(secs<30||amt<1) return;
+  const mins=Math.round(secs/60);
+  showCard(()=>{
+    $('card').innerHTML=`<h2>Welcome back!</h2><p>Your guests kept paying while you were away (${mins} min):</p>
+      <div class="big">${gold(amt)}</div>
+      <button class="buy" id="dbl">Collect ${gold(amt*2)} (watch ad)</button>
+      <button class="ghost" id="one">Collect ${gold(amt)}</button>`;
+    $('one').onclick=()=>{earn(amt);save();closeCard();};
+    $('dbl').onclick=()=>{fakeAd(()=>{earn(amt*2);save();});};
+  });
+}
+
+/* daily reward: 7-day streak, day 7 = golden key */
+const dayStr=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+const DAILY=[1,2,3,4,5,8];
+let dailyQueued=false;
+function dailyCheck(){
+  const today=dayStr(new Date());
+  if(dailyQueued||S.daily.last===today) return;
+  const y=new Date(); y.setDate(y.getDate()-1);
+  const streak=S.daily.last===dayStr(y)?S.daily.streak+1:1;
+  const idx=(streak-1)%7, isKey=idx===6;
+  dailyQueued=true;
+  showCard(()=>{
+    const amt=Math.max(ips(true)*120,100)*(DAILY[idx]||0);
+    let days='';
+    for(let i=0;i<7;i++) days+=`<div class="day${i<idx?' got':''}${i===idx?' today':''}">Day ${i+1}<span>${i===6?'🗝️':'🪙'}</span></div>`;
+    $('card').innerHTML=`<h2>Daily reward</h2><p>${streak>1?`${streak}-day streak! Come back tomorrow to keep it going.`:'Come back every day for bigger rewards.'}</p>
+      <div class="days">${days}</div>
+      <div class="big">${isKey?'Golden key: 2× gold for 30 min':gold(amt)}</div>
+      <button class="buy" id="getdaily">Collect</button>`;
+    $('getdaily').onclick=()=>{
+      S.daily={last:today,streak}; dailyQueued=false;
+      if(isKey) S.miniUntil=Math.max(Date.now(),S.miniUntil)+30*60000; else earn(amt);
+      sfx.big(); pop(); save(); closeCard();
+    };
+  });
+}
+
+/* hotel incidents: quick choices with different payoffs */
+const evGold=x=>Math.max(ips(true)*x,x*3)+20;
+function gainEv(x){const v=evGold(x);earn(v);return `+${gold(v)}`;}
+function gamble(p,hi,lo,win,lose){const w=Math.random()<p,v=evGold(w?hi:lo);earn(v);return `${w?win:lose} +${gold(v)}`;}
+function bonus(sec,msg){S.miniUntil=Math.max(Date.now(),S.miniUntil)+sec*1000;return msg;}
+const EVENTS=[
+ {t:'🐺 A werewolf chewed through the lobby couch.',a:['Bill his room',()=>gainEv(45)],b:['Let it slide',()=>bonus(60,'He left a glowing review. 2× gold for 1 minute!')]},
+ {t:'👻 A ghost wants to haunt the honeymoon suite.',a:['Allow it (risky)',()=>gamble(.5,150,10,'The couple loved it!','The couple fled.')],b:['Politely refuse',()=>gainEv(40)]},
+ {t:'🧟 Zombies are lining up an hour early for breakfast.',a:['Open early',()=>gainEv(60)],b:['Charge extra (risky)',()=>gamble(.6,120,15,'They paid up!','They wandered off.')]},
+ {t:'🐉 A dragon fell asleep across the parking lot.',a:['Sell tickets to see it',()=>gainEv(70)],b:['Wake it up (risky)',()=>gamble(.4,250,0,'It paid you to let it nap!','It sneezed fire. No harm done.')]},
+ {t:'🧙 A witch offers you a mysterious potion.',a:['Drink it',()=>{if(Math.random()<.6){rushUntil=Date.now()+8000;S.rushes++;sfx.rush();return 'Guest rush! Tap fast!';}return 'You burped glitter. Nothing else happened.';}],b:['Sell it',()=>gainEv(50)]},
+ {t:'🧛 A vampire is upset that the sun came up.',a:['Comp his night',()=>bonus(90,'He told all his friends. 2× gold for 90 seconds!')],b:['Sell him sunglasses',()=>gainEv(35)]},
+ {t:'🟢 The slime pool is leaking into the elevator.',a:['Call a plumber',()=>gainEv(20)],b:['Call it a slime slide (risky)',()=>gamble(.5,180,5,'Guests are lining up to ride it!','Nobody wanted a sticky elevator.')]}
+];
+let evAt=Date.now()+50000, curEv=null, evUntil=0;
+function showEvent(){
+  curEv=EVENTS[Math.floor(Math.random()*EVENTS.length)]; evUntil=Date.now()+30000;
+  $('evtext').textContent=curEv.t; $('evA').textContent=curEv.a[0]; $('evB').textContent=curEv.b[0];
+  $('event').classList.add('show');
+}
+function answer(w){
+  if(!curEv) return; const msg=curEv[w][1](); S.events++; curEv=null;
+  $('event').classList.remove('show'); sfx.big(); pop(); toast(msg); save();
+  evAt=Date.now()+(90+Math.random()*90)*1000;
+}
+$('evA').onclick=()=>answer('a'); $('evB').onclick=()=>answer('b');
+
+let lastTick=Date.now();
+setInterval(()=>{
+  const now=Date.now(), dt=Math.min((now-lastTick)/1000,1); lastTick=now;
+  earn(ips()*dt);
+  if(!rushing()) rushMeter=Math.max(0,rushMeter-0.3*dt);
+  if(!curEv&&now>=evAt&&GENS.some(g=>owned(g.id)>0)) showEvent();
+  if(curEv&&now>evUntil){curEv=null;$('event').classList.remove('show');evAt=now+60000;}
+  checkAch();
+  if(now>=vipAt){vipUntil=now+12000;vipAt=now+(45+Math.random()*75)*1000;vipName=VIPS[Math.floor(Math.random()*VIPS.length)];}
+  update();
+},100);
+setInterval(()=>{save();dailyCheck();},5000);
+document.addEventListener('visibilitychange',()=>{if(document.hidden) save();});
+window.addEventListener('pagehide',save);
+
+load(); setMute(); update(); offline(); dailyCheck(); lastTick=Date.now();
+</script>
+</body>
+</html>
